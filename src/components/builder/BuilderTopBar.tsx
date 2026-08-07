@@ -1,4 +1,5 @@
-import { FileText } from "lucide-react";
+import { Link } from "@tanstack/react-router";
+import { FileText, Eye, User, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { DownloadPDFButton } from "@/components/cv/DownloadPDFButton";
 import { AccentColorPicker } from "./AccentColorPicker";
@@ -8,103 +9,120 @@ import {
   SheetContent,
   SheetHeader,
   SheetTitle,
+  SheetDescription,
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { CVPreview } from "@/components/cv/CVPreview";
-import { Eye } from "lucide-react";
-import { Link } from "@tanstack/react-router";
-import { User } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useAuth } from "@/hooks/useAuth";
 
 export function BuilderTopBar() {
   const { user } = useAuth();
+
   return (
-    <header className="sticky top-0 z-30 border-b border-border/60 bg-background/80 backdrop-blur-md">
-      <div className="mx-auto flex max-w-[1600px] items-center justify-between px-4 py-3">
-        {/* Logo */}
-        <div className="flex min-w-0 items-center gap-2">
-          <div className="grid h-8 w-8 shrink-0 place-items-center rounded-lg bg-primary text-primary-foreground">
+    <header className="sticky top-0 z-30 border-b border-gray-200/80 bg-white/80 backdrop-blur-md dark:border-zinc-800/80 dark:bg-zinc-950/80">
+      <div className="mx-auto flex max-w-[1600px] items-center justify-between px-4 py-2.5">
+        
+        {/* LOGO & BRAND */}
+        <Link to="/" className="group flex min-w-0 items-center gap-2.5">
+          <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl border border-orange-400/30 bg-gradient-to-br from-orange-500 via-amber-500 to-rose-500 text-white shadow-md shadow-orange-500/20 transition-transform duration-300 group-hover:scale-105">
             <FileText className="h-4 w-4" />
           </div>
 
           <div className="min-w-0">
-            <div className="text-sm font-semibold leading-none">
+            <div className="text-sm font-extrabold tracking-tight text-gray-900 dark:text-white leading-none">
               Champions CV
             </div>
-
-            <div className="hidden text-[10px] text-muted-foreground sm:block">
-              Generador profesional de currículums
+            <div className="mt-0.5 hidden text-[11px] font-semibold text-orange-600 dark:text-orange-400 sm:block">
+              Editor en tiempo real
             </div>
           </div>
-        </div>
+        </Link>
 
-        {/* Acciones */}
-        <div className="flex items-center gap-1 sm:gap-2">
+        {/* CONTROLES & ACCIONES */}
+        <div className="flex items-center gap-1.5 sm:gap-2.5">
           <AccentColorPicker />
 
           <ResetCVDialog />
 
-          {/* Preview móvil */}
+          {/* PREVIEW EN DISPOSITIVOS MÓVILES */}
           <Sheet>
             <SheetTrigger asChild>
               <Button
                 variant="outline"
                 size="sm"
-                className="lg:hidden"
+                className="rounded-xl border-gray-200/80 text-gray-700 hover:text-orange-600 dark:border-zinc-800 dark:text-gray-200 dark:hover:text-orange-400 lg:hidden"
               >
                 <Eye className="h-4 w-4" />
-
-                <span className="hidden sm:inline">
-                  Vista
-                </span>
+                <span className="hidden sm:inline font-semibold">Vista previa</span>
               </Button>
             </SheetTrigger>
 
             <SheetContent
               side="bottom"
-              className="h-[90vh] overflow-auto p-0"
+              className="flex flex-col h-[92vh] overflow-hidden p-0 rounded-t-3xl border-t-0"
             >
-              <SheetHeader className="border-b p-4">
-                <SheetTitle>
-                  Vista previa
+              <SheetHeader className="border-b border-gray-100 bg-white px-5 py-3.5 dark:border-zinc-800 dark:bg-zinc-950">
+                <SheetTitle className="flex items-center gap-2 text-base font-bold text-gray-900 dark:text-white">
+                  <Sparkles className="h-4 w-4 text-orange-500" />
+                  Vista previa de tu CV
                 </SheetTitle>
+                <SheetDescription className="sr-only">
+                  Muestra el resultado final del currículum generado.
+                </SheetDescription>
               </SheetHeader>
 
-              <div className="p-2">
+              <div className="flex-1 overflow-y-auto bg-gray-50/50 p-3 dark:bg-zinc-900/50">
                 <CVPreview />
               </div>
 
-              <div className="sticky bottom-0 flex justify-end border-t bg-background p-3">
+              <div className="sticky bottom-0 flex justify-end border-t border-gray-100 bg-white p-3.5 dark:border-zinc-800 dark:bg-zinc-950">
                 <DownloadPDFButton />
               </div>
             </SheetContent>
           </Sheet>
 
-          {/* Descargar */}
+          {/* BOTÓN DESCARGAR DESKTOP */}
           <div className="hidden sm:block">
             <DownloadPDFButton />
           </div>
-          <Link to="/profile"
-  className="flex items-center gap-2 rounded-md px-2 py-1.5 transition-colors hover:bg-muted"
->
-  <Avatar className="h-8 w-8">
-    <AvatarImage
-      src={user?.photoURL ?? ""}
-      alt={user?.displayName ?? "Mi perfil"}
-    />
 
-    <AvatarFallback>
-      {user?.displayName?.charAt(0).toUpperCase() ?? (
-        <User className="h-4 w-4" />
-      )}
-    </AvatarFallback>
-  </Avatar>
+          <div className="h-5 w-px bg-gray-200 dark:bg-zinc-800 mx-1 hidden sm:block" />
 
-  <span className="hidden text-sm font-medium sm:inline">
-    Mi perfil
-  </span>
-</Link>
+          {/* USUARIO / PERFIL */}
+          {user ? (
+            <Link
+              to="/profile"
+              className="flex items-center gap-2 rounded-xl p-1 transition-colors duration-200 hover:bg-gray-100 dark:hover:bg-zinc-800"
+            >
+              <Avatar className="h-8 w-8 border border-orange-200 dark:border-orange-900">
+                <AvatarImage
+                  src={user.photoURL ?? ""}
+                  alt={user.displayName ?? "Mi perfil"}
+                />
+                <AvatarFallback className="bg-orange-100 font-bold text-orange-600 dark:bg-orange-950 dark:text-orange-400">
+                  {user.displayName?.charAt(0).toUpperCase() ?? (
+                    <User className="h-4 w-4" />
+                  )}
+                </AvatarFallback>
+              </Avatar>
+
+              <span className="hidden text-xs font-bold text-gray-700 dark:text-gray-200 md:inline">
+                Mi perfil
+              </span>
+            </Link>
+          ) : (
+            <Button
+              variant="ghost"
+              size="sm"
+              asChild
+              className="hidden font-semibold text-gray-700 hover:text-orange-600 dark:text-gray-200 dark:hover:text-orange-400 sm:flex"
+            >
+              <Link to="/login" search={{ redirectTo: "/builder" }}>
+                Ingresar
+              </Link>
+            </Button>
+          )}
         </div>
       </div>
     </header>

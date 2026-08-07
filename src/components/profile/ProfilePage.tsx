@@ -15,6 +15,7 @@ import { useAuth } from "@/hooks/useAuth";
 import { useUserProfile } from "@/hooks/useUserProfile";
 import { useCVs } from "@/hooks/useCVs";
 import { cn } from "@/lib/utils";
+import { LogoutModal } from "@/components/modals/LogoutModal";
 
 type Tab = "info" | "plan" | "cvs";
 
@@ -35,9 +36,13 @@ export function ProfilePage() {
   const [saving, setSaving] = useState(false);
   const [savedMessage, setSavedMessage] = useState<string | null>(null);
 
+  // Estado para controlar la visibilidad del modal de logout
+  const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
+  const [loggingOut, setLoggingOut] = useState(false);
+
   const isPremium =
-  profile?.plan === "premium" &&
-  profile?.premium?.active === true;
+    profile?.plan === "premium" &&
+    profile?.premium?.active === true;
   const initial = (user?.displayName ?? user?.email ?? "?")
     .charAt(0)
     .toUpperCase();
@@ -57,24 +62,28 @@ export function ProfilePage() {
     }
   }
 
-  async function handleLogout() {
-  await logout();
-
-  navigate({
-    to: "/",
-  });
-}
+  async function handleConfirmLogout() {
+    setLoggingOut(true);
+    try {
+      await logout();
+      navigate({ to: "/" });
+    } catch (error) {
+      console.error("Error al cerrar sesión:", error);
+      setLoggingOut(false);
+    }
+  }
 
   return (
     <div>
-       <button
-      type="button"
-      onClick={() => navigate({ to: "/" })}
-      className="mb-4 flex items-center gap-2 text-sm font-medium text-zinc-400 transition-colors hover:text-white"
-    >
-      <ArrowLeft size={16} />
-      Volver al menú principal
-    </button>
+      <button
+        type="button"
+        onClick={() => navigate({ to: "/" })}
+        className="mb-4 flex items-center gap-2 text-sm font-medium cursor-pointer text-zinc-400 transition-colors hover:text-white"
+      >
+        <ArrowLeft size={16} />
+        Volver al menú principal
+      </button>
+
       {/* Cover + avatar montado encima */}
       <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-orange-500/20 via-zinc-900 to-zinc-900">
         <div className="h-28 w-full" />
@@ -97,7 +106,7 @@ export function ProfilePage() {
                 type="button"
                 disabled
                 title="Próximamente"
-                className="absolute -bottom-1 -right-1 flex h-7 w-7 items-center justify-center rounded-full border border-zinc-800 bg-zinc-900 text-zinc-500"
+                className="absolute -bottom-1 -right-1 flex h-7 w-7 items-center justify-center rounded-full border border-zinc-800 bg-zinc-900 text-zinc-500 cursor-pointer transition-colors hover:bg-zinc-800 hover:text-white disabled:cursor-not-allowed disabled:opacity-50"
               >
                 <Camera size={13} />
               </button>
@@ -124,8 +133,8 @@ export function ProfilePage() {
             </span>
 
             <button
-              onClick={handleLogout}
-              className="flex items-center gap-1.5 rounded-lg border border-zinc-800 px-3 py-1.5 text-xs font-medium text-zinc-400 transition hover:border-red-500/40 hover:text-red-400"
+              onClick={() => setIsLogoutModalOpen(true)}
+              className="flex items-center gap-1.5 rounded-lg border border-zinc-800 px-3 py-1.5 text-xs font-medium text-zinc-400 transition cursor-pointer hover:border-red-500/40 hover:text-red-400"
             >
               <LogOut size={13} />
               Salir
@@ -134,7 +143,7 @@ export function ProfilePage() {
         </div>
       </div>
 
-      {/* Tabs — centrados */}
+      {/* Tabs */}
       <div className="mt-6 flex justify-center gap-1 border-b border-zinc-800">
         {tabs.map((tab) => {
           const Icon = tab.icon;
@@ -145,7 +154,7 @@ export function ProfilePage() {
               key={tab.id}
               onClick={() => setActiveTab(tab.id)}
               className={cn(
-                "flex items-center gap-2 border-b-2 px-5 py-3 text-sm font-medium transition-colors",
+                "flex items-center gap-2 border-b-2 px-5 py-3 text-sm font-medium transition-colors cursor-pointer",
                 isActive
                   ? "border-orange-500 text-white"
                   : "border-transparent text-zinc-500 hover:text-zinc-300"
@@ -158,7 +167,7 @@ export function ProfilePage() {
         })}
       </div>
 
-      {/* Contenido por tab — centrado, ancho contenido consistente */}
+      {/* Contenido por tab */}
       <div className="mx-auto mt-8 max-w-2xl">
         {activeTab === "info" && (
           <div className="rounded-2xl border border-zinc-800 bg-zinc-950 p-8">
@@ -204,7 +213,7 @@ export function ProfilePage() {
                 <button
                   type="submit"
                   disabled={saving}
-                  className="rounded-lg bg-orange-500 px-6 py-2.5 text-sm font-semibold text-black transition hover:bg-orange-400 disabled:cursor-not-allowed disabled:opacity-60"
+                  className="rounded-lg bg-orange-500 px-6 py-2.5 text-sm font-semibold text-black transition hover:bg-orange-400 cursor-pointer disabled:cursor-not-allowed disabled:opacity-60"
                 >
                   {saving ? "Guardando..." : "Guardar cambios"}
                 </button>
@@ -244,7 +253,7 @@ export function ProfilePage() {
                   </span>
                 </div>
 
-                <button className="mx-auto mt-6 flex items-center gap-2 rounded-lg bg-orange-500 px-6 py-2.5 text-sm font-semibold text-black transition hover:bg-orange-400">
+                <button className="mx-auto mt-6 flex items-center gap-2 rounded-lg bg-orange-500 px-6 py-2.5 text-sm font-semibold text-black transition hover:bg-orange-400 cursor-pointer">
                   <Sparkles size={15} />
                   Mejorar a Premium
                 </button>
@@ -260,30 +269,30 @@ export function ProfilePage() {
             </p>
 
             {loadingCvs ? null : cvs.length === 0 ? (
-  <div className="flex flex-col items-center py-8 text-center">
-    <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-orange-500/10 text-orange-400">
-      <FileText size={26} />
-    </div>
+              <div className="flex flex-col items-center py-8 text-center">
+                <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-orange-500/10 text-orange-400">
+                  <FileText size={26} />
+                </div>
 
-    <h3 className="mt-4 text-base font-semibold text-white">
-      Todavía no tenés ningún CV
-    </h3>
+                <h3 className="mt-4 text-base font-semibold text-white">
+                  Todavía no tenés ningún CV
+                </h3>
 
-    <p className="mt-2 max-w-sm text-sm text-zinc-500">
-      Creá tu primer currículum profesional y empezá a preparar tu próxima
-      oportunidad laboral.
-    </p>
+                <p className="mt-2 max-w-sm text-sm text-zinc-500">
+                  Creá tu primer currículum profesional y empezá a preparar tu próxima
+                  oportunidad laboral.
+                </p>
 
-    <button
-      type="button"
-      onClick={() => navigate({ to: "/builder" })}
-      className="mt-6 flex items-center gap-2 rounded-lg bg-orange-500 px-5 py-2.5 text-sm font-semibold text-black transition hover:bg-orange-400"
-    >
-      <FileText size={15} />
-      Crear mi primer CV
-    </button>
-  </div>
-) : (
+                <button
+                  type="button"
+                  onClick={() => navigate({ to: "/builder" })}
+                  className="mt-6 flex items-center gap-2 rounded-lg bg-orange-500 px-5 py-2.5 text-sm font-semibold text-black transition hover:bg-orange-400 cursor-pointer"
+                >
+                  <FileText size={15} />
+                  Crear mi primer CV
+                </button>
+              </div>
+            ) : (
               <div className="mt-6 grid gap-3 sm:grid-cols-2">
                 {cvs.map((cv) => (
                   <div
@@ -307,9 +316,16 @@ export function ProfilePage() {
               </div>
             )}
           </div>
-          
         )}
       </div>
+
+      {/* Componente Modal */}
+      <LogoutModal
+        isOpen={isLogoutModalOpen}
+        onClose={() => setIsLogoutModalOpen(false)}
+        onConfirm={handleConfirmLogout}
+        loading={loggingOut}
+      />
     </div>
   );
 }

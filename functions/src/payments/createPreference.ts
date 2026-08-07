@@ -73,7 +73,7 @@ export const createPreference = onRequest(async (req, res) => {
             id: "champions-cv-premium",
             title: "Champions CV - Plan Premium",
             quantity: 1,
-            unit_price: 2500,
+            unit_price: 5000,
             currency_id: "ARS",
           },
         ],
