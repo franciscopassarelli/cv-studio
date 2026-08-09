@@ -14,6 +14,7 @@ import { useNavigate } from "@tanstack/react-router";
 import { useAuth } from "@/hooks/useAuth";
 import { useUserProfile } from "@/hooks/useUserProfile";
 import { useCVs } from "@/hooks/useCVs";
+import { useCV } from "@/context/cv-context"; // <--- 1. Importa useCV
 import { cn } from "@/lib/utils";
 import { LogoutModal } from "@/components/modals/LogoutModal";
 
@@ -30,6 +31,7 @@ export function ProfilePage() {
   const { user, updateUserName, logout } = useAuth();
   const { profile, loading: loadingProfile } = useUserProfile();
   const { cvs, loading: loadingCvs } = useCVs();
+  const { reset, openWelcomeModal } = useCV(); // <--- 2. Extrae reset y openWelcomeModal del contexto
 
   const [activeTab, setActiveTab] = useState<Tab>("info");
   const [name, setName] = useState(user?.displayName ?? "");
@@ -46,6 +48,13 @@ export function ProfilePage() {
   const initial = (user?.displayName ?? user?.email ?? "?")
     .charAt(0)
     .toUpperCase();
+
+  // <--- 3. Crea la función manejadora para cuando se quiere crear un nuevo CV
+  const handleNuevoCV = () => {
+    reset(); // Limpia los datos anteriores o los pone en cero/sample
+    openWelcomeModal(); // Abre el modal de bienvenida
+    navigate({ to: "/builder" }); // Navega al builder
+  };
 
   async function handleSave(e: React.FormEvent) {
     e.preventDefault();
@@ -285,7 +294,7 @@ export function ProfilePage() {
 
                 <button
                   type="button"
-                  onClick={() => navigate({ to: "/builder" })}
+                  onClick={handleNuevoCV} // <--- 4. Usamos la función handleNuevoCV aquí
                   className="mt-6 flex items-center gap-2 rounded-lg bg-orange-500 px-5 py-2.5 text-sm font-semibold text-black transition hover:bg-orange-400 cursor-pointer"
                 >
                   <FileText size={15} />

@@ -7,6 +7,7 @@ import { BuilderPreview } from "./BuilderPreview";
 import { BuilderTemplatesPanel } from "./BuilderTemplatesPanel";
 import { Link } from "@tanstack/react-router";
 import { ArrowLeft } from "lucide-react";
+import { WelcomeModal } from "../modals/WelcomeModal";
 
 
 export function BuilderPage() {
@@ -55,6 +56,8 @@ export function BuilderPage() {
           onOpenChange={setLoginModalOpen}
         />
       )}
+
+      <WelcomeModal />
     </>
   );
 }

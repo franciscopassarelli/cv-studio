@@ -1,5 +1,5 @@
 import { createContext, useContext, useState, useEffect, type ReactNode } from "react";
-import { sampleCV, type CVData, type TemplateId } from "@/types/cv-types";
+import { sampleCV, emptyCV, type CVData, type TemplateId } from "@/types/cv-types";
 import { useAuth } from "@/hooks/useAuth";
 import { doc, onSnapshot } from "firebase/firestore";
 import { db } from "@/lib/firebase";
@@ -16,18 +16,41 @@ interface CVContextValue {
   closePremiumModal: () => void;
   currentCVId: string | null;
   setCurrentCVId: (id: string | null) => void;
+  welcomeModalOpen: boolean;
+  openWelcomeModal: () => void;
+  closeWelcomeModal: () => void;
+  loadSampleData: () => void;
+  clearData: () => void;
 }
 
 const CVContext = createContext<CVContextValue | null>(null);
 
 export function CVProvider({ children }: { children: ReactNode }) {
   const { user } = useAuth();
-  const [data, setData] = useState<CVData>(sampleCV);
+  const [data, setData] = useState<CVData>(emptyCV);
   const [template, setTemplate] = useState<TemplateId>("modern");
   const [isPremium, setIsPremium] = useState<boolean>(false);
   const [premiumModalOpen, setPremiumModalOpen] = useState(false);
   const [currentCVId, setCurrentCVId] = useState<string | null>(null);
+  const [welcomeModalOpen, setWelcomeModalOpen] = useState(false);
+  
+useEffect(() => {
+    if (user && !currentCVId && data === emptyCV) {
+      setWelcomeModalOpen(true);
+    }
+  }, [user, currentCVId, data]);
 
+  const loadSampleData = () => {
+    setData(sampleCV); 
+    setWelcomeModalOpen(false);
+  };
+
+  const clearData = () => {
+    setData(emptyCV);
+    setWelcomeModalOpen(false);
+  };
+
+  // Sincronizar el plan Premium desde Firestore (sin useEffects anidados)
   useEffect(() => {
     if (!user) {
       setIsPremium(false);
@@ -65,6 +88,11 @@ export function CVProvider({ children }: { children: ReactNode }) {
         closePremiumModal: () => setPremiumModalOpen(false),
         currentCVId,
         setCurrentCVId,
+        welcomeModalOpen,
+        openWelcomeModal: () => setWelcomeModalOpen(true),
+        closeWelcomeModal: () => setWelcomeModalOpen(false),
+        loadSampleData,
+        clearData,
       }}
     >
       {children}
