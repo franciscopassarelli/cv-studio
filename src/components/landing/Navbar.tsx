@@ -44,7 +44,7 @@ export function Navbar() {
   const { user } = useAuth();
 
   return (
-   <header className="sticky top-0 z-50 border-b border-gray-200/80 bg-white/80 backdrop-blur-md">
+    <header className="sticky top-0 z-50 border-b border-gray-200/80 bg-white/80 backdrop-blur-md dark:border-zinc-800/80 dark:bg-zinc-950/80">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6">
         {/* LOGO */}
         <Link to="/" className="flex items-center gap-3 group">
@@ -53,7 +53,7 @@ export function Navbar() {
           </div>
 
           <div className="hidden sm:block">
-            <h1 className="font-extrabold tracking-tight text-gray-900 dark:text-white leading-none">
+            <h1 className="font-extrabold tracking-tight text-gray-900 dark:text-white">
               Champions CV
             </h1>
             <p className="mt-1 text-[11px] font-semibold text-orange-600 dark:text-orange-400">
@@ -132,16 +132,16 @@ export function Navbar() {
               <Button
                 variant="outline"
                 size="icon"
-                className="rounded-xl border-gray-200 md:hidden"
+                className="rounded-xl border-gray-200 dark:border-zinc-800 dark:bg-zinc-900 md:hidden"
               >
                 <Menu className="h-5 w-5 text-gray-700 dark:text-gray-200" />
               </Button>
             </SheetTrigger>
 
-            <SheetContent className="flex flex-col justify-between">
+            <SheetContent className="flex flex-col justify-between dark:bg-zinc-950 dark:border-zinc-800">
               <div>
                 <SheetHeader className="text-left">
-                  <SheetTitle className="flex items-center gap-2 text-xl font-bold">
+                  <SheetTitle className="flex items-center gap-2 text-xl font-bold dark:text-white">
                     <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-orange-500 to-amber-500 text-white">
                       <FileText className="h-4 w-4" />
                     </div>
@@ -154,7 +154,7 @@ export function Navbar() {
                     <a
                       key={link.href}
                       href={link.href}
-                      className="text-base font-semibold text-gray-700 transition-colors hover:text-orange-600 dark:text-gray-200"
+                      className="text-base font-semibold text-gray-700 transition-colors hover:text-orange-600 dark:text-gray-200 dark:hover:text-orange-400"
                     >
                       {link.name}
                     </a>
@@ -167,7 +167,7 @@ export function Navbar() {
                   <Button
                     variant="outline"
                     asChild
-                    className="w-full justify-start gap-2 rounded-xl border-gray-200 font-semibold"
+                    className="w-full justify-start gap-2 rounded-xl border-gray-200 dark:border-zinc-800 dark:bg-zinc-900 font-semibold dark:text-white dark:hover:bg-zinc-800"
                   >
                     <Link
                       to="/login"

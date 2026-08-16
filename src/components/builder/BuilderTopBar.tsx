@@ -20,7 +20,7 @@ export function BuilderTopBar() {
   const { user } = useAuth();
 
   return (
-    <header className="sticky top-0 z-30 border-b border-gray-200/80 bg-white/80 backdrop-blur-md dark:border-zinc-800/80 dark:bg-zinc-950/80">
+    <header className="sticky top-0 z-30 border-b border-gray-200/85 bg-white/90 backdrop-blur-md">
       <div className="mx-auto flex max-w-[1600px] items-center justify-between px-4 py-2.5">
         
         {/* LOGO & BRAND */}
@@ -30,10 +30,10 @@ export function BuilderTopBar() {
           </div>
 
           <div className="min-w-0">
-            <div className="text-sm font-extrabold tracking-tight text-gray-900 dark:text-white leading-none">
+            <div className="text-sm font-extrabold tracking-tight text-gray-900 leading-none">
               Champions CV
             </div>
-            <div className="mt-0.5 hidden text-[11px] font-semibold text-orange-600 dark:text-orange-400 sm:block">
+            <div className="mt-0.5 hidden text-[11px] font-semibold text-orange-600 sm:block">
               Editor en tiempo real
             </div>
           </div>
@@ -51,7 +51,7 @@ export function BuilderTopBar() {
               <Button
                 variant="outline"
                 size="sm"
-                className="rounded-xl border-gray-200/80 text-gray-700 hover:text-orange-600 dark:border-zinc-800 dark:text-gray-200 dark:hover:text-orange-400 lg:hidden"
+                className="rounded-xl border-gray-200/80 text-gray-700 hover:text-orange-600 lg:hidden"
               >
                 <Eye className="h-4 w-4" />
                 <span className="hidden sm:inline font-semibold">Vista previa</span>
@@ -60,10 +60,10 @@ export function BuilderTopBar() {
 
             <SheetContent
               side="bottom"
-              className="flex flex-col h-[92vh] overflow-hidden p-0 rounded-t-3xl border-t-0"
+              className="flex flex-col h-[92vh] overflow-hidden p-0 rounded-t-3xl border-t-0 bg-white"
             >
-              <SheetHeader className="border-b border-gray-100 bg-white px-5 py-3.5 dark:border-zinc-800 dark:bg-zinc-950">
-                <SheetTitle className="flex items-center gap-2 text-base font-bold text-gray-900 dark:text-white">
+              <SheetHeader className="border-b border-gray-100 bg-white px-5 py-3.5">
+                <SheetTitle className="flex items-center gap-2 text-base font-bold text-gray-900">
                   <Sparkles className="h-4 w-4 text-orange-500" />
                   Vista previa de tu CV
                 </SheetTitle>
@@ -72,11 +72,11 @@ export function BuilderTopBar() {
                 </SheetDescription>
               </SheetHeader>
 
-              <div className="flex-1 overflow-y-auto bg-gray-50/50 p-3 dark:bg-zinc-900/50">
+              <div className="flex-1 overflow-y-auto bg-gray-50/50 p-3">
                 <CVPreview />
               </div>
 
-              <div className="sticky bottom-0 flex justify-end border-t border-gray-100 bg-white p-3.5 dark:border-zinc-800 dark:bg-zinc-950">
+              <div className="sticky bottom-0 flex justify-end border-t border-gray-100 bg-white p-3.5">
                 <DownloadPDFButton />
               </div>
             </SheetContent>
@@ -87,27 +87,27 @@ export function BuilderTopBar() {
             <DownloadPDFButton />
           </div>
 
-          <div className="h-5 w-px bg-gray-200 dark:bg-zinc-800 mx-1 hidden sm:block" />
+          <div className="h-5 w-px bg-gray-200 mx-1 hidden sm:block" />
 
           {/* USUARIO / PERFIL */}
           {user ? (
             <Link
               to="/profile"
-              className="flex items-center gap-2 rounded-xl p-1 transition-colors duration-200 hover:bg-gray-100 dark:hover:bg-zinc-800"
+              className="flex items-center gap-2 rounded-xl p-1 transition-colors duration-200 hover:bg-gray-100"
             >
-              <Avatar className="h-8 w-8 border border-orange-200 dark:border-orange-900">
+              <Avatar className="h-8 w-8 border border-orange-200">
                 <AvatarImage
                   src={user.photoURL ?? ""}
                   alt={user.displayName ?? "Mi perfil"}
                 />
-                <AvatarFallback className="bg-orange-100 font-bold text-orange-600 dark:bg-orange-950 dark:text-orange-400">
+                <AvatarFallback className="bg-orange-100 font-bold text-orange-600">
                   {user.displayName?.charAt(0).toUpperCase() ?? (
                     <User className="h-4 w-4" />
                   )}
                 </AvatarFallback>
               </Avatar>
 
-              <span className="hidden text-xs font-bold text-gray-700 dark:text-gray-200 md:inline">
+              <span className="hidden text-xs font-bold text-gray-700 md:inline">
                 Mi perfil
               </span>
             </Link>
@@ -116,7 +116,7 @@ export function BuilderTopBar() {
               variant="ghost"
               size="sm"
               asChild
-              className="hidden font-semibold text-gray-700 hover:text-orange-600 dark:text-gray-200 dark:hover:text-orange-400 sm:flex"
+              className="hidden font-semibold text-gray-700 hover:text-orange-600 sm:flex"
             >
               <Link to="/login" search={{ redirectTo: "/builder" }}>
                 Ingresar
