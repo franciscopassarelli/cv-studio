@@ -1,30 +1,27 @@
-import { useState } from "react";
-import { CreditCard, Loader2, ShieldCheck } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { createPaymentPreference } from "@/services/payment.service";
 import { useAuth } from "@/hooks/useAuth";
+import { createPaymentPreference } from "@/services/payment.service";
+import { CreditCard, Loader2, ShieldCheck } from "lucide-react";
+import { useState } from "react";
+import { toast } from "sonner";
 
 export function PaymentMethods() {
   const { user } = useAuth();
   const [isLoading, setIsLoading] = useState(false);
+  
 
   const handlePayment = async () => {
-    if (!user?.email) {
-      console.error("No hay un usuario autenticado con email válido.");
-      return;
-    }
-
     try {
-      setIsLoading(true);
-      await createPaymentPreference(user.uid, user.email);
-    } catch (error) {
-      console.error("Error al iniciar el checkout de Mercado Pago:", error);
-    } finally {
-      setIsLoading(false);
-    }
-  };
+       setIsLoading(true);
+       await createPaymentPreference();
+        } catch (error) {
+          console.error("Error al iniciar el checkout de Mercado Pago:", error);
+          toast.error(error instanceof Error ? error.message : "No se pudo iniciar el pago.");
+         setIsLoading(false);
+        }
+      };
 
-  const isButtonDisabled = isLoading || !user?.email;
+  const isButtonDisabled = isLoading || !user;
 
   return (
     <section className="rounded-3xl border border-gray-200/80 bg-white p-6 sm:p-8 shadow-sm dark:border-zinc-800 dark:bg-zinc-950">

@@ -1,10 +1,19 @@
-export const createPaymentPreference = async (userId: string, email: string) => {
+import { auth } from "@/lib/firebase";
+
+export const createPaymentPreference = async () => {
+  const user = auth.currentUser;
+  if (!user) throw new Error("Tenés que iniciar sesión para pagar.");
+
+  const token = await user.getIdToken();
+
   const response = await fetch(
     "https://us-central1-exploramas-5d967.cloudfunctions.net/createPreference",
     {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ userId, email }),
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
     },
   );
 

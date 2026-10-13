@@ -1,21 +1,19 @@
-import { onRequest } from "firebase-functions/v2/https";
-import { MercadoPagoConfig, Preference } from "mercadopago";
-import * as logger from "firebase-functions/logger";
 import * as admin from "firebase-admin";
+import * as logger from "firebase-functions/logger";
+import { onRequest } from "firebase-functions/v2/https";
+import { Preference } from "mercadopago";
+import { MP_ACCESS_TOKEN, PREMIUM_ITEM, getMpClient } from "../config/mercadopago";
 
 if (!admin.apps.length) {
   admin.initializeApp();
 }
 
-const client = new MercadoPagoConfig({
-  accessToken: process.env.MP_ACCESS_TOKEN || "",
-});
-
-export const createPreference = onRequest(async (req, res) => {
-  try {
+export const createPreference = onRequest(
+  {secrets: [MP_ACCESS_TOKEN]},
+  async (req, res) => {
     res.set("Access-Control-Allow-Origin", "*");
     res.set("Access-Control-Allow-Methods", "POST, OPTIONS");
-    res.set("Access-Control-Allow-Headers", "Content-Type");
+    res.set("Access-Control-Allow-Headers", "Content-Type, Authorization");
 
     if (req.method === "OPTIONS") {
       res.status(204).send("");
@@ -23,97 +21,79 @@ export const createPreference = onRequest(async (req, res) => {
     }
 
     if (req.method !== "POST") {
-      res.status(405).json({ error: "Método no permitido." });
+      res.status(405).json({error: "Método no permitido."});
       return;
     }
 
-    const { userId, email } = req.body;
+    try {
+      // El usuario sale del token de Firebase, no del body
+      const authHeader = req.headers.authorization || "";
+      const token = authHeader.startsWith("Bearer ") ? authHeader.slice(7) : "";
 
-    if (!userId) {
-      res.status(400).json({ error: "Falta el userId." });
-      return;
-    }
+      if (!token) {
+        res.status(401).json({error: "Falta el token de autenticación."});
+        return;
+      }
 
-    if (!email) {
-      res.status(400).json({ error: "Falta el email." });
-      return;
-    }
+      let uid: string;
+      let email: string | undefined;
+      try {
+        const decoded = await admin.auth().verifyIdToken(token);
+        uid = decoded.uid;
+        email = decoded.email;
+      } catch {
+        res.status(401).json({error: "Token inválido."});
+        return;
+      }
 
-    const userRef = admin.firestore().collection("users").doc(userId);
-    const userSnap = await userRef.get();
-
-    if (userSnap.exists) {
+      const userSnap = await admin.firestore().collection("users").doc(uid).get();
       const user = userSnap.data();
 
       if (user?.plan === "premium" && user?.premium?.active === true) {
-        res.status(409).json({
-          error: "El usuario ya posee una suscripción Premium.",
-        });
+        res.status(409).json({error: "Ya tenés el plan Premium activo."});
         return;
       }
-    }
 
-    const preference = new Preference(client);
+      const frontendUrl = process.env.FRONTEND_URL;
+      const webhookUrl = process.env.MP_WEBHOOK_URL;
 
-    logger.info("Access Token:", process.env.MP_ACCESS_TOKEN ? "OK" : "NO EXISTE");
-    logger.info("User:", { userId, email });
-    logger.info("Creando preferencia...");
+      if (!frontendUrl || !webhookUrl) {
+        logger.error("Faltan FRONTEND_URL o MP_WEBHOOK_URL en la configuración");
+        res.status(500).json({error: "Pagos no disponibles en este momento."});
+        return;
+      }
 
-    // URL pública del frontend (túnel de cloudflared mientras probás, o tu dominio final después)
-    const FRONTEND_URL = process.env.FRONTEND_URL || "http://localhost:8080";
-
-    const result = await preference.create({
-      body: {
-        payer: {
-          email,
-        },
-
-        items: [
-          {
-            id: "champions-cv-premium",
-            title: "Champions CV - Plan Premium",
-            quantity: 1,
-            unit_price: 5000,
-            currency_id: "ARS",
+      const result = await new Preference(getMpClient()).create({
+        body: {
+          payer: email ? {email} : undefined,
+          items: [
+            {
+              id: PREMIUM_ITEM.id,
+              title: PREMIUM_ITEM.title,
+              quantity: 1,
+              unit_price: PREMIUM_ITEM.price,
+              currency_id: PREMIUM_ITEM.currency,
+            },
+          ],
+          back_urls: {
+            success: `${frontendUrl}/payments/success`,
+            pending: `${frontendUrl}/payments/pending`,
+            failure: `${frontendUrl}/payments/failure`,
           },
-        ],
-
-        back_urls: {
-          success: `${FRONTEND_URL}/payments/success`,
-          pending: `${FRONTEND_URL}/payments/pending`,
-          failure: `${FRONTEND_URL}/payments/failure`,
+          auto_return: "approved",
+          external_reference: uid,
+          metadata: {user_id: uid},
+          binary_mode: true,
+          notification_url: webhookUrl,
         },
+      });
 
-        auto_return: "approved",
+      logger.info("Preferencia creada", {preferenceId: result.id, uid});
 
-        external_reference: userId,
-
-        metadata: {
-          user_id: userId,
-        },
-
-        binary_mode: true,
-
-        notification_url: process.env.MP_WEBHOOK_URL,
-      },
-    });
-
-    logger.info("Preferencia creada", {
-      preferenceId: result.id,
-      userId,
-    });
-    logger.info(JSON.stringify(result, null, 2));
-
-    res.status(200).json({
-      success: true,
-      preferenceId: result.id,
-      init_point: result.init_point,
-      sandbox_init_point: result.sandbox_init_point,
-    });
-  } catch (error) {
-    logger.error("Error al crear la preferencia", error);
-    res.status(500).json({
-      error: error instanceof Error ? error.message : JSON.stringify(error),
-    });
-  }
-});
+      res.status(200).json({preferenceId: result.id, init_point: result.init_point});
+    } catch (error) {
+      logger.error("Error al crear la preferencia", error);
+      res.status(500).json({error: "No se pudo iniciar el pago."});
+    }
+  },
+);

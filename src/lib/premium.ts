@@ -1,7 +1,7 @@
 export interface PremiumPlan {
   id: string;
   name: string;
-  price: string;
+  price: string; 
   currency: string;
   benefits: string[];
 }
@@ -29,21 +29,3 @@ export const EXTRAPREMIUM_PLAN: ExtrapremiumPlan = {
   ...PREMIUM_PLAN,
   isPremium: true,
 };
-
-interface CheckoutOptions {
-  plan?: PremiumPlan | ExtrapremiumPlan;
-  userId?: string;
-  userEmail?: string;
-}
-
-export async function startPremiumCheckout({
-  plan = PREMIUM_PLAN,
-  userId,
-  userEmail,
-}: CheckoutOptions = {}): Promise<void> {
-  console.info("[premium] checkout requested for", {
-    planId: plan.id,
-    userId,
-    userEmail,
-  });
-}
