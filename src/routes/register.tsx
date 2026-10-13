@@ -3,10 +3,7 @@ import { RegisterForm } from "@/components/auth/RegisterForm";
 
 export const Route = createFileRoute("/register")({
   validateSearch: (search: Record<string, unknown>) => ({
-    redirectTo:
-      typeof search.redirectTo === "string"
-        ? search.redirectTo
-        : "/profile/profile",
+    redirectTo: typeof search.redirectTo === "string" ? search.redirectTo : "/profile/profile",
   }),
   component: RegisterPage,
 });
@@ -14,7 +11,6 @@ export const Route = createFileRoute("/register")({
 function RegisterPage() {
   return (
     <main className="relative flex min-h-screen items-center justify-center bg-black px-4">
-
       <Link
         to="/"
         className="
@@ -28,9 +24,7 @@ function RegisterPage() {
         ← Volver al inicio
       </Link>
 
-
       <RegisterForm />
-
     </main>
   );
 }

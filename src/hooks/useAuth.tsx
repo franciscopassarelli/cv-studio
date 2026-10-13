@@ -1,10 +1,4 @@
-import {
-  createContext,
-  useContext,
-  useEffect,
-  useState,
-  ReactNode,
-} from "react";
+import { createContext, useContext, useEffect, useState, ReactNode } from "react";
 import {
   onAuthStateChanged,
   signInWithEmailAndPassword,
@@ -14,7 +8,7 @@ import {
   updateProfile,
   User,
 } from "firebase/auth";
-import { doc, getDoc, setDoc, serverTimestamp,updateDoc } from "firebase/firestore";
+import { doc, getDoc, setDoc, serverTimestamp, updateDoc } from "firebase/firestore";
 import { auth, db, googleProvider } from "@/lib/firebase";
 
 interface AuthContextValue {
@@ -35,19 +29,19 @@ async function ensureUserProfile(user: User) {
 
   if (!snap.exists()) {
     await setDoc(ref, {
-  name: user.displayName ?? "Sin nombre",
-  email: user.email,
-  plan: "free",
+      name: user.displayName ?? "Sin nombre",
+      email: user.email,
+      plan: "free",
 
-  premium: {
-    active: false,
-    paymentId: null,
-    purchasedAt: null,
-    expiresAt: null,
-  },
+      premium: {
+        active: false,
+        paymentId: null,
+        purchasedAt: null,
+        expiresAt: null,
+      },
 
-  createdAt: serverTimestamp(),
-});
+      createdAt: serverTimestamp(),
+    });
   }
 }
 
@@ -78,16 +72,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     await signInWithEmailAndPassword(auth, email, password);
   }
 
-  async function signUp(
-    name: string,
-    email: string,
-    password: string
-  ) {
-    const credential = await createUserWithEmailAndPassword(
-      auth,
-      email,
-      password
-    );
+  async function signUp(name: string, email: string, password: string) {
+    const credential = await createUserWithEmailAndPassword(auth, email, password);
 
     await updateProfile(credential.user, {
       displayName: name,
@@ -100,10 +86,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }
 
   async function signInWithGoogle() {
-    const credential = await signInWithPopup(
-      auth,
-      googleProvider
-    );
+    const credential = await signInWithPopup(auth, googleProvider);
 
     await ensureUserProfile(credential.user);
 
@@ -124,10 +107,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       displayName: name,
     });
 
-    await updateDoc(
-      doc(db, "users", auth.currentUser.uid),
-      { name }
-    );
+    await updateDoc(doc(db, "users", auth.currentUser.uid), { name });
   }
 
   return (
@@ -146,8 +126,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     </AuthContext.Provider>
   );
 }
-
-
 
 export function useAuth() {
   const ctx = useContext(AuthContext);

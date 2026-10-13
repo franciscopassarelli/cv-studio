@@ -1,24 +1,8 @@
 import { Link } from "@tanstack/react-router";
 import { Button } from "@/components/ui/button";
-import {
-  FileText,
-  Menu,
-  Sparkles,
-  User,
-  LogIn,
-} from "lucide-react";
-import {
-  Sheet,
-  SheetContent,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from "@/components/ui/sheet";
-import {
-  Avatar,
-  AvatarFallback,
-  AvatarImage,
-} from "@/components/ui/avatar";
+import { FileText, Menu, Sparkles, User, LogIn } from "lucide-react";
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useAuth } from "@/hooks/useAuth";
 
 export const links = [
@@ -83,14 +67,9 @@ export function Navbar() {
               className="flex items-center gap-2 rounded-xl p-1.5 transition-colors duration-200 hover:bg-gray-100 dark:hover:bg-zinc-800"
             >
               <Avatar className="h-8 w-8 border border-orange-200 dark:border-orange-900">
-                <AvatarImage
-                  src={user.photoURL ?? ""}
-                  alt={user.displayName ?? "Mi perfil"}
-                />
+                <AvatarImage src={user.photoURL ?? ""} alt={user.displayName ?? "Mi perfil"} />
                 <AvatarFallback className="bg-orange-100 font-bold text-orange-600 dark:bg-orange-950 dark:text-orange-400">
-                  {user.displayName?.charAt(0).toUpperCase() ?? (
-                    <User className="h-4 w-4" />
-                  )}
+                  {user.displayName?.charAt(0).toUpperCase() ?? <User className="h-4 w-4" />}
                 </AvatarFallback>
               </Avatar>
 
@@ -99,7 +78,11 @@ export function Navbar() {
               </span>
             </Link>
           ) : (
-            <Button variant="ghost" className="hidden font-semibold text-gray-700 hover:text-orange-600 dark:text-gray-200 dark:hover:text-orange-400 sm:flex" asChild>
+            <Button
+              variant="ghost"
+              className="hidden font-semibold text-gray-700 hover:text-orange-600 dark:text-gray-200 dark:hover:text-orange-400 sm:flex"
+              asChild
+            >
               <Link
                 to="/login"
                 search={{

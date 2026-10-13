@@ -61,8 +61,7 @@ export function Pricing() {
           </h2>
 
           <p className="mt-5 text-lg text-muted-foreground">
-            Empieza gratis y desbloquea herramientas avanzadas cuando estés listo
-            para destacar.
+            Empieza gratis y desbloquea herramientas avanzadas cuando estés listo para destacar.
           </p>
         </div>
 
@@ -95,18 +94,14 @@ export function Pricing() {
                 </div>
 
                 <p
-                  className={`mt-2 text-sm ${
-                    plan.highlighted ? "text-zinc-400" : "text-gray-600"
-                  }`}
+                  className={`mt-2 text-sm ${plan.highlighted ? "text-zinc-400" : "text-gray-600"}`}
                 >
                   {plan.description}
                 </p>
 
                 {/* Precio */}
                 <div className="mt-8 flex items-end gap-1">
-                  <span className="text-5xl font-extrabold tracking-tight">
-                    {plan.price}
-                  </span>
+                  <span className="text-5xl font-extrabold tracking-tight">{plan.price}</span>
                   {plan.period && (
                     <span
                       className={`pb-1 text-sm font-medium ${
@@ -118,11 +113,7 @@ export function Pricing() {
                   )}
                 </div>
 
-                <div
-                  className={`my-8 h-px ${
-                    plan.highlighted ? "bg-zinc-800" : "bg-gray-200"
-                  }`}
-                />
+                <div className={`my-8 h-px ${plan.highlighted ? "bg-zinc-800" : "bg-gray-200"}`} />
 
                 {/* Lista de características */}
                 <ul className="space-y-4 text-sm">
@@ -137,11 +128,7 @@ export function Pricing() {
                       >
                         <Check className="h-3.5 w-3.5 stroke-[3]" />
                       </div>
-                      <span
-                        className={
-                          plan.highlighted ? "text-zinc-300" : "text-gray-700"
-                        }
-                      >
+                      <span className={plan.highlighted ? "text-zinc-300" : "text-gray-700"}>
                         {feature}
                       </span>
                     </li>

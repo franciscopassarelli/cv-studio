@@ -1,8 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { CVProvider } from "@/context/cv-context";
+import { CVProvider } from "@/context/CVProvider";
 import { PremiumModal } from "@/components/cv/PremiumModal";
 import { Toaster } from "@/components/ui/sonner";
-import { BuilderPage} from "@/components/builder/BuilderPage";
+import { BuilderPage } from "@/components/builder/BuilderPage";
 import { WelcomeModal } from "@/components/modals/WelcomeModal";
 
 export const Route = createFileRoute("/builder/")({
@@ -18,8 +18,7 @@ export const Route = createFileRoute("/builder/")({
       },
       {
         property: "og:title",
-        content:
-          "Champions CV — Generador de currículums profesionales",
+        content: "Champions CV — Generador de currículums profesionales",
       },
       {
         property: "og:description",

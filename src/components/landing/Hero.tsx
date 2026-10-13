@@ -29,8 +29,8 @@ export function Hero() {
 
         {/* Subtítulo */}
         <p className="mx-auto mt-6 max-w-2xl text-lg text-gray-600 md:text-xl">
-          Creá currículums profesionales, alineados con sistemas ATS y
-          diseñados para captar la atención de los reclutadores en minutos.
+          Creá currículums profesionales, alineados con sistemas ATS y diseñados para captar la
+          atención de los reclutadores en minutos.
         </p>
 
         {/* Botones de acción */}

@@ -23,8 +23,8 @@ export function CheckoutHeader() {
         </h1>
 
         <p className="max-w-xl text-sm sm:text-base font-medium text-gray-600 dark:text-gray-300 leading-relaxed">
-          Desbloqueá todas las herramientas y plantillas profesionales para
-          crear tu currículum sin límites.
+          Desbloqueá todas las herramientas y plantillas profesionales para crear tu currículum sin
+          límites.
         </p>
       </div>
     </>

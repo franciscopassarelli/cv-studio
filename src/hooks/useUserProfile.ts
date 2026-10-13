@@ -32,14 +32,14 @@ export function useUserProfile() {
     const ref = doc(db, "users", user.uid);
 
     const unsubscribe = onSnapshot(ref, (snap) => {
-  if (snap.exists()) {
-    setProfile(snap.data() as UserProfile);
-  } else {
-    setProfile(null);
-  }
+      if (snap.exists()) {
+        setProfile(snap.data() as UserProfile);
+      } else {
+        setProfile(null);
+      }
 
-  setLoading(false);
-});
+      setLoading(false);
+    });
 
     return unsubscribe;
   }, [user]);

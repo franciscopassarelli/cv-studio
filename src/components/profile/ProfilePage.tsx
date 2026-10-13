@@ -1,14 +1,5 @@
 import { useState } from "react";
-import {
-  ArrowLeft,
-  Camera,
-  Crown,
-  FileText,
-  LogOut,
-  Check,
-  User,
-  Sparkles,
-} from "lucide-react";
+import { ArrowLeft, Camera, Crown, FileText, LogOut, Check, User, Sparkles } from "lucide-react";
 import { useNavigate } from "@tanstack/react-router";
 
 import { useAuth } from "@/hooks/useAuth";
@@ -42,12 +33,8 @@ export function ProfilePage() {
   const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
   const [loggingOut, setLoggingOut] = useState(false);
 
-  const isPremium =
-    profile?.plan === "premium" &&
-    profile?.premium?.active === true;
-  const initial = (user?.displayName ?? user?.email ?? "?")
-    .charAt(0)
-    .toUpperCase();
+  const isPremium = profile?.plan === "premium" && profile?.premium?.active === true;
+  const initial = (user?.displayName ?? user?.email ?? "?").charAt(0).toUpperCase();
 
   // <--- 3. Crea la función manejadora para cuando se quiere crear un nuevo CV
   const handleNuevoCV = () => {
@@ -122,9 +109,7 @@ export function ProfilePage() {
             </div>
 
             <div className="pb-1">
-              <p className="text-xl font-bold text-white">
-                {user?.displayName ?? "Sin nombre"}
-              </p>
+              <p className="text-xl font-bold text-white">{user?.displayName ?? "Sin nombre"}</p>
               <p className="text-sm text-zinc-400">{user?.email}</p>
             </div>
           </div>
@@ -166,7 +151,7 @@ export function ProfilePage() {
                 "flex items-center gap-2 border-b-2 px-5 py-3 text-sm font-medium transition-colors cursor-pointer",
                 isActive
                   ? "border-orange-500 text-white"
-                  : "border-transparent text-zinc-500 hover:text-zinc-300"
+                  : "border-transparent text-zinc-500 hover:text-zinc-300",
               )}
             >
               <Icon size={15} />
@@ -180,9 +165,7 @@ export function ProfilePage() {
       <div className="mx-auto mt-8 max-w-2xl">
         {activeTab === "info" && (
           <div className="rounded-2xl border border-zinc-800 bg-zinc-950 p-8">
-            <h2 className="text-center text-lg font-semibold text-white">
-              Información personal
-            </h2>
+            <h2 className="text-center text-lg font-semibold text-white">Información personal</h2>
             <p className="mt-1 text-center text-sm text-zinc-500">
               Estos datos son los que ven tus CVs generados.
             </p>
@@ -190,9 +173,7 @@ export function ProfilePage() {
             <form className="mt-6 space-y-5" onSubmit={handleSave}>
               <div className="grid gap-5 sm:grid-cols-2">
                 <div>
-                  <label className="mb-2 block text-sm text-zinc-300">
-                    Nombre completo
-                  </label>
+                  <label className="mb-2 block text-sm text-zinc-300">Nombre completo</label>
                   <input
                     type="text"
                     value={name}
@@ -202,9 +183,7 @@ export function ProfilePage() {
                 </div>
 
                 <div>
-                  <label className="mb-2 block text-sm text-zinc-300">
-                    Email
-                  </label>
+                  <label className="mb-2 block text-sm text-zinc-300">Email</label>
                   <input
                     type="email"
                     value={user?.email ?? ""}
@@ -214,9 +193,7 @@ export function ProfilePage() {
                 </div>
               </div>
 
-              <p className="text-xs text-zinc-600">
-                El email no se puede modificar por ahora.
-              </p>
+              <p className="text-xs text-zinc-600">El email no se puede modificar por ahora.</p>
 
               <div className="flex items-center justify-center gap-4 border-t border-zinc-900 pt-5">
                 <button
@@ -288,8 +265,8 @@ export function ProfilePage() {
                 </h3>
 
                 <p className="mt-2 max-w-sm text-sm text-zinc-500">
-                  Creá tu primer currículum profesional y empezá a preparar tu próxima
-                  oportunidad laboral.
+                  Creá tu primer currículum profesional y empezá a preparar tu próxima oportunidad
+                  laboral.
                 </p>
 
                 <button
@@ -304,21 +281,14 @@ export function ProfilePage() {
             ) : (
               <div className="mt-6 grid gap-3 sm:grid-cols-2">
                 {cvs.map((cv) => (
-                  <div
-                    key={cv.id}
-                    className="rounded-xl border border-zinc-800 bg-zinc-900/50 p-4"
-                  >
+                  <div key={cv.id} className="rounded-xl border border-zinc-800 bg-zinc-900/50 p-4">
                     <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-orange-500/10 text-orange-400">
                       <FileText size={16} />
                     </div>
-                    <p className="mt-3 text-sm font-medium text-white">
-                      {cv.title}
-                    </p>
+                    <p className="mt-3 text-sm font-medium text-white">{cv.title}</p>
                     <p className="text-xs text-zinc-500">{cv.template}</p>
                     <p className="mt-2 text-xs text-zinc-600">
-                      {cv.updatedAt
-                        ? cv.updatedAt.toLocaleDateString("es-AR")
-                        : "—"}
+                      {cv.updatedAt ? cv.updatedAt.toLocaleDateString("es-AR") : "—"}
                     </p>
                   </div>
                 ))}

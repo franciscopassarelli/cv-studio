@@ -3,10 +3,7 @@ import { LoginForm } from "@/components/auth/LoginForm";
 
 export const Route = createFileRoute("/login")({
   validateSearch: (search: Record<string, unknown>) => ({
-    redirectTo:
-      typeof search.redirectTo === "string"
-        ? search.redirectTo
-        : undefined,
+    redirectTo: typeof search.redirectTo === "string" ? search.redirectTo : undefined,
   }),
   component: LoginPage,
 });

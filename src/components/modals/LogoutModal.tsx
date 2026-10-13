@@ -7,12 +7,7 @@ interface LogoutModalProps {
   loading?: boolean;
 }
 
-export function LogoutModal({
-  isOpen,
-  onClose,
-  onConfirm,
-  loading = false,
-}: LogoutModalProps) {
+export function LogoutModal({ isOpen, onClose, onConfirm, loading = false }: LogoutModalProps) {
   if (!isOpen) return null;
 
   return (
@@ -38,12 +33,11 @@ export function LogoutModal({
             <LogOut size={22} />
           </div>
 
-          <h3 className="mt-4 text-lg font-semibold text-white">
-            ¿Cerrar sesión?
-          </h3>
+          <h3 className="mt-4 text-lg font-semibold text-white">¿Cerrar sesión?</h3>
 
           <p className="mt-2 text-sm text-zinc-400">
-            ¿Estás seguro de que querés salir de tu cuenta? Vas a tener que volver a ingresar para editar tus CVs.
+            ¿Estás seguro de que querés salir de tu cuenta? Vas a tener que volver a ingresar para
+            editar tus CVs.
           </p>
 
           <div className="mt-6 flex w-full gap-3">

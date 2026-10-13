@@ -6,21 +6,14 @@ export function LoginForm() {
   const navigate = useNavigate();
   const search = useSearch({ strict: false });
 
-  const {
-    user,
-    signIn,
-    signInWithGoogle,
-  } = useAuth();
+  const { user, signIn, signInWithGoogle } = useAuth();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
-  const redirectTo =
-    typeof search.redirectTo === "string"
-      ? search.redirectTo
-      : "/profile";
+  const redirectTo = typeof search.redirectTo === "string" ? search.redirectTo : "/profile";
 
   useEffect(() => {
     if (!loading || !user) return;
@@ -51,10 +44,7 @@ export function LoginForm() {
     try {
       await signInWithGoogle();
     } catch (error) {
-      console.error(
-        "Error al iniciar sesión con Google:",
-        error
-      );
+      console.error("Error al iniciar sesión con Google:", error);
 
       setError("No pudimos iniciar sesión con Google.");
       setLoading(false);
@@ -64,23 +54,14 @@ export function LoginForm() {
   return (
     <div className="w-full max-w-md rounded-2xl border border-gray-800 bg-zinc-950 p-8 shadow-2xl">
       <div className="mb-8 text-center">
-        <h1 className="text-3xl font-bold text-white">
-          Bienvenido de nuevo
-        </h1>
+        <h1 className="text-3xl font-bold text-white">Bienvenido de nuevo</h1>
 
-        <p className="mt-2 text-sm text-gray-400">
-          Iniciá sesión para continuar creando tus CVs
-        </p>
+        <p className="mt-2 text-sm text-gray-400">Iniciá sesión para continuar creando tus CVs</p>
       </div>
 
-      <form
-        className="space-y-5"
-        onSubmit={handleSubmit}
-      >
+      <form className="space-y-5" onSubmit={handleSubmit}>
         <div>
-          <label className="mb-2 block text-sm font-medium text-gray-300">
-            Email
-          </label>
+          <label className="mb-2 block text-sm font-medium text-gray-300">Email</label>
 
           <input
             type="email"
@@ -93,9 +74,7 @@ export function LoginForm() {
         </div>
 
         <div>
-          <label className="mb-2 block text-sm font-medium text-gray-300">
-            Contraseña
-          </label>
+          <label className="mb-2 block text-sm font-medium text-gray-300">Contraseña</label>
 
           <input
             type="password"
@@ -118,18 +97,14 @@ export function LoginForm() {
           disabled={loading}
           className="w-full rounded-lg bg-orange-500 py-3 font-semibold text-white transition hover:bg-orange-600 cursor-pointer disabled:cursor-not-allowed disabled:opacity-60"
         >
-          {loading
-            ? "Ingresando..."
-            : "Iniciar sesión"}
+          {loading ? "Ingresando..." : "Iniciar sesión"}
         </button>
       </form>
 
       <div className="my-6 flex items-center gap-3">
         <div className="h-px flex-1 bg-gray-800" />
 
-        <span className="text-sm text-gray-500">
-          o
-        </span>
+        <span className="text-sm text-gray-500">o</span>
 
         <div className="h-px flex-1 bg-gray-800" />
       </div>
@@ -163,7 +138,6 @@ export function LoginForm() {
 
       <p className="mt-6 text-center text-sm text-gray-400">
         ¿Todavía no tenés cuenta?{" "}
-
         <Link
           to="/register"
           search={{ redirectTo }}

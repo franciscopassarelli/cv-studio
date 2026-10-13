@@ -48,9 +48,7 @@ export function PaymentMethods() {
           </div>
 
           <div className="space-y-0.5">
-            <h3 className="font-bold text-gray-900 dark:text-white">
-              Mercado Pago
-            </h3>
+            <h3 className="font-bold text-gray-900 dark:text-white">Mercado Pago</h3>
 
             <p className="text-xs sm:text-sm font-medium text-gray-500 dark:text-gray-400">
               Tarjetas de crédito, débito, Mercado Crédito y dinero en cuenta.

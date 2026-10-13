@@ -3,9 +3,7 @@ import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 import { auth, db } from "@/lib/firebase";
 import type { CVDocument } from "@/types/cv";
 
-export async function saveCV(
-  cv: Omit<CVDocument, "id" | "createdAt" | "updatedAt">
-) {
+export async function saveCV(cv: Omit<CVDocument, "id" | "createdAt" | "updatedAt">) {
   if (!auth.currentUser) {
     throw new Error("Usuario no autenticado.");
   }

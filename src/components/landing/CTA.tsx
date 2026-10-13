@@ -22,8 +22,8 @@ export function CTA() {
             </h2>
 
             <p className="mx-auto mt-6 max-w-2xl text-lg text-white/95 md:text-xl">
-              Creá un currículum moderno, profesional y optimizado para ATS en
-              pocos minutos. Empezá gratis y destacá entre los demás postulantes.
+              Creá un currículum moderno, profesional y optimizado para ATS en pocos minutos. Empezá
+              gratis y destacá entre los demás postulantes.
             </p>
 
             {/* Acciones principales */}

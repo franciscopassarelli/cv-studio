@@ -17,26 +17,20 @@ export function Footer() {
               </div>
 
               <div>
-                <h3 className="text-xl font-extrabold tracking-tight">
-                  Champions CV
-                </h3>
-                <p className="text-xs font-medium text-orange-400/80">
-                  Currículums profesionales
-                </p>
+                <h3 className="text-xl font-extrabold tracking-tight">Champions CV</h3>
+                <p className="text-xs font-medium text-orange-400/80">Currículums profesionales</p>
               </div>
             </div>
 
             <p className="mt-5 text-sm leading-relaxed text-gray-400">
-              Creá currículums modernos, optimizados para ATS y preparados para
-              destacar tu talento ante los reclutadores.
+              Creá currículums modernos, optimizados para ATS y preparados para destacar tu talento
+              ante los reclutadores.
             </p>
           </div>
 
           {/* Columna Producto */}
           <div>
-            <h4 className="text-sm font-bold uppercase tracking-wider text-gray-200">
-              Producto
-            </h4>
+            <h4 className="text-sm font-bold uppercase tracking-wider text-gray-200">Producto</h4>
 
             <ul className="mt-5 space-y-3 text-sm text-gray-400">
               <li>
@@ -56,10 +50,7 @@ export function Footer() {
                 </a>
               </li>
               <li>
-                <a
-                  href="#pricing"
-                  className="transition-colors duration-200 hover:text-orange-400"
-                >
+                <a href="#pricing" className="transition-colors duration-200 hover:text-orange-400">
                   Planes
                 </a>
               </li>
@@ -68,16 +59,11 @@ export function Footer() {
 
           {/* Columna Navegación */}
           <div>
-            <h4 className="text-sm font-bold uppercase tracking-wider text-gray-200">
-              Navegación
-            </h4>
+            <h4 className="text-sm font-bold uppercase tracking-wider text-gray-200">Navegación</h4>
 
             <ul className="mt-5 space-y-3 text-sm text-gray-400">
               <li>
-                <Link
-                  to="/"
-                  className="transition-colors duration-200 hover:text-orange-400"
-                >
+                <Link to="/" className="transition-colors duration-200 hover:text-orange-400">
                   Inicio
                 </Link>
               </li>
@@ -90,10 +76,7 @@ export function Footer() {
                 </Link>
               </li>
               <li>
-                <a
-                  href="#faq"
-                  className="transition-colors duration-200 hover:text-orange-400"
-                >
+                <a href="#faq" className="transition-colors duration-200 hover:text-orange-400">
                   Preguntas frecuentes
                 </a>
               </li>
@@ -102,9 +85,7 @@ export function Footer() {
 
           {/* Columna Contacto & Redes */}
           <div>
-            <h4 className="text-sm font-bold uppercase tracking-wider text-gray-200">
-              Contacto
-            </h4>
+            <h4 className="text-sm font-bold uppercase tracking-wider text-gray-200">Contacto</h4>
 
             <div className="mt-5 space-y-5">
               <a
@@ -140,22 +121,13 @@ export function Footer() {
 
         {/* Bottom Bar */}
         <div className="mt-14 flex flex-col items-center justify-between gap-4 border-t border-white/10 pt-8 text-xs text-gray-400 md:flex-row">
-          <p>
-            © {new Date().getFullYear()} Champions CV. Todos los derechos
-            reservados.
-          </p>
+          <p>© {new Date().getFullYear()} Champions CV. Todos los derechos reservados.</p>
 
           <div className="flex gap-6">
-            <a
-              href="#"
-              className="transition-colors duration-200 hover:text-gray-200"
-            >
+            <a href="#" className="transition-colors duration-200 hover:text-gray-200">
               Políticas de Privacidad
             </a>
-            <a
-              href="#"
-              className="transition-colors duration-200 hover:text-gray-200"
-            >
+            <a href="#" className="transition-colors duration-200 hover:text-gray-200">
               Términos y Condiciones
             </a>
           </div>

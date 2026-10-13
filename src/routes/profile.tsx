@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { ProfilePage } from "@/components/profile/ProfilePage";
 import { ProfileLayout } from "@/components/profile/ProfileLayout";
 import { ProtectedRoute } from "@/components/auth/ProtectedRoute";
-import { CVProvider } from "@/context/cv-context"; // <--- 1. Importa tu CVProvider
+import { CVProvider } from "@/context/CVProvider";
 
 export const Route = createFileRoute("/profile")({
   component: RouteComponent,
@@ -11,7 +11,7 @@ export const Route = createFileRoute("/profile")({
 function RouteComponent() {
   return (
     <ProtectedRoute>
-      <CVProvider> 
+      <CVProvider>
         <ProfileLayout>
           <ProfilePage />
         </ProfileLayout>

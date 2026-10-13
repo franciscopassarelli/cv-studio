@@ -13,9 +13,7 @@ export function PlanSummary() {
   return (
     <aside className="rounded-3xl border border-gray-200/80 bg-white p-6 sm:p-8 shadow-sm dark:border-zinc-800 dark:bg-zinc-950">
       <div className="flex items-center justify-between">
-        <h2 className="text-xl font-bold text-gray-900 dark:text-white">
-          Resumen del plan
-        </h2>
+        <h2 className="text-xl font-bold text-gray-900 dark:text-white">Resumen del plan</h2>
         <span className="inline-flex items-center gap-1 rounded-full bg-orange-500/10 px-3 py-1 text-xs font-semibold text-orange-600 dark:text-orange-400">
           <Sparkles className="h-3.5 w-3.5" />
           Pro
@@ -32,9 +30,7 @@ export function PlanSummary() {
           <span className="text-4xl sm:text-5xl font-black text-gray-900 dark:text-white tracking-tight">
             $4.999
           </span>
-          <span className="text-sm font-semibold text-gray-500 dark:text-gray-400">
-            ARS / mes
-          </span>
+          <span className="text-sm font-semibold text-gray-500 dark:text-gray-400">ARS / mes</span>
         </div>
       </div>
 

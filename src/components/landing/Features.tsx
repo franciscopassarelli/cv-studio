@@ -1,11 +1,4 @@
-import {
-  FileText,
-  Palette,
-  Download,
-  ShieldCheck,
-  Sparkles,
-  Clock3,
-} from "lucide-react";
+import { FileText, Palette, Download, ShieldCheck, Sparkles, Clock3 } from "lucide-react";
 
 const features = [
   {
@@ -66,8 +59,8 @@ export function Features() {
           </h2>
 
           <p className="mt-5 text-lg text-muted-foreground">
-            Una herramienta simple e intuitiva para construir currículums modernos,
-            profesionales y listos para conseguir más entrevistas.
+            Una herramienta simple e intuitiva para construir currículums modernos, profesionales y
+            listos para conseguir más entrevistas.
           </p>
         </div>
 
@@ -87,13 +80,9 @@ export function Features() {
                     <Icon className="h-7 w-7" />
                   </div>
 
-                  <h3 className="mb-3 text-xl font-bold text-gray-900">
-                    {feature.title}
-                  </h3>
+                  <h3 className="mb-3 text-xl font-bold text-gray-900">{feature.title}</h3>
 
-                  <p className="text-sm leading-relaxed text-gray-600">
-                    {feature.description}
-                  </p>
+                  <p className="text-sm leading-relaxed text-gray-600">{feature.description}</p>
                 </div>
               </div>
             );

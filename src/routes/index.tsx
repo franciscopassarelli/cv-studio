@@ -18,21 +18,21 @@ function Home() {
     <>
       <Navbar />
 
-  <Hero />
+      <Hero />
 
-  <Features />
+      <Features />
 
-  <Templates />
+      <Templates />
 
-  <HowItWorks />
+      <HowItWorks />
 
-  <Pricing />
+      <Pricing />
 
-  <FAQ />
+      <FAQ />
 
-  <CTA />
+      <CTA />
 
-  <Footer />
+      <Footer />
     </>
   );
 }

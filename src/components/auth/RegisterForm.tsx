@@ -14,10 +14,7 @@ export function RegisterForm() {
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
-  const redirectTo =
-    typeof search.redirectTo === "string"
-      ? search.redirectTo
-      : "/profile";
+  const redirectTo = typeof search.redirectTo === "string" ? search.redirectTo : "/profile";
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -44,44 +41,38 @@ export function RegisterForm() {
   }
 
   async function handleGoogle() {
-  setError(null);
-  setLoading(true);
+    setError(null);
+    setLoading(true);
 
-  try {
-    await signInWithGoogle();
+    try {
+      await signInWithGoogle();
 
-    // Firebase ya autenticó al usuario.
-    // Esperamos un tick para que el estado de auth se sincronice.
-    await new Promise((resolve) => setTimeout(resolve, 100));
+      // Firebase ya autenticó al usuario.
+      // Esperamos un tick para que el estado de auth se sincronice.
+      await new Promise((resolve) => setTimeout(resolve, 100));
 
-    navigate({
-      to: redirectTo,
-    });
-  } catch (error) {
-    console.error("Error al iniciar sesión con Google:", error);
-    setError("No pudimos iniciar sesión con Google.");
-  } finally {
-    setLoading(false);
+      navigate({
+        to: redirectTo,
+      });
+    } catch (error) {
+      console.error("Error al iniciar sesión con Google:", error);
+      setError("No pudimos iniciar sesión con Google.");
+    } finally {
+      setLoading(false);
+    }
   }
-}
 
   return (
     <div className="w-full max-w-md rounded-2xl border border-gray-200 bg-white p-7 shadow-xl">
       <div className="mb-6 text-center">
-        <h1 className="text-3xl font-bold text-gray-900">
-          Crear cuenta
-        </h1>
+        <h1 className="text-3xl font-bold text-gray-900">Crear cuenta</h1>
 
-        <p className="mt-2 text-sm text-gray-500">
-          Empezá a crear tus CVs profesionales
-        </p>
+        <p className="mt-2 text-sm text-gray-500">Empezá a crear tus CVs profesionales</p>
       </div>
 
       <form className="space-y-4" onSubmit={handleSubmit}>
         <div>
-          <label className="mb-1.5 block text-sm font-medium text-gray-700">
-            Nombre completo
-          </label>
+          <label className="mb-1.5 block text-sm font-medium text-gray-700">Nombre completo</label>
 
           <input
             type="text"
@@ -94,9 +85,7 @@ export function RegisterForm() {
         </div>
 
         <div>
-          <label className="mb-1.5 block text-sm font-medium text-gray-700">
-            Email
-          </label>
+          <label className="mb-1.5 block text-sm font-medium text-gray-700">Email</label>
 
           <input
             type="email"
@@ -109,9 +98,7 @@ export function RegisterForm() {
         </div>
 
         <div>
-          <label className="mb-1.5 block text-sm font-medium text-gray-700">
-            Contraseña
-          </label>
+          <label className="mb-1.5 block text-sm font-medium text-gray-700">Contraseña</label>
 
           <input
             type="password"
@@ -139,11 +126,7 @@ export function RegisterForm() {
           />
         </div>
 
-        {error && (
-          <p className="rounded-lg bg-red-50 p-3 text-sm text-red-600">
-            {error}
-          </p>
-        )}
+        {error && <p className="rounded-lg bg-red-50 p-3 text-sm text-red-600">{error}</p>}
 
         <button
           type="submit"
@@ -186,7 +169,6 @@ export function RegisterForm() {
         </svg>
         {loading ? "Ingresando..." : "Continuar con Google"}
       </button>
-
 
       <p className="mt-5 text-center text-sm text-gray-500">
         ¿Ya tenés una cuenta?{" "}
