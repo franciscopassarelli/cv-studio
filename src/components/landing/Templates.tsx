@@ -2,16 +2,12 @@ import { Link } from "@tanstack/react-router";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Crown, ArrowRight, Sparkles } from "lucide-react";
+import type { TemplateId } from "@/types/cv-types";
 
-type TemplateLayout =
-  | "minimal"
-  | "classic"
-  | "sidebar"
-  | "header-dark"
-  | "techie";
+type TemplateLayout = "minimal" | "classic" | "sidebar" | "header-dark" | "techie";
 
 interface TemplateItem {
-  id: string;
+  id: TemplateId;
   name: string;
   description: string;
   premium: boolean;
@@ -20,35 +16,35 @@ interface TemplateItem {
 
 const templates: TemplateItem[] = [
   {
-    id: "minimalista",
+    id: "minimalist",
     name: "Minimalista",
     description: "Serif, elegante y limpio. Enfoque puro en legibilidad.",
     premium: false,
     layout: "minimal",
   },
   {
-    id: "profesional",
+    id: "professional",
     name: "Profesional",
     description: "Diseño clásico equilibrado en dos columnas.",
     premium: false,
     layout: "classic",
   },
   {
-    id: "moderna",
+    id: "modern",
     name: "Moderna",
     description: "Sidebar lateral destacado para habilidades y datos clave.",
     premium: false,
     layout: "sidebar",
   },
   {
-    id: "ats-friendly",
+    id: "ats",
     name: "ATS Friendly",
     description: "Estructura optimizada 100% para escaneo de bots de RRHH.",
     premium: false,
     layout: "minimal",
   },
   {
-    id: "ejecutiva",
+    id: "executive",
     name: "Ejecutiva",
     description: "Header oscuro elegante para cargos senior y directivos.",
     premium: true,
@@ -83,8 +79,8 @@ export function Templates() {
           </h2>
 
           <p className="mt-5 text-lg text-muted-foreground">
-            Elegí una plantilla optimizada para ATS y creá un currículum que
-            transmita profesionalismo desde el primer vistazo.
+            Elegí una plantilla optimizada para ATS y creá un currículum que transmita
+            profesionalismo desde el primer vistazo.
           </p>
         </div>
 
@@ -197,13 +193,9 @@ export function Templates() {
 
               {/* Contenido / Botón */}
               <div className="p-6">
-                <h3 className="text-xl font-bold text-gray-900">
-                  {template.name}
-                </h3>
+                <h3 className="text-xl font-bold text-gray-900">{template.name}</h3>
 
-                <p className="mt-2 min-h-[40px] text-sm text-gray-600">
-                  {template.description}
-                </p>
+                <p className="mt-2 min-h-[40px] text-sm text-gray-600">{template.description}</p>
 
                 {template.premium ? (
                   <Button

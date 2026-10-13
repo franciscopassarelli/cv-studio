@@ -1,13 +1,7 @@
 import { Eye } from "lucide-react";
 import { CVPreview } from "@/components/cv/CVPreview";
 import { DownloadPDFButton } from "@/components/cv/DownloadPDFButton";
-import {
-  Sheet,
-  SheetContent,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from "@/components/ui/sheet";
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
 
 interface BuilderPreviewProps {
@@ -31,7 +25,9 @@ export function BuilderPreview({ disabled = false }: BuilderPreviewProps) {
         </div>
 
         {/* Preview */}
-        <div className={`h-[calc(100%-3rem)] overflow-auto ${disabled ? "pointer-events-none opacity-60" : ""}`}>
+        <div
+          className={`h-[calc(100%-3rem)] overflow-auto ${disabled ? "pointer-events-none opacity-60" : ""}`}
+        >
           <CVPreview />
         </div>
       </div>

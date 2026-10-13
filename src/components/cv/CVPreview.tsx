@@ -1,16 +1,27 @@
 import { useCV } from "@/context/cv-context";
 import {
-  MinimalistTemplate, ProfessionalTemplate, ModernTemplate,
-  ElegantTemplate, CreativeTemplate, ATSTemplate, A4_WIDTH, A4_HEIGHT,
+  MinimalistTemplate,
+  ProfessionalTemplate,
+  ModernTemplate,
+  ElegantTemplate,
+  CreativeTemplate,
+  ATSTemplate,
+  A4_WIDTH,
+  A4_HEIGHT,
 } from "./templates";
 import {
-  ExecutiveTemplate, TechieTemplate, AcademicTemplate,
-  EditorialTemplate, GradientTemplate, CompactTemplate,
+  ExecutiveTemplate,
+  TechieTemplate,
+  AcademicTemplate,
+  EditorialTemplate,
+  GradientTemplate,
+  CompactTemplate,
 } from "./templates-premium";
-import type { TemplateId } from "@/types/cv-types";
+import type { CVData, TemplateId } from "@/types/cv-types";
 import { useEffect, useRef, useState } from "react";
+import { requestFieldFocus } from "@/lib/cv-focus";
 
-const TEMPLATES: Record<TemplateId, React.ComponentType<{ data: import("@/types/cv-types").CVData }>> = {
+const TEMPLATES: Record<TemplateId, React.ComponentType<{ data: CVData }>> = {
   minimalist: MinimalistTemplate,
   professional: ProfessionalTemplate,
   modern: ModernTemplate,
@@ -24,145 +35,87 @@ const TEMPLATES: Record<TemplateId, React.ComponentType<{ data: import("@/types/
   gradient: GradientTemplate,
   compact: CompactTemplate,
 };
-export function CVPreview() {
 
-const { data, template } = useCV();
+const EDITABLE_CSS = `
+:where(.cv-editable [data-cv-field]) {
+  cursor: pointer;
+  outline: 2px dashed transparent;
+  outline-offset: 3px;
+  transition: outline-color .15s ease, background-color .15s ease;
+}
+:where(.cv-editable [data-cv-field]:hover:not(:has([data-cv-field]:hover))) {
+  outline-color: rgb(249 115 22 / .75);
+  background-color: rgb(249 115 22 / .06);
+}
+`;
 
-const containerRef = useRef<HTMLDivElement>(null);
-
-const [scale,setScale]=useState(1);
-const [changing,setChanging]=useState(false);
-
-
-
-useEffect(()=>{
-
-function recalc(){
-
-const el=containerRef.current;
-
-if(!el)return;
-
-const width=el.clientWidth-32;
-
-setScale(
-Math.min(
-1.2,
-Math.max(
-0.5,
-width/A4_WIDTH
-)
-)
-);
-
+interface CVPreviewProps {
+  interactive?: boolean;
 }
 
+export function CVPreview({ interactive = true }: CVPreviewProps) {
+  const { data, template } = useCV();
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [scale, setScale] = useState(1);
+  const [changing, setChanging] = useState(false);
 
-recalc();
+  // Escala la hoja A4 al ancho disponible. ResizeObserver en vez de
+  // window.resize: también reacciona si cambia el ancho del panel.
+  useEffect(() => {
+    const el = containerRef.current;
+    if (!el) return;
 
-window.addEventListener(
-"resize",
-recalc
-);
+    const recalc = () => {
+      const width = el.clientWidth - 32;
+      setScale(Math.min(1.2, Math.max(0.5, width / A4_WIDTH)));
+    };
 
+    recalc();
+    const ro = new ResizeObserver(recalc);
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, []);
 
-return ()=>window.removeEventListener(
-"resize",
-recalc
-);
+  // Pequeña transición al cambiar de plantilla
+  useEffect(() => {
+    setChanging(true);
+    const timer = setTimeout(() => setChanging(false), 200);
+    return () => clearTimeout(timer);
+  }, [template]);
 
+  // Delegación de eventos: un solo onClick para toda la plantilla
+  const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!interactive) return;
+    const target = (e.target as HTMLElement).closest<HTMLElement>("[data-cv-field]");
+    const path = target?.dataset.cvField;
+    if (path) requestFieldFocus(path);
+  };
 
-},[]);
+  const Tpl = TEMPLATES[template] ?? MinimalistTemplate;
 
+  return (
+    <div ref={containerRef} className="flex justify-center py-8">
+      {interactive && <style>{EDITABLE_CSS}</style>}
 
-
-useEffect(()=>{
-
-setChanging(true);
-
-const timer=setTimeout(
-()=>setChanging(false),
-200
-);
-
-return ()=>clearTimeout(timer);
-
-},[template]);
-
-
-
-const Tpl =
-TEMPLATES[template] ??
-MinimalistTemplate;
-
-
-
-return (
-
-<div
-ref={containerRef}
-className="
-flex
-justify-center
-py-8
-"
->
-
-
-<div
-style={{
-width:A4_WIDTH*scale,
-height:A4_HEIGHT*scale
-}}
->
-
-
-<div
-
-style={{
-
-transform:`scale(${scale})`,
-
-transformOrigin:"top left",
-
-width:A4_WIDTH,
-
-height:A4_HEIGHT
-
-}}
-
-className={`
-overflow-hidden
-rounded-sm
-bg-white
-shadow-2xl
-ring-1
-ring-black/10
-transition-all
-duration-300
-
-${changing
-?
-"opacity-50 scale-[0.98]"
-:
-"opacity-100"
-}
-
-`}
->
-
-
-<Tpl data={data}/>
-
-
-</div>
-
-
-</div>
-
-
-</div>
-
-)
-
+      <div style={{ width: A4_WIDTH * scale, height: A4_HEIGHT * scale }}>
+        <div
+          onClick={handleClick}
+          style={{
+            transform: `scale(${scale})`,
+            transformOrigin: "top left",
+            width: A4_WIDTH,
+            height: A4_HEIGHT,
+          }}
+          className={`
+            overflow-hidden rounded-sm bg-white shadow-2xl ring-1 ring-black/10
+            transition-all duration-300
+            ${interactive ? "cv-editable" : ""}
+            ${changing ? "opacity-50 scale-[0.98]" : "opacity-100"}
+          `}
+        >
+          <Tpl data={data} />
+        </div>
+      </div>
+    </div>
+  );
 }

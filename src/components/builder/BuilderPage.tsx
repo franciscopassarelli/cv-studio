@@ -1,27 +1,57 @@
 import { useEffect, useState } from "react";
+import { Link, useSearch } from "@tanstack/react-router";
+import { ArrowLeft } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
+import { useCV } from "@/context/cv-context";
+import type { TemplateId } from "@/types/cv-types";
 import { CVForm } from "@/components/cv/CVForm";
 import { LoginRequiredModal } from "@/components/auth/LoginRequiredModal";
 import { BuilderTopBar } from "./BuilderTopBar";
 import { BuilderPreview } from "./BuilderPreview";
 import { BuilderTemplatesPanel } from "./BuilderTemplatesPanel";
-import { Link } from "@tanstack/react-router";
-import { ArrowLeft } from "lucide-react";
 import { WelcomeModal } from "../modals/WelcomeModal";
 
+// Ids que puede traer ?template=... en la URL.
+// Incluye los viejos en español por si alguien tiene un link guardado.
+const TEMPLATE_ALIASES: Record<string, TemplateId> = {
+  minimalist: "minimalist",
+  professional: "professional",
+  modern: "modern",
+  ats: "ats",
+  elegant: "elegant",
+  creative: "creative",
+  executive: "executive",
+  techie: "techie",
+  academic: "academic",
+  editorial: "editorial",
+  gradient: "gradient",
+  compact: "compact",
+  minimalista: "minimalist",
+  profesional: "professional",
+  moderna: "modern",
+  "ats-friendly": "ats",
+  ejecutiva: "executive",
+};
 
 export function BuilderPage() {
   const { user, loading } = useAuth();
+  const { setTemplate } = useCV();
+  const search = useSearch({ strict: false }) as { template?: string };
 
   const isGuest = !loading && !user;
-
   const [loginModalOpen, setLoginModalOpen] = useState(false);
 
+  // Modal de login para invitados
   useEffect(() => {
     if (loading) return;
-
     setLoginModalOpen(isGuest);
   }, [loading, isGuest]);
+
+  // Plantilla elegida desde la landing (?template=...)
+  useEffect(() => {
+    const id = search.template ? TEMPLATE_ALIASES[search.template] : undefined;
+    if (id) setTemplate(id);
+  }, [search.template, setTemplate]);
 
   return (
     <>
@@ -51,10 +81,7 @@ export function BuilderPage() {
       </div>
 
       {!loading && isGuest && (
-        <LoginRequiredModal
-          open={loginModalOpen}
-          onOpenChange={setLoginModalOpen}
-        />
+        <LoginRequiredModal open={loginModalOpen} onOpenChange={setLoginModalOpen} />
       )}
 
       <WelcomeModal />

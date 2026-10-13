@@ -28,7 +28,13 @@ export function TemplateSelector() {
 }
 
 function TemplateGroup({
-  label, items, selected, onSelect, badgeClass, icon, premiumUnlocked,
+  label,
+  items,
+  selected,
+  onSelect,
+  badgeClass,
+  icon,
+  premiumUnlocked,
 }: {
   label: string;
   items: typeof TEMPLATE_CATALOG;
@@ -41,7 +47,12 @@ function TemplateGroup({
   return (
     <div>
       <div className="mb-2 flex items-center gap-2">
-        <span className={cn("inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[10px] font-semibold", badgeClass)}>
+        <span
+          className={cn(
+            "inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[10px] font-semibold",
+            badgeClass,
+          )}
+        >
           {icon}
           {label}
         </span>
@@ -57,7 +68,7 @@ function TemplateGroup({
               type="button"
               onClick={() => onSelect(t.id)}
               className={cn(
-                "group relative text-left rounded-lg border p-2 transition-all",
+                "group relative text-left rounded-lg border p-2 transition-all cursor-pointer focus:outline-none focus:ring-2 focus:ring-primary/50",
                 active
                   ? "border-primary bg-primary/5 ring-2 ring-primary/20"
                   : "border-border hover:border-primary/50 hover:bg-accent/40",
@@ -246,7 +257,10 @@ function TemplateThumb({ id, active }: { id: TemplateId; active: boolean }) {
     case "gradient":
       return (
         <div className="rounded-md aspect-[3/4] overflow-hidden flex flex-col bg-white border border-black/10">
-          <div className={`h-1/3 ${accent} p-1`} style={{ backgroundImage: "linear-gradient(135deg, currentColor, #111827)" }}>
+          <div
+            className={`h-1/3 ${accent} p-1`}
+            style={{ backgroundImage: "linear-gradient(135deg, currentColor, #111827)" }}
+          >
             <div className="h-1 w-3/4 bg-white/90 rounded" />
             <div className="h-0.5 w-1/2 bg-white/70 rounded mt-1" />
           </div>

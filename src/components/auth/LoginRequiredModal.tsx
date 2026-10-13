@@ -14,10 +14,7 @@ interface LoginRequiredModalProps {
   onOpenChange: (open: boolean) => void;
 }
 
-export function LoginRequiredModal({
-  open,
-  onOpenChange,
-}: LoginRequiredModalProps) {
+export function LoginRequiredModal({ open, onOpenChange }: LoginRequiredModalProps) {
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-md rounded-2xl">
@@ -26,22 +23,16 @@ export function LoginRequiredModal({
             <LogIn className="h-7 w-7" />
           </div>
 
-          <DialogTitle className="text-xl">
-            Necesitás iniciar sesión
-          </DialogTitle>
+          <DialogTitle className="text-xl">Necesitás iniciar sesión</DialogTitle>
 
           <DialogDescription className="pt-2 text-sm leading-6">
-            Podés explorar el creador de CV y ver las plantillas disponibles,
-            pero necesitás una cuenta para comenzar a crear y guardar tu
-            currículum.
+            Podés explorar el creador de CV y ver las plantillas disponibles, pero necesitás una
+            cuenta para comenzar a crear y guardar tu currículum.
           </DialogDescription>
         </DialogHeader>
 
         <div className="mt-4 flex flex-col gap-3">
-          <Button
-            asChild
-            className="w-full bg-orange-500 text-white hover:bg-orange-600"
-          >
+          <Button asChild className="w-full bg-orange-500 text-white hover:bg-orange-600">
             <Link
               to="/login"
               search={{
@@ -53,11 +44,7 @@ export function LoginRequiredModal({
             </Link>
           </Button>
 
-          <Button
-            asChild
-            variant="outline"
-            className="w-full"
-          >
+          <Button asChild variant="outline" className="w-full">
             <Link
               to="/register"
               search={{

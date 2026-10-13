@@ -1,7 +1,3 @@
-// Premium package config. Prepared for future Mercado Pago integration.
-// Point of extension: swap the checkout stub for a real API call, and
-// derive `isPremium` from backend / auth state instead of local context.
-
 export interface PremiumPlan {
   id: string;
   name: string;
@@ -40,17 +36,11 @@ interface CheckoutOptions {
   userEmail?: string;
 }
 
-/**
- * Stub para el checkout. Cuando integremos Mercado Pago se sustituye por
- * una llamada a `createServerFn` que genere una preferencia de pago
- * (`preferences.create`) y devuelva `init_point` para redirigir al usuario.
- */
 export async function startPremiumCheckout({
   plan = PREMIUM_PLAN,
   userId,
   userEmail,
 }: CheckoutOptions = {}): Promise<void> {
-  // TODO: reemplazar con llamada real a backend / Mercado Pago SDK
   console.info("[premium] checkout requested for", {
     planId: plan.id,
     userId,

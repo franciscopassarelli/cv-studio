@@ -22,7 +22,6 @@ export function BuilderTopBar() {
   return (
     <header className="sticky top-0 z-30 border-b border-gray-200/85 bg-white/90 backdrop-blur-md">
       <div className="mx-auto flex max-w-[1600px] items-center justify-between px-4 py-2.5">
-        
         {/* LOGO & BRAND */}
         <Link to="/" className="group flex min-w-0 items-center gap-2.5">
           <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl border border-orange-400/30 bg-gradient-to-br from-orange-500 via-amber-500 to-rose-500 text-white shadow-md shadow-orange-500/20 transition-transform duration-300 group-hover:scale-105">
@@ -96,20 +95,13 @@ export function BuilderTopBar() {
               className="flex items-center gap-2 rounded-xl p-1 transition-colors duration-200 hover:bg-gray-100"
             >
               <Avatar className="h-8 w-8 border border-orange-200">
-                <AvatarImage
-                  src={user.photoURL ?? ""}
-                  alt={user.displayName ?? "Mi perfil"}
-                />
+                <AvatarImage src={user.photoURL ?? ""} alt={user.displayName ?? "Mi perfil"} />
                 <AvatarFallback className="bg-orange-100 font-bold text-orange-600">
-                  {user.displayName?.charAt(0).toUpperCase() ?? (
-                    <User className="h-4 w-4" />
-                  )}
+                  {user.displayName?.charAt(0).toUpperCase() ?? <User className="h-4 w-4" />}
                 </AvatarFallback>
               </Avatar>
 
-              <span className="hidden text-xs font-bold text-gray-700 md:inline">
-                Mi perfil
-              </span>
+              <span className="hidden text-xs font-bold text-gray-700 md:inline">Mi perfil</span>
             </Link>
           ) : (
             <Button

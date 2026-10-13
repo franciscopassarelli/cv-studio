@@ -43,6 +43,7 @@ export function isPremiumTemplate(id: TemplateId): boolean {
 }
 
 export interface Personal {
+  photo: string;
   fullName: string;
   title: string;
   email: string;
@@ -78,7 +79,7 @@ export interface Education {
 export interface Skill {
   id: string;
   name: string;
-  level: number; // 1-5
+  level: number;
 }
 
 export interface TechItem {
@@ -96,7 +97,7 @@ export interface Certification {
 export interface Language {
   id: string;
   name: string;
-  level: string; // Nativo, C2, C1, B2...
+  level: string;
 }
 
 export interface CVData {
@@ -107,7 +108,7 @@ export interface CVData {
   skills: Skill[];
   certifications: Certification[];
   languages: Language[];
-  accent: string; // hex
+  accent: string;
 }
 
 export const emptyCV: CVData = {
@@ -121,6 +122,7 @@ export const emptyCV: CVData = {
     linkedin: "",
     github: "",
     summary: "",
+    photo: "",
   },
   experience: [],
   education: [],
@@ -143,6 +145,7 @@ export const sampleCV: CVData = {
     github: "github.com/anamartinez",
     summary:
       "Desarrolladora full-stack con 6+ años de experiencia diseñando y construyendo aplicaciones web modernas con React, Node.js y bases de datos escalables. Apasionada por el diseño de producto, la performance y la experiencia de usuario.",
+    photo: "",
   },
   experience: [
     {
@@ -211,8 +214,18 @@ export function formatDate(d: string): string {
   const [y, m] = d.split("-");
   if (!y) return d;
   const months = [
-    "Ene", "Feb", "Mar", "Abr", "May", "Jun",
-    "Jul", "Ago", "Sep", "Oct", "Nov", "Dic",
+    "Ene",
+    "Feb",
+    "Mar",
+    "Abr",
+    "May",
+    "Jun",
+    "Jul",
+    "Ago",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dic",
   ];
   const mi = parseInt(m ?? "0", 10) - 1;
   if (m && mi >= 0 && mi < 12) return `${months[mi]} ${y}`;

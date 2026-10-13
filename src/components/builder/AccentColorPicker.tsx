@@ -1,11 +1,7 @@
 import { Palette } from "lucide-react";
 import { useCV } from "@/context/cv-context";
 import { Button } from "@/components/ui/button";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 
 const COLORS = [
   "#2563eb",
@@ -29,9 +25,7 @@ export function AccentColorPicker() {
         <Button variant="ghost" size="sm">
           <Palette className="h-4 w-4" />
 
-          <span className="hidden sm:inline">
-            Color
-          </span>
+          <span className="hidden sm:inline">Color</span>
 
           <span
             className="ml-1 inline-block h-3 w-3 rounded-full border"
@@ -58,10 +52,7 @@ export function AccentColorPicker() {
               className="h-7 w-7 rounded-full border transition-transform hover:scale-110"
               style={{
                 backgroundColor: color,
-                outline:
-                  data.accent === color
-                    ? "2px solid black"
-                    : "none",
+                outline: data.accent === color ? "2px solid black" : "none",
                 outlineOffset: 2,
               }}
             />
@@ -69,9 +60,7 @@ export function AccentColorPicker() {
         </div>
 
         <div className="mt-3">
-          <label className="text-[10px] text-muted-foreground">
-            Personalizado
-          </label>
+          <label className="text-[10px] text-muted-foreground">Personalizado</label>
 
           <input
             type="color"
@@ -89,4 +78,3 @@ export function AccentColorPicker() {
     </Popover>
   );
 }
-

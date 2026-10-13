@@ -8,16 +8,9 @@ import { saveCV } from "@/services/cv.service";
 import { useAuth } from "@/hooks/useAuth";
 
 export function DownloadPDFButton() {
-  const {
-  data,
-  template,
-  currentCVId,
-  setCurrentCVId,
-  isPremium,
-  openPremiumModal,
-} = useCV();
+  const { data, template, currentCVId, setCurrentCVId, isPremium, openPremiumModal } = useCV();
 
-const { user } = useAuth();
+  const { user } = useAuth();
   const [loading, setLoading] = useState(false);
 
   const requiresPremium = isPremiumTemplate(template) && !isPremium;
@@ -30,28 +23,27 @@ const { user } = useAuth();
     setLoading(true);
     try {
       if (!currentCVId) {
-  if (!user) {
-    throw new Error("Usuario no autenticado.");
-  }
+        if (!user) {
+          throw new Error("Usuario no autenticado.");
+        }
 
-  const id = await saveCV({
-    userId: user.uid,
+        const id = await saveCV({
+          userId: user.uid,
 
-    title:
-      data.personal.title
-        ? `${data.personal.fullName} - ${data.personal.title}`
-        : data.personal.fullName || "Nuevo CV",
+          title: data.personal.title
+            ? `${data.personal.fullName} - ${data.personal.title}`
+            : data.personal.fullName || "Nuevo CV",
 
-    template,
+          template,
 
-    data,
-  });
+          data,
+        });
 
-  setCurrentCVId(id);
+        setCurrentCVId(id);
 
-  toast.success("CV guardado correctamente");
-}
-      const [{ pdf }, { renderPDFDocument }] = await  Promise.all([
+        toast.success("CV guardado correctamente");
+      }
+      const [{ pdf }, { renderPDFDocument }] = await Promise.all([
         import("@react-pdf/renderer"),
         import("./pdf-templates"),
       ]);
