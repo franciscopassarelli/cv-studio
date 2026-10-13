@@ -1,12 +1,13 @@
 import js from "@eslint/js";
 import eslintPluginPrettier from "eslint-plugin-prettier/recommended";
-import globals from "globals";
 import reactHooks from "eslint-plugin-react-hooks";
 import reactRefresh from "eslint-plugin-react-refresh";
+import globals from "globals";
 import tseslint from "typescript-eslint";
 
 export default tseslint.config(
-  { ignores: ["dist", ".output", ".vinxi"] },
+  // functions/ es otro proyecto (Cloud Functions), tiene su propia config
+  { ignores: ["dist", ".output", ".vinxi", "functions", "src/routeTree.gen.ts"] },
   {
     extends: [js.configs.recommended, ...tseslint.configs.recommended],
     files: ["**/*.{ts,tsx}"],
@@ -33,7 +34,20 @@ export default tseslint.config(
         },
       ],
       "react-refresh/only-export-components": ["warn", { allowConstantExport: true }],
-      "@typescript-eslint/no-unused-vars": "off",
+      "@typescript-eslint/no-unused-vars": ["warn", { argsIgnorePattern: "^_" }],
+      "@typescript-eslint/no-explicit-any": "warn",
+      "no-console": ["warn", { allow: ["warn", "error"] }],
+    },
+  },
+  // Archivos que mezclan componentes con helpers a propósito
+  {
+    files: [
+      "src/components/ui/**",
+      "src/components/cv/pdf-templates*.tsx",
+      "src/components/cv/template-helpers.tsx",
+    ],
+    rules: {
+      "react-refresh/only-export-components": "off",
     },
   },
   eslintPluginPrettier,
