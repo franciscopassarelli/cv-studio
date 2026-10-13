@@ -1,16 +1,16 @@
+import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
+  DialogDescription,
   DialogHeader,
   DialogTitle,
-  DialogDescription,
 } from "@/components/ui/dialog";
-import { Button } from "@/components/ui/button";
 import { useCV } from "@/context/cv-context";
-import { TEMPLATE_CATALOG } from "@/types/cv-types";
-import { Crown, Check, Sparkles } from "lucide-react";
 import { PREMIUM_PLAN } from "@/lib/premium";
+import { TEMPLATE_CATALOG } from "@/types/cv-types";
 import { Link } from "@tanstack/react-router";
+import { Check, Crown, Sparkles } from "lucide-react";
 
 export function PremiumModal() {
   const { premiumModalOpen, closePremiumModal, setTemplate } = useCV();
@@ -96,7 +96,7 @@ export function PremiumModal() {
               onClick={handleKeepFree}
               variant="ghost"
               size="sm"
-              className="font-medium text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
+              className="font-medium text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-dark:text-gray-200"
             >
               Seguir usando plantillas gratuitas
             </Button>

@@ -18,11 +18,11 @@ export function CheckoutHeader() {
           <span>Champions CV Premium</span>
         </div>
 
-        <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-gray-900 dark:text-white">
+        <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-gray-900 dark:text-dark:text-gray-100">
           Finalizar compra
         </h1>
 
-        <p className="max-w-xl text-sm sm:text-base font-medium text-gray-600 dark:text-gray-300 leading-relaxed">
+        <p className="max-w-xl text-sm sm:text-base font-medium text-gray-600 dark:text-gray-900 leading-relaxed">
           Desbloqueá todas las herramientas y plantillas profesionales para crear tu currículum sin
           límites.
         </p>

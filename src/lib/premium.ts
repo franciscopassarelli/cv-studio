@@ -1,7 +1,7 @@
 export interface PremiumPlan {
   id: string;
   name: string;
-  price: string; 
+  price: string;
   currency: string;
   benefits: string[];
 }

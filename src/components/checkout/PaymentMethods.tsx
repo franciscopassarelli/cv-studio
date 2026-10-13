@@ -8,18 +8,17 @@ import { toast } from "sonner";
 export function PaymentMethods() {
   const { user } = useAuth();
   const [isLoading, setIsLoading] = useState(false);
-  
 
   const handlePayment = async () => {
     try {
-       setIsLoading(true);
-       await createPaymentPreference();
-        } catch (error) {
-          console.error("Error al iniciar el checkout de Mercado Pago:", error);
-          toast.error(error instanceof Error ? error.message : "No se pudo iniciar el pago.");
-         setIsLoading(false);
-        }
-      };
+      setIsLoading(true);
+      await createPaymentPreference();
+    } catch (error) {
+      console.error("Error al iniciar el checkout de Mercado Pago:", error);
+      toast.error(error instanceof Error ? error.message : "No se pudo iniciar el pago.");
+      setIsLoading(false);
+    }
+  };
 
   const isButtonDisabled = isLoading || !user;
 
