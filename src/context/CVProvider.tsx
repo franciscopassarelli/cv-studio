@@ -1,8 +1,9 @@
-import { useState, useEffect, type ReactNode } from "react";
-import { sampleCV, emptyCV, type CVData, type TemplateId } from "@/types/cv-types";
 import { useAuth } from "@/hooks/useAuth";
-import { doc, onSnapshot } from "firebase/firestore";
+import { clearDraft, readDraft, writeDraft } from "@/lib/cv-draft";
 import { db } from "@/lib/firebase";
+import { emptyCV, sampleCV, type CVData, type TemplateId } from "@/types/cv-types";
+import { doc, onSnapshot } from "firebase/firestore";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 import { CVContext } from "./cv-context";
 
 export function CVProvider({ children }: { children: ReactNode }) {
@@ -14,14 +15,41 @@ export function CVProvider({ children }: { children: ReactNode }) {
   const [currentCVId, setCurrentCVId] = useState<string | null>(null);
   const [welcomeModalOpen, setWelcomeModalOpen] = useState(false);
 
-  // Modal de bienvenida: usuario logueado, sin CV abierto y con el CV vacío
+  // Hay un CV armado que todavía no se descargó (no está en "Mis CVs")
+  const hasUnsavedCV = currentCVId === null && data !== emptyCV && data !== sampleCV;
+
+  // Al iniciar sesión (una sola vez por usuario): si hay borrador se retoma en silencio,
+  // si no, se abre el welcome. Así no se vuelve a abrir cada vez que cambia `data`.
+  const startupChecked = useRef<string | null>(null);
   useEffect(() => {
-    if (user && !currentCVId && data === emptyCV) {
+    if (!user || startupChecked.current === user.uid) return;
+    startupChecked.current = user.uid;
+    if (currentCVId || data !== emptyCV) return;
+
+    const draft = readDraft(user.uid);
+    if (draft) {
+      const d = draft.data;
+      // se mezcla con emptyCV por si el borrador es de una versión vieja con menos campos
+      setData({ ...emptyCV, ...d, personal: { ...emptyCV.personal, ...d.personal } });
+      setTemplate(draft.template);
+      setCurrentCVId(draft.currentCVId);
+    } else {
       setWelcomeModalOpen(true);
     }
   }, [user, currentCVId, data]);
 
-  // Plan premium: sale solo de Firestore (lo activa el pago)
+  // Autoguardado: emptyCV y sampleCV intactos no se guardan, solo lo que el usuario tocó
+  useEffect(() => {
+    if (!user) return;
+    if (data === emptyCV || data === sampleCV) return;
+
+    const t = setTimeout(() => {
+      writeDraft(user.uid, { data, template, currentCVId, savedAt: Date.now() });
+    }, 800);
+    return () => clearTimeout(t);
+  }, [user, data, template, currentCVId]);
+
+  // Plan premium: sale solo de Firestore, y respeta el vencimiento
   useEffect(() => {
     if (!user) {
       setIsPremium(false);
@@ -30,7 +58,12 @@ export function CVProvider({ children }: { children: ReactNode }) {
 
     const unsubscribe = onSnapshot(doc(db, "users", user.uid), (snap) => {
       const userData = snap.data();
-      setIsPremium(userData?.plan === "premium" && userData?.premium?.active === true);
+      const exp = userData?.premium?.expiresAt?.toMillis?.() ?? null;
+      setIsPremium(
+        userData?.plan === "premium" &&
+          userData?.premium?.active === true &&
+          (exp === null || exp > Date.now()),
+      );
     });
 
     return () => unsubscribe();
@@ -54,6 +87,7 @@ export function CVProvider({ children }: { children: ReactNode }) {
         template,
         setTemplate,
         reset: () => {
+          if (user) clearDraft(user.uid);
           setData(sampleCV);
           setTemplate("modern");
           setCurrentCVId(null);
@@ -69,6 +103,7 @@ export function CVProvider({ children }: { children: ReactNode }) {
         closeWelcomeModal: () => setWelcomeModalOpen(false),
         loadSampleData,
         clearData,
+        hasUnsavedCV,
       }}
     >
       {children}

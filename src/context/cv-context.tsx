@@ -1,5 +1,5 @@
-import { createContext, useContext } from "react";
 import type { CVData, TemplateId } from "@/types/cv-types";
+import { createContext, useContext } from "react";
 
 export interface CVContextValue {
   data: CVData;
@@ -18,6 +18,7 @@ export interface CVContextValue {
   closeWelcomeModal: () => void;
   loadSampleData: () => void;
   clearData: () => void;
+  hasUnsavedCV: boolean;
 }
 
 export const CVContext = createContext<CVContextValue | null>(null);

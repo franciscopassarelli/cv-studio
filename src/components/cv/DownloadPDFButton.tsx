@@ -1,15 +1,16 @@
 import { Button } from "@/components/ui/button";
 import { useCV } from "@/context/cv-context";
-import { isPremiumTemplate } from "@/types/cv-types";
+import { useAuth } from "@/hooks/useAuth";
+import { saveCV } from "@/services/cv.service";
+import { defaultStyle, isPremiumTemplate } from "@/types/cv-types";
 import { Crown, Download, Loader2 } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
-import { saveCV } from "@/services/cv.service";
-import { useAuth } from "@/hooks/useAuth";
+
 
 export function DownloadPDFButton() {
   const { data, template, currentCVId, setCurrentCVId, isPremium, openPremiumModal } = useCV();
-
+  
   const { user } = useAuth();
   const [loading, setLoading] = useState(false);
 
@@ -47,7 +48,8 @@ export function DownloadPDFButton() {
         import("@react-pdf/renderer"),
         import("./pdf-templates"),
       ]);
-      const doc = renderPDFDocument(template, data);
+      const exportData = isPremium ? data : { ...data, style: defaultStyle };
+      const doc = renderPDFDocument(template, exportData);
       const blob = await pdf(doc).toBlob();
       const url = URL.createObjectURL(blob);
       const a = document.createElement("a");

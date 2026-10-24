@@ -1,22 +1,22 @@
+import {
+  PREMIUM_CURRENCY,
+  PREMIUM_FEATURES,
+  PREMIUM_PERIOD,
+  PREMIUM_PRICE,
+} from "@/config/plan-features";
 import { Check, Sparkles } from "lucide-react";
 
-const features = [
-  "CVs ilimitados",
-  "Todas las plantillas exclusivas",
-  "Descargas en PDF de alta calidad",
-  "Optimización de palabras clave ATS",
-  "Cartas de presentación inteligentes",
-  "Sugerencias y mejoras con IA",
-];
-
 export function PlanSummary() {
+  // "ARS / mes" si es suscripción, "ARS · pago único" si no
+  const priceNote = PREMIUM_PERIOD ? `${PREMIUM_CURRENCY} ${PREMIUM_PERIOD}` : `${PREMIUM_CURRENCY} · pago único`;
+
   return (
     <aside className="rounded-3xl border border-gray-200/80 bg-white p-6 sm:p-8 shadow-sm dark:border-zinc-800 dark:bg-zinc-950">
       <div className="flex items-center justify-between">
         <h2 className="text-xl font-bold text-gray-900 dark:text-white">Resumen del plan</h2>
         <span className="inline-flex items-center gap-1 rounded-full bg-orange-500/10 px-3 py-1 text-xs font-semibold text-orange-600 dark:text-orange-400">
           <Sparkles className="h-3.5 w-3.5" />
-          Pro
+          Premium
         </span>
       </div>
 
@@ -28,9 +28,9 @@ export function PlanSummary() {
 
         <div className="mt-3 flex items-baseline gap-2">
           <span className="text-4xl sm:text-5xl font-black text-gray-900 dark:text-white tracking-tight">
-            $4.999
+            {PREMIUM_PRICE}
           </span>
-          <span className="text-sm font-semibold text-gray-500 dark:text-gray-400">ARS / mes</span>
+          <span className="text-sm font-semibold text-gray-500 dark:text-gray-400">{priceNote}</span>
         </div>
       </div>
 
@@ -43,7 +43,7 @@ export function PlanSummary() {
         </p>
 
         <ul className="space-y-3">
-          {features.map((feature) => (
+          {PREMIUM_FEATURES.map((feature) => (
             <li
               key={feature}
               className="flex items-center gap-3 text-sm font-medium text-gray-700 dark:text-gray-300"
@@ -63,15 +63,19 @@ export function PlanSummary() {
       <div className="space-y-2 text-sm">
         <div className="flex justify-between text-gray-500 dark:text-gray-400">
           <span>Subtotal</span>
-          <span>$4.999 ARS</span>
+          <span>
+            {PREMIUM_PRICE} {PREMIUM_CURRENCY}
+          </span>
         </div>
         <div className="flex justify-between text-emerald-600 dark:text-emerald-400 font-medium">
-          <span>Acceso total con IA</span>
+          <span>Plantillas y estilos Premium</span>
           <span>Incluido</span>
         </div>
         <div className="flex justify-between pt-2 text-base font-bold text-gray-900 dark:text-white border-t border-gray-100 dark:border-zinc-800">
-          <span>Total hoy</span>
-          <span className="text-orange-600 dark:text-orange-400">$4.999 ARS</span>
+          <span>{PREMIUM_PERIOD ? "Total hoy" : "Total"}</span>
+          <span className="text-orange-600 dark:text-orange-400">
+            {PREMIUM_PRICE} {PREMIUM_CURRENCY}
+          </span>
         </div>
       </div>
     </aside>

@@ -21,6 +21,19 @@ export interface TemplateMeta {
   tier: TemplateTier;
 }
 
+export type FontFamilyId = "default" | "sans" | "serif" | "mono";
+
+export interface CVStyle {
+  fontFamily: FontFamilyId; // "default" = la tipografía propia de cada plantilla
+  fontScale: number;        // 0.9 – 1.1
+}
+
+export const defaultStyle: CVStyle = { fontFamily: "default", fontScale: 1 };
+
+export function resolveStyle(data: CVData): CVStyle {
+  return { ...defaultStyle, ...data.style };
+}
+
 export const TEMPLATE_CATALOG: TemplateMeta[] = [
   // Free (4)
   { id: "minimalist", name: "Minimalista", description: "Serif · Elegante y limpio", tier: "free" },
@@ -109,6 +122,7 @@ export interface CVData {
   certifications: Certification[];
   languages: Language[];
   accent: string;
+  style?: Partial<CVStyle>;
 }
 
 export const emptyCV: CVData = {

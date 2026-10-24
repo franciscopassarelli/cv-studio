@@ -53,31 +53,48 @@ export const webhook = onRequest(
         return;
       }
 
-      const userRef = admin.firestore().collection("users").doc(userId);
-      const data = (await userRef.get()).data();
+            const db = admin.firestore();
+      const userRef = db.collection("users").doc(userId);
+      const paymentRef = db.collection("processedPayments").doc(String(paymentId));
 
-      if (data?.premium?.paymentId === String(paymentId)) {
+      const expiresAt = new Date();
+      expiresAt.setFullYear(expiresAt.getFullYear() + 1);
+
+      // Cada pago activa Premium una sola vez en la vida, aunque el webhook se repita
+      const activated = await db.runTransaction(async (tx) => {
+        if ((await tx.get(paymentRef)).exists) return false;
+
+        tx.set(paymentRef, {
+          userId,
+          amount,
+          processedAt: admin.firestore.FieldValue.serverTimestamp(),
+        });
+
+        tx.set(
+          userRef,
+          {
+            plan: "premium",
+            premium: {
+              active: true,
+              paymentId: String(paymentId),
+              purchasedAt: admin.firestore.FieldValue.serverTimestamp(),
+              expiresAt: admin.firestore.Timestamp.fromDate(expiresAt),
+              status: paymentInfo.status,
+              amount,
+            },
+          },
+          {merge: true},
+        );
+        return true;
+      });
+
+      if (!activated) {
         logger.info("Pago ya procesado", {paymentId});
         res.status(200).send("OK");
         return;
       }
 
-      await userRef.set(
-        {
-          plan: "premium",
-          premium: {
-            active: true,
-            paymentId: String(paymentId),
-            purchasedAt: admin.firestore.FieldValue.serverTimestamp(),
-            expiresAt: null,
-            status: paymentInfo.status,
-            amount,
-          },
-        },
-        {merge: true},
-      );
-
-      logger.info(`Usuario ${userId} actualizado a Premium`);
+      logger.info(`Usuario ${userId} actualizado a Premium hasta ${expiresAt.toISOString()}`);
       res.status(200).send("OK");
     } catch (error) {
       // 500 hace que Mercado Pago reintente la notificación más tarde

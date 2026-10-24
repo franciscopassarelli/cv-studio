@@ -49,10 +49,16 @@ export const createPreference = onRequest(
       const userSnap = await admin.firestore().collection("users").doc(uid).get();
       const user = userSnap.data();
 
-      if (user?.plan === "premium" && user?.premium?.active === true) {
-        res.status(409).json({error: "Ya tenés el plan Premium activo."});
-        return;
-      }
+      const expiresAtMs: number | null = user?.premium?.expiresAt?.toMillis?.() ?? null;
+      const vigente =
+  user?.plan === "premium" &&
+  user?.premium?.active === true &&
+  (expiresAtMs === null || expiresAtMs > Date.now());
+
+if (vigente) {
+  res.status(409).json({error: "Ya tenés el plan Premium activo."});
+  return;
+}
 
       const frontendUrl = process.env.FRONTEND_URL;
       const webhookUrl = process.env.MP_WEBHOOK_URL;

@@ -1,5 +1,6 @@
-import { LayoutTemplate } from "lucide-react";
 import { TemplateSelector } from "@/components/cv/TemplateSelector";
+import { LayoutTemplate } from "lucide-react";
+import { StylePanel } from "./StylePanel";
 
 interface BuilderTemplatesPanelProps {
   disabled?: boolean;
@@ -18,7 +19,11 @@ export function BuilderTemplatesPanel({ disabled = false }: BuilderTemplatesPane
 
       <div className={disabled ? "pointer-events-none opacity-60" : ""}>
         <TemplateSelector />
+        <StylePanel />
       </div>
+
+      
+      
     </section>
   );
 }

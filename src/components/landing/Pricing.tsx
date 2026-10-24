@@ -1,46 +1,40 @@
-import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Check, Crown, Sparkles } from "lucide-react";
-import { Link } from "@tanstack/react-router";
+import { Button } from "@/components/ui/button";
+import {
+  FREE_FEATURES,
+  PREMIUM_FEATURES,
+  PREMIUM_PERIOD,
+  PREMIUM_PRICE,
+} from "@/config/plan-features";
+import { useCV } from "@/context/cv-context";
 import { useAuth } from "@/hooks/useAuth";
+import { Link } from "@tanstack/react-router";
+import { Check, Crown, Sparkles } from "lucide-react";
 
 const plans = [
   {
     name: "Gratis",
     price: "$0",
+    period: undefined as string | undefined,
     description: "Para crear tu primer currículum sin costo.",
     highlighted: false,
-    features: [
-      "Plantillas gratuitas",
-      "Descarga en formato PDF",
-      "Editor en tiempo real",
-      "Personalización básica",
-      "Limite: 4 descargas de CV por mes",
-    ],
+    features: FREE_FEATURES,
     button: "Empezar gratis",
   },
   {
     name: "Premium",
-    price: "$4.999",
-    period: "/mes",
+    price: PREMIUM_PRICE,
+    period: PREMIUM_PERIOD,
     description: "Para profesionales que buscan diferenciarse e impresionar.",
     highlighted: true,
-    features: [
-      "CVs ilimitados",
-      "Acceso a todas las plantillas",
-      "Diseños y colores Premium",
-      "Carta de presentación con IA",
-      "Optimización para sistemas ATS",
-      "Sin marca de agua",
-      "Guardado automático en la nube",
-      "Sugerencias de texto inteligentes",
-    ],
+    features: PREMIUM_FEATURES,
     button: "Probar Premium",
   },
 ];
 
 export function Pricing() {
   const { user } = useAuth();
+  const { isPremium } = useCV();
 
   return (
     <section id="pricing" className="relative overflow-hidden bg-background py-24">
@@ -168,17 +162,20 @@ export function Pricing() {
                     className="w-full rounded-xl border-2 border-gray-200 bg-white font-bold text-gray-800 transition-all duration-200 hover:border-orange-500 hover:bg-orange-50 hover:text-orange-600 py-6 text-base"
                   >
                     <Link
-                      to={user ? "/builder" : "/login"}
-                      search={
-                        user
-                          ? undefined
-                          : {
-                              redirectTo: "/builder",
-                            }
-                      }
-                    >
-                      {plan.button}
-                    </Link>
+  to={user ? (isPremium ? "/builder" : "/checkout") : "/login"}
+  search={
+    user
+      ? undefined
+      : {
+          redirectTo: "/checkout",
+        }
+  }
+  className="flex items-center justify-center gap-2 py-6 text-base"
+>
+  <span className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/25 to-transparent transition-transform duration-700 ease-in-out group-hover:translate-x-full" />
+  <span>{isPremium ? "Ya sos Premium · Ir al editor" : plan.button}</span>
+  <Sparkles className="h-4 w-4 text-amber-200 transition-transform duration-300 group-hover:rotate-12 group-hover:scale-110" />
+</Link>
                   </Button>
                 )}
               </div>

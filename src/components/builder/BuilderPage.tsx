@@ -1,15 +1,15 @@
-import { useEffect, useState } from "react";
+import { LoginRequiredModal } from "@/components/auth/LoginRequiredModal";
+import { CVForm } from "@/components/cv/CVForm";
+import { useCV } from "@/context/cv-context";
+import { useAuth } from "@/hooks/useAuth";
+import type { TemplateId } from "@/types/cv-types";
 import { Link, useSearch } from "@tanstack/react-router";
 import { ArrowLeft } from "lucide-react";
-import { useAuth } from "@/hooks/useAuth";
-import { useCV } from "@/context/cv-context";
-import type { TemplateId } from "@/types/cv-types";
-import { CVForm } from "@/components/cv/CVForm";
-import { LoginRequiredModal } from "@/components/auth/LoginRequiredModal";
-import { BuilderTopBar } from "./BuilderTopBar";
+import { useEffect, useState } from "react";
+import { WelcomeModal } from "../modals/WelcomeModal";
 import { BuilderPreview } from "./BuilderPreview";
 import { BuilderTemplatesPanel } from "./BuilderTemplatesPanel";
-import { WelcomeModal } from "../modals/WelcomeModal";
+import { BuilderTopBar } from "./BuilderTopBar";
 
 // Ids que puede traer ?template=... en la URL.
 // Incluye los viejos en español por si alguien tiene un link guardado.

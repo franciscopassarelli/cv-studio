@@ -1,14 +1,15 @@
-import { Document, Page, Text, View, StyleSheet } from "@react-pdf/renderer";
 import type { CVData, TemplateId } from "@/types/cv-types";
-import { formatDate } from "@/types/cv-types";
+import { formatDate, resolveStyle } from "@/types/cv-types";
+import { Document, Page, StyleSheet, Text, View } from "@react-pdf/renderer";
+import { applyPdfStyle } from "./pdf-style";
 import {
-  PdfPhoto,
-  ExecutivePDF,
-  TechiePDF,
   AcademicPDF,
-  EditorialPDF,
-  GradientPDF,
   CompactPDF,
+  EditorialPDF,
+  ExecutivePDF,
+  GradientPDF,
+  PdfPhoto,
+  TechiePDF,
 } from "./pdf-templates-premium";
 
 const base = StyleSheet.create({
@@ -936,7 +937,7 @@ function AtsBlock({ title, children }: { title: string; children: React.ReactNod
   );
 }
 
-export function renderPDFDocument(template: TemplateId, data: CVData) {
+function renderBase(template: TemplateId, data: CVData) {
   switch (template) {
     case "minimalist":
       return <MinimalistPDF data={data} />;
@@ -963,4 +964,8 @@ export function renderPDFDocument(template: TemplateId, data: CVData) {
     case "compact":
       return <CompactPDF data={data} />;
   }
+}
+
+export function renderPDFDocument(template: TemplateId, data: CVData) {
+  return applyPdfStyle(renderBase(template, data), resolveStyle(data));
 }

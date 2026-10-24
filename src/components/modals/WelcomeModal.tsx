@@ -10,7 +10,7 @@ import {
   type Skill,
   type TechItem,
 } from "@/types/cv-types";
-import { Loader2, Upload } from "lucide-react";
+import { ArrowRight, FilePlus, LayoutTemplate, Loader2, Sparkles, Upload, X } from "lucide-react";
 import { nanoid } from "nanoid";
 import { useRef, useState } from "react";
 
@@ -80,6 +80,51 @@ function normalizeImportedCV(raw: unknown): CVData {
     }),
     languages: normalizeList<Language>(r.languages, { name: "", level: "" }),
   };
+}
+
+/* ---------- Tarjeta de opción ---------- */
+interface OptionCardProps {
+  icon: React.ReactNode;
+  title: string;
+  description: string;
+  badge?: string;
+  onClick?: () => void;
+  disabled?: boolean;
+}
+
+function OptionCard({ icon, title, description, badge, onClick, disabled }: OptionCardProps) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      disabled={disabled}
+      className={`group flex w-full items-center gap-4 rounded-2xl border border-zinc-200 bg-zinc-50 p-4 text-left transition dark:border-zinc-800 dark:bg-zinc-800/50 ${
+        disabled
+          ? "cursor-wait opacity-70"
+          : "cursor-pointer hover:-translate-y-0.5 hover:border-orange-500 hover:shadow-lg hover:shadow-orange-500/10 active:scale-[0.99]"
+      }`}
+    >
+      <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-orange-500/10 text-orange-500 transition group-hover:bg-gradient-to-br group-hover:from-orange-500 group-hover:to-pink-500 group-hover:text-white">
+        {icon}
+      </span>
+
+      <span className="min-w-0 flex-1">
+        <span className="flex items-center gap-2">
+          <span className="font-semibold text-zinc-900 dark:text-zinc-100">{title}</span>
+          {badge && (
+            <span className="rounded-full bg-orange-500/10 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-orange-600 dark:text-orange-400">
+              {badge}
+            </span>
+          )}
+        </span>
+        <span className="mt-0.5 block text-sm text-zinc-500 dark:text-zinc-400">
+          {description}
+        </span>
+      </span>
+
+      <ArrowRight className="h-4 w-4 shrink-0 text-zinc-300 transition group-hover:translate-x-1 group-hover:text-orange-500" />
+    </button>
+  );
 }
 
 export function WelcomeModal() {
@@ -155,77 +200,69 @@ export function WelcomeModal() {
   }
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
-      <div className="bg-white dark:bg-zinc-900 rounded-2xl max-w-lg w-full p-6 shadow-2xl relative border border-zinc-200 dark:border-zinc-800">
+    <div
+      role="dialog"
+      aria-modal="true"
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-4 backdrop-blur-md"
+    >
+      <div className="relative w-full max-w-lg overflow-hidden rounded-3xl border border-zinc-200 bg-white shadow-2xl dark:border-zinc-800 dark:bg-zinc-900">
+        {/* Franja de color superior */}
+        <div className="h-1.5 w-full bg-gradient-to-r from-orange-500 to-pink-500" />
+
         {/* Botón cerrar */}
         <button
+          type="button"
           onClick={closeWelcomeModal}
-          className="absolute top-4 right-4 text-zinc-400 hover:text-zinc-600 dark:hover:text-zinc-200"
+          aria-label="Cerrar"
+          className="absolute right-4 top-5 flex h-8 w-8 cursor-pointer items-center justify-center rounded-full text-zinc-400 transition hover:bg-zinc-100 hover:text-zinc-700 dark:hover:bg-zinc-800 dark:hover:text-zinc-200"
         >
-          ✕
+          <X className="h-4 w-4" />
         </button>
 
-        <h2 className="text-xl font-bold text-zinc-900 dark:text-zinc-100 mb-6">
-          ¡Hola! ¿Cómo te gustaría crear tu CV?
-        </h2>
-
-        <div className="space-y-4">
-          {/* Opción 1: Desde cero */}
-          <div
-            onClick={clearData}
-            className="p-4 rounded-xl border border-zinc-200 dark:border-zinc-800 hover:border-orange-500 cursor-pointer transition-all bg-zinc-50 dark:bg-zinc-800/50 group"
-          >
-            <div className="flex items-center justify-between mb-1">
-              <span className="font-semibold text-zinc-900 dark:text-zinc-100 group-hover:text-orange-500">
-                Desde cero
-              </span>
-              <span className="text-xs bg-orange-100 dark:bg-orange-950/50 text-orange-600 px-2 py-0.5 rounded-full font-medium">
-                Recomendado
-              </span>
-            </div>
-            <p className="text-sm text-zinc-500 dark:text-zinc-400">
-              Creá un CV a tu medida. Personalizá secciones y elegí entre plantillas.
-            </p>
+        <div className="p-7">
+          <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-orange-500 to-pink-500 text-white shadow-lg shadow-orange-500/20">
+            <Sparkles className="h-6 w-6" />
           </div>
 
-          {/* Opción 2: A partir de un ejemplo */}
-          <div
-            onClick={loadSampleData}
-            className="p-4 rounded-xl border border-zinc-200 dark:border-zinc-800 hover:border-orange-500 cursor-pointer transition-all bg-zinc-50 dark:bg-zinc-800/50 group"
-          >
-            <span className="font-semibold text-zinc-900 dark:text-zinc-100 group-hover:text-orange-500 block mb-1">
-              A partir de un ejemplo de CV
-            </span>
-            <p className="text-sm text-zinc-500 dark:text-zinc-400">
-              Empezá con un CV profesional ya armado y editalo a tu gusto.
-            </p>
-          </div>
+          <h2 className="mt-4 text-2xl font-bold text-zinc-900 dark:text-zinc-100">
+            ¡Hola! ¿Cómo querés crear tu CV?
+          </h2>
+          <p className="mt-1 text-sm text-zinc-500 dark:text-zinc-400">
+            Elegí cómo arrancar. Después podés cambiar todo.
+          </p>
 
-          {/* Opción 3: Importar tu CV (oculta mientras IMPORT_CV_ENABLED sea false) */}
-          {IMPORT_CV_ENABLED && (
-            <>
-              <div
-                onClick={importing ? undefined : triggerFileSelect}
-                className={`p-4 rounded-xl border border-zinc-200 dark:border-zinc-800 transition-all bg-zinc-50 dark:bg-zinc-800/50 group ${
-                  importing ? "cursor-wait opacity-70" : "hover:border-orange-500 cursor-pointer"
-                }`}
-              >
-                <span className="font-semibold text-zinc-900 dark:text-zinc-100 group-hover:text-orange-500 flex items-center gap-2 mb-1">
-                  {importing ? (
-                    <>
-                      <Loader2 className="h-4 w-4 animate-spin" />
-                      Analizando tu CV...
-                    </>
-                  ) : (
-                    <>
-                      <Upload className="h-4 w-4" />
-                      Importá tu CV
-                    </>
-                  )}
-                </span>
-                <p className="text-sm text-zinc-500 dark:text-zinc-400">
-                  Subí tu CV actual en PDF y deja que el sistema extraiga los datos automáticamente.
-                </p>
+          <div className="mt-6 space-y-3">
+            <OptionCard
+              icon={<FilePlus className="h-6 w-6" />}
+              title="Desde cero"
+              badge="Recomendado"
+              description="Creá un CV a tu medida. Personalizá secciones y elegí entre plantillas."
+              onClick={clearData}
+            />
+
+            <OptionCard
+              icon={<LayoutTemplate className="h-6 w-6" />}
+              title="A partir de un ejemplo"
+              description="Empezá con un CV profesional ya armado y editalo a tu gusto."
+              onClick={loadSampleData}
+            />
+
+            {/* Importar tu CV (oculto mientras IMPORT_CV_ENABLED sea false) */}
+            {IMPORT_CV_ENABLED && (
+              <>
+                <OptionCard
+                  icon={
+                    importing ? (
+                      <Loader2 className="h-6 w-6 animate-spin" />
+                    ) : (
+                      <Upload className="h-6 w-6" />
+                    )
+                  }
+                  title={importing ? "Analizando tu CV..." : "Importá tu CV"}
+                  description="Subí tu CV actual en PDF y dejá que el sistema extraiga los datos automáticamente."
+                  onClick={triggerFileSelect}
+                  disabled={importing}
+                />
 
                 <input
                   ref={fileInputRef}
@@ -234,11 +271,11 @@ export function WelcomeModal() {
                   className="hidden"
                   onChange={handleFileChange}
                 />
-              </div>
 
-              {importError && <p className="text-sm text-red-500 -mt-2">{importError}</p>}
-            </>
-          )}
+                {importError && <p className="text-sm text-red-500">{importError}</p>}
+              </>
+            )}
+          </div>
         </div>
       </div>
     </div>

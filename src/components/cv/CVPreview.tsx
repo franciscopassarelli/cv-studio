@@ -1,25 +1,36 @@
 import { useCV } from "@/context/cv-context";
+import { requestFieldFocus } from "@/lib/cv-focus";
+import type { CVData, TemplateId } from "@/types/cv-types";
+import { defaultStyle, resolveStyle } from "@/types/cv-types";
+import { useEffect, useRef, useState } from "react";
 import {
-  MinimalistTemplate,
-  ProfessionalTemplate,
-  ModernTemplate,
-  ElegantTemplate,
-  CreativeTemplate,
-  ATSTemplate,
-  A4_WIDTH,
   A4_HEIGHT,
+  A4_WIDTH,
+  ATSTemplate,
+  CreativeTemplate,
+  ElegantTemplate,
+  MinimalistTemplate,
+  ModernTemplate,
+  ProfessionalTemplate,
 } from "./templates";
 import {
-  ExecutiveTemplate,
-  TechieTemplate,
   AcademicTemplate,
-  EditorialTemplate,
-  GradientTemplate,
   CompactTemplate,
+  EditorialTemplate,
+  ExecutiveTemplate,
+  GradientTemplate,
+  TechieTemplate,
 } from "./templates-premium";
-import type { CVData, TemplateId } from "@/types/cv-types";
-import { useEffect, useRef, useState } from "react";
-import { requestFieldFocus } from "@/lib/cv-focus";
+
+const STYLE_CSS = `
+.cv-styled > * {
+  width: calc(${A4_WIDTH}px / var(--cv-zoom, 1)) !important;
+  min-height: calc(${A4_HEIGHT}px / var(--cv-zoom, 1)) !important;
+}
+.cv-font-sans, .cv-font-sans * { font-family: Arial, Helvetica, sans-serif !important; }
+.cv-font-serif, .cv-font-serif * { font-family: "Times New Roman", Times, serif !important; }
+.cv-font-mono, .cv-font-mono * { font-family: "Courier New", Courier, monospace !important; }
+`;
 
 const TEMPLATES: Record<TemplateId, React.ComponentType<{ data: CVData }>> = {
   minimalist: MinimalistTemplate,
@@ -54,7 +65,8 @@ interface CVPreviewProps {
 }
 
 export function CVPreview({ interactive = true }: CVPreviewProps) {
-  const { data, template } = useCV();
+  const { data, template, isPremium } = useCV();
+const style = isPremium ? resolveStyle(data) : defaultStyle;
   const containerRef = useRef<HTMLDivElement>(null);
   const [scale, setScale] = useState(1);
   const [changing, setChanging] = useState(false);
@@ -93,6 +105,8 @@ export function CVPreview({ interactive = true }: CVPreviewProps) {
 
   const Tpl = TEMPLATES[template] ?? MinimalistTemplate;
 
+  
+
   return (
     <div ref={containerRef} className="flex justify-center py-8">
       {interactive && <style>{EDITABLE_CSS}</style>}
@@ -113,7 +127,13 @@ export function CVPreview({ interactive = true }: CVPreviewProps) {
             ${changing ? "opacity-50 scale-[0.98]" : "opacity-100"}
           `}
         >
-          <Tpl data={data} />
+          <style>{STYLE_CSS}</style>
+<div
+  className={`cv-styled ${style.fontFamily !== "default" ? `cv-font-${style.fontFamily}` : ""}`}
+  style={{ zoom: style.fontScale, "--cv-zoom": style.fontScale } as React.CSSProperties}
+>
+  <Tpl data={data} />
+</div>
         </div>
       </div>
     </div>
