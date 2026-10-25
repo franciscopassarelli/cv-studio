@@ -8,7 +8,7 @@ export const MP_ACCESS_TOKEN = defineSecret("MP_ACCESS_TOKEN");
 export const PREMIUM_ITEM = {
   id: "champions-cv-premium",
   title: "Champions CV - Plan Premium (1 año)",
-  price: 4999,
+  price: 10000,
   currency: "ARS",
 } as const;
 

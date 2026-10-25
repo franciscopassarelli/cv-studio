@@ -19,6 +19,6 @@ export const PREMIUM_FEATURES = [
 //   Ambos:   lo que decidas sobre el límite de descargas
 
 // Tiene que coincidir con lo que cobra createPreference (functions/src/payments)
-export const PREMIUM_PRICE = "$4.999";
-export const PREMIUM_PERIOD: string | undefined = "/mes"; // poné undefined si es pago único
+export const PREMIUM_PRICE = "$10.000";
+export const PREMIUM_PERIOD: string | undefined = "/año"; // poné undefined si es pago único
 export const PREMIUM_CURRENCY = "ARS";
