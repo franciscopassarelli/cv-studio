@@ -397,6 +397,266 @@ export const GUIDES: Guide[] = [
       },
     ],
   },
+    {
+    slug: "resumen-profesional-cv",
+    title: "Cómo escribir el resumen profesional de tu CV (con ejemplos)",
+    description:
+      "Cómo escribir un resumen profesional claro y breve para tu currículum: una fórmula simple, ejemplos de antes y después y los errores más comunes.",
+    date: "2026-10-26",
+    readingMinutes: 4,
+    intro:
+      "El resumen es lo primero que se lee de tu CV, y muchas veces lo único que se lee con atención. En pocas líneas tiene que decir quién sos, qué sabés hacer y qué buscás.",
+    sections: [
+      {
+        heading: "Qué es y para qué sirve",
+        paragraphs: [
+          "Es un párrafo corto, de dos a cuatro líneas, que va arriba de todo, debajo de tu nombre y tus datos de contacto. Funciona como una presentación: quien lo lee decide en pocos segundos si sigue con el resto.",
+          "No es una lista de cualidades ni una biografía. Es una síntesis de lo que ofrecés, pensada para el puesto al que te postulás.",
+        ],
+      },
+      {
+        heading: "Una fórmula simple",
+        paragraphs: ["Si no sabés por dónde empezar, armalo en tres partes:"],
+        bullets: [
+          "Quién sos: tu perfil o rol y, si querés, tus años de experiencia.",
+          "Qué sabés hacer: dos o tres cosas concretas, con herramientas o resultados.",
+          "Qué buscás o qué aportás: el tipo de puesto o el valor que ofrecés.",
+        ],
+      },
+      {
+        heading: "Ejemplos de antes y después",
+        paragraphs: [
+          "Los ejemplos que siguen son inventados, solo para ilustrar el formato.",
+          "Antes: «Persona responsable y proactiva, en busca de nuevas oportunidades laborales.» Después: «Administrativa con 4 años de experiencia en facturación y atención a proveedores. Trabajo con Excel y sistemas de gestión, y busco sumarme a un equipo de administración.»",
+          "Antes: «Apasionado por la tecnología.» Después: «Desarrollador web junior con proyectos propios en JavaScript y React. Armé una aplicación con login y pagos online, y busco mi primera experiencia en un equipo de producto.»",
+        ],
+      },
+      {
+        heading: "Si todavía no tenés experiencia",
+        paragraphs: [
+          "Reemplazá los años de trabajo por lo que ya hiciste: proyectos, cursos, trabajos informales o voluntariados. Lo importante es que sea real y que lo puedas explicar en una entrevista.",
+          "No hace falta inflar nada. Una frase honesta y concreta se recuerda más que una exagerada.",
+        ],
+      },
+      {
+        heading: "Adaptalo a cada puesto",
+        paragraphs: [
+          "Leé la oferta y fijate qué piden. Ajustá una o dos frases del resumen para que lo más relevante quede primero. Con cambiar unas pocas palabras alcanza, no hace falta reescribirlo cada vez.",
+        ],
+      },
+      {
+        heading: "Errores comunes",
+        paragraphs: ["Estos son los que más se repiten:"],
+        bullets: [
+          "Frases genéricas que podría escribir cualquiera, como «proactivo y con ganas de aprender».",
+          "Resúmenes largos que parecen una biografía.",
+          "Repetir en el resumen lo que ya dice el resto del CV.",
+          "Afirmar cosas que después no podés respaldar.",
+        ],
+      },
+      {
+        heading: "Escribilo al final",
+        paragraphs: [
+          "Un buen truco es dejarlo para el último momento: cuando ya armaste el resto del CV, te queda más claro qué querés destacar. En Champions CV podés ver cómo queda mientras lo editás, con vista previa en tiempo real.",
+        ],
+      },
+    ],
+  },
+  {
+    slug: "cuantas-paginas-debe-tener-un-cv",
+    title: "¿Cuántas páginas debe tener un CV? Una o dos",
+    description:
+      "Cuántas páginas debe tener un currículum según tu experiencia, qué priorizar, qué sacar y cómo achicarlo sin dejar la letra ilegible.",
+    date: "2026-10-26",
+    readingMinutes: 4,
+    intro:
+      "No hay una regla oficial, pero sí un criterio práctico: tu CV tiene que ser lo bastante largo para mostrar lo importante y lo bastante corto para que se lea completo.",
+    sections: [
+      {
+        heading: "Una página: cuándo alcanza",
+        paragraphs: [
+          "Si estás empezando, tenés poca experiencia o tu trayectoria relevante entra sin apretar, una página es lo mejor. Un CV de una página bien ordenado se lee mejor que uno de dos con relleno.",
+        ],
+      },
+      {
+        heading: "Dos páginas: cuándo tiene sentido",
+        paragraphs: [
+          "Si tenés varios años de trayectoria relevante, muchos proyectos o publicaciones, una segunda página puede estar justificada. Pero tiene que aportar información nueva, no repetir ni rellenar.",
+          "Más de dos páginas rara vez hace falta.",
+        ],
+      },
+      {
+        heading: "Qué priorizar",
+        paragraphs: ["Cuando tenés que decidir qué queda, seguí este orden:"],
+        bullets: [
+          "Lo más reciente primero.",
+          "Lo más relacionado con el puesto, arriba.",
+          "Resultados antes que tareas: qué lograste, no solo qué hacías.",
+        ],
+      },
+      {
+        heading: "Qué sacar",
+        paragraphs: ["Para achicar sin perder lo importante, empezá por acá:"],
+        bullets: [
+          "Trabajos muy antiguos que no tienen relación con la oferta.",
+          "Cursos básicos o viejos que ya no suman.",
+          "Datos personales que no hacen falta.",
+          "Frases genéricas y repeticiones.",
+        ],
+      },
+      {
+        heading: "Cómo achicarlo sin romperlo",
+        paragraphs: [
+          "Dejá entre tres y cinco viñetas por puesto, y agrupá estudios y cursos en una sola sección.",
+          "No resuelvas el problema bajando la letra o los márgenes al mínimo: si tenés que apretar tanto para que entre, es señal de que sobra contenido.",
+        ],
+      },
+      {
+        heading: "Cuando se pasa por pocas líneas",
+        paragraphs: [
+          "Si apenas un par de líneas se pasan a la segunda página, recortá. Una segunda hoja casi vacía da una mala impresión y se resuelve sacando lo menos importante.",
+        ],
+      },
+      {
+        heading: "Probalo mientras lo armás",
+        paragraphs: [
+          "En Champions CV podés ver cómo queda tu CV mientras lo editás, con vista previa en tiempo real, y probar distintas plantillas hasta encontrar la que mejor ordene tu información.",
+        ],
+      },
+    ],
+  },
+  {
+    slug: "cv-atencion-al-cliente-y-administrativos",
+    title: "CV para atención al cliente y puestos administrativos",
+    description:
+      "Cómo armar un CV para atención al cliente o puestos administrativos: qué destacar, cómo mostrar resultados y qué herramientas incluir.",
+    date: "2026-10-26",
+    readingMinutes: 4,
+    intro:
+      "En atención al cliente y en administración se busca gente organizada, que se comunique bien y maneje las herramientas del puesto. Tu CV tiene que mostrarlo con hechos, no con adjetivos.",
+    sections: [
+      {
+        heading: "Qué suelen buscar",
+        paragraphs: ["Aunque cada empresa es distinta, estas cosas se repiten en las ofertas:"],
+        bullets: [
+          "Comunicación clara y buen trato con las personas.",
+          "Orden y atención al detalle.",
+          "Manejo de herramientas: planillas, sistemas de gestión, facturación.",
+          "Confiabilidad: cumplir horarios y plazos.",
+        ],
+      },
+      {
+        heading: "Un resumen que diga algo",
+        paragraphs: [
+          "Un ejemplo inventado para ilustrar: «Asistente administrativa con 3 años de experiencia en facturación y atención telefónica. Manejo Excel y sistemas de gestión, y busco sumarme a un equipo donde pueda ordenar procesos.»",
+        ],
+      },
+      {
+        heading: "Mostrá resultados, aunque sean chicos",
+        paragraphs: [
+          "Evitá describir solo tus tareas. Contá qué cambió gracias a lo que hacías.",
+          "Un ejemplo inventado para ilustrar. Antes: «Atención de clientes por teléfono y por mail.» Después: «Atendía unas 40 consultas por día por teléfono y por mail, y resolvía la mayoría en el primer contacto.» La segunda frase se puede imaginar y se recuerda.",
+        ],
+      },
+      {
+        heading: "Las herramientas: solo las que usás",
+        paragraphs: [
+          "Listá lo que manejás de verdad, y usá los mismos nombres que aparecen en la oferta.",
+        ],
+        bullets: [
+          "Planillas: Excel o Google Sheets.",
+          "Correo y calendarios.",
+          "Sistemas de gestión, facturación o CRM, si los usaste.",
+          "Atención por chat o por redes, si la tuviste.",
+        ],
+      },
+      {
+        heading: "Habilidades blandas con ejemplos",
+        paragraphs: [
+          "En vez de escribir «buena comunicación» o «trabajo en equipo», contá una situación concreta: un reclamo que resolviste, un proceso que ordenaste o una tarea que coordinaste con otras personas.",
+        ],
+      },
+      {
+        heading: "Otros datos que suman",
+        paragraphs: ["Para estos puestos, suelen importar mucho:"],
+        bullets: [
+          "Tu disponibilidad horaria.",
+          "La zona donde vivís o a la que podés viajar.",
+          "Idiomas, si el puesto los pide.",
+          "Estudios y cursos relacionados.",
+        ],
+      },
+      {
+        heading: "Armalo y descargalo",
+        paragraphs: [
+          "En Champions CV podés elegir entre 12 plantillas, 4 de ellas gratuitas, editar con vista previa en tiempo real y descargar tu CV en PDF.",
+        ],
+      },
+    ],
+  },
+  {
+    slug: "carta-de-presentacion",
+    title: "Cómo escribir una carta de presentación breve y efectiva",
+    description:
+      "Cómo escribir una carta de presentación corta que acompañe tu CV: estructura en tres partes, un ejemplo y los errores más comunes.",
+    date: "2026-10-26",
+    readingMinutes: 4,
+    intro:
+      "La carta de presentación no reemplaza a tu CV: lo acompaña y explica por qué te interesa ese puesto. No siempre se pide, pero cuando sí, conviene que sea corta, propia y pensada para esa oferta.",
+    sections: [
+      {
+        heading: "Cuándo escribirla",
+        paragraphs: [
+          "Leé bien la oferta: si pide carta, escribila. Si no la pide, puede igualmente ayudarte cuando necesitás dar contexto que el CV no cuenta, por ejemplo un cambio de rubro, un primer empleo o un motivo concreto por el que te interesa esa empresa.",
+        ],
+      },
+      {
+        heading: "Estructura en tres partes",
+        paragraphs: ["Con tres párrafos cortos alcanza:"],
+        bullets: [
+          "Apertura: quién sos y a qué puesto te postulás.",
+          "Desarrollo: por qué encajás, con uno o dos ejemplos concretos.",
+          "Cierre: tu disponibilidad y un agradecimiento.",
+        ],
+      },
+      {
+        heading: "Un ejemplo",
+        paragraphs: [
+          "El siguiente ejemplo es inventado, solo para ilustrar la estructura.",
+          "«Hola, equipo de Distribuidora Norte: me llamo Lucía Gómez y me postulo al puesto de asistente administrativa. En mi trabajo anterior me ocupaba de la facturación y de la atención a proveedores, y armé una planilla de seguimiento que ayudó a reducir los pagos atrasados. Me interesa este puesto porque busco un lugar donde ordenar procesos y trabajar en equipo. Tengo disponibilidad inmediata y quedo a disposición para una entrevista. Gracias por su tiempo. Saludos cordiales, Lucía Gómez.»",
+        ],
+      },
+      {
+        heading: "Personalizala para cada oferta",
+        paragraphs: [
+          "Mencioná el nombre de la empresa y el puesto, y sumá una referencia concreta que muestre que leíste la oferta. Si conocés el nombre de quien recibe las postulaciones, usalo. Mandar la misma carta a todos lados se nota.",
+        ],
+      },
+      {
+        heading: "Errores comunes",
+        paragraphs: ["Estos son los que más se repiten:"],
+        bullets: [
+          "Repetir el CV en vez de aportar algo nuevo.",
+          "Escribir una carta demasiado larga: media página suele alcanzar.",
+          "Usar frases genéricas que sirven para cualquier puesto.",
+          "No revisar la ortografía.",
+          "Un tono demasiado rígido o demasiado informal.",
+        ],
+      },
+      {
+        heading: "Cómo enviarla",
+        paragraphs: [
+          "Fijate qué pide la oferta: algunas piden la carta como archivo adjunto y otras, en el cuerpo del mail. Usá un asunto claro que incluya el puesto, por ejemplo «Postulación: asistente administrativa».",
+        ],
+      },
+      {
+        heading: "Primero el CV",
+        paragraphs: [
+          "La carta acompaña al CV, así que dejá el CV listo antes. En Champions CV podés armarlo con vista previa en tiempo real y descargarlo en PDF.",
+        ],
+      },
+    ],
+  },
 ];
 
 export const getGuide = (slug: string) => GUIDES.find((g) => g.slug === slug);

@@ -44,6 +44,7 @@ export function Footer() {
             <h4 className="text-sm font-bold uppercase tracking-wider text-gray-200">Producto</h4>
 
             <ul className="mt-5 space-y-3 text-sm text-gray-400">
+              
               <li>
                 <a href="#features" className={linkClass}>
                   Características
@@ -82,6 +83,14 @@ export function Footer() {
                   Guías
                 </Link>
               </li>
+                 
+                 <li>
+  <Link to="/sobre-nosotros" className={linkClass}>
+    Sobre nosotros
+  </Link>
+</li>
+              
+              
               <li>
                 <a href="#faq" className={linkClass}>
                   Preguntas frecuentes
