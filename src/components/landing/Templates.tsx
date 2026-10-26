@@ -1,8 +1,8 @@
-import { Link } from "@tanstack/react-router";
-import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Crown, ArrowRight, Sparkles } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import type { TemplateId } from "@/types/cv-types";
+import { Link } from "@tanstack/react-router";
+import { ArrowRight, Crown, Sparkles } from "lucide-react";
 
 type TemplateLayout = "minimal" | "classic" | "sidebar" | "header-dark" | "techie";
 
@@ -18,7 +18,7 @@ const templates: TemplateItem[] = [
   {
     id: "minimalist",
     name: "Minimalista",
-    description: "Serif, elegante y limpio. Enfoque puro en legibilidad.",
+    description: "Serif, elegante y limpio. Enfoque puro en la legibilidad.",
     premium: false,
     layout: "minimal",
   },
@@ -39,7 +39,7 @@ const templates: TemplateItem[] = [
   {
     id: "ats",
     name: "ATS Friendly",
-    description: "Estructura optimizada 100% para escaneo de bots de RRHH.",
+    description: "Diseño simple y ordenado, pensado para leerse bien en sistemas ATS.",
     premium: false,
     layout: "minimal",
   },
@@ -53,7 +53,7 @@ const templates: TemplateItem[] = [
   {
     id: "techie",
     name: "Techie",
-    description: "Estilo monoespaciado pensado para desarrolladores y IT.",
+    description: "Estilo monoespaciado pensado para desarrolladores y perfiles IT.",
     premium: true,
     layout: "techie",
   },
@@ -75,12 +75,12 @@ export function Templates() {
           </span>
 
           <h2 className="mt-5 text-4xl font-extrabold tracking-tight text-gray-900 md:text-5xl">
-            Diseños profesionales que hacen destacar tu perfil
+            Diseños profesionales para tu perfil
           </h2>
 
           <p className="mt-5 text-lg text-muted-foreground">
-            Elegí una plantilla optimizada para ATS y creá un currículum que transmita
-            profesionalismo desde el primer vistazo.
+            Elegí entre 12 plantillas, 4 de ellas gratuitas, y armá un currículum prolijo desde el
+            primer vistazo.
           </p>
         </div>
 
@@ -96,7 +96,7 @@ export function Templates() {
                 {template.premium && (
                   <Badge className="absolute right-5 top-5 z-20 gap-1.5 rounded-full border border-orange-400/30 bg-gradient-to-r from-orange-500 to-amber-500 px-3 py-1 text-xs font-bold text-white shadow-md">
                     <Crown className="h-3.5 w-3.5" />
-                    PRO
+                    Premium
                   </Badge>
                 )}
 
@@ -141,7 +141,7 @@ export function Templates() {
                   {/* Sidebar */}
                   {template.layout === "sidebar" && (
                     <div className="-m-3 flex h-[250px] w-[185px]">
-                      <div className="w-1/3 space-y-2 bg-gray-100 p-2 border-r border-gray-200">
+                      <div className="w-1/3 space-y-2 border-r border-gray-200 bg-gray-100 p-2">
                         <div className="mx-auto h-8 w-8 rounded-full bg-gray-300" />
                         <div className="h-1.5 w-full rounded bg-gray-400" />
                         <div className="h-1.5 w-3/4 rounded bg-gray-400" />
@@ -234,6 +234,11 @@ export function Templates() {
             </div>
           ))}
         </div>
+
+        <p className="mt-10 text-center text-sm text-gray-500">
+          Acá ves 6 de las 12 plantillas. Las otras 6, todas Premium, las encontrás dentro del
+          editor.
+        </p>
       </div>
     </section>
   );

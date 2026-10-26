@@ -1,23 +1,22 @@
-import { FileEdit, LayoutTemplate, Download } from "lucide-react";
+import { Download, FileEdit, LayoutTemplate } from "lucide-react";
 
 const steps = [
   {
     icon: FileEdit,
     title: "Completá tus datos",
     description:
-      "Agregá tu experiencia, estudios, habilidades y proyectos rápidamente a través de un editor intuitivo.",
+      "Agregá tu experiencia, estudios y habilidades en un editor simple, con vista previa en tiempo real.",
   },
   {
     icon: LayoutTemplate,
     title: "Elegí tu diseño",
-    description:
-      "Seleccioná una plantilla profesional optimizada para ATS y personalizá los colores según tu estilo.",
+    description: "Elegí entre 12 plantillas, 4 de ellas gratuitas, y personalizá el color.",
   },
   {
     icon: Download,
-    title: "Descargá y postulá",
+    title: "Descargá y postulate",
     description:
-      "Exportá tu CV en PDF de alta calidad listo para enviar a empresas y reclutadores al instante.",
+      "Descargá tu CV en PDF, listo para enviar. Necesitás una cuenta gratuita para descargar.",
   },
 ];
 
@@ -37,11 +36,11 @@ export function HowItWorks() {
           </span>
 
           <h2 className="mt-5 text-4xl font-extrabold tracking-tight text-gray-900 md:text-5xl">
-            Creá tu CV profesional en 3 simples pasos
+            Creá tu CV en 3 simples pasos
           </h2>
 
           <p className="mt-5 text-lg text-muted-foreground">
-            Desde cero hasta un currículum de alto impacto listo para enviar en pocos minutos.
+            Desde cero hasta un currículum listo para enviar, en pocos minutos.
           </p>
         </div>
 

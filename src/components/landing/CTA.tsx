@@ -1,6 +1,6 @@
-import { Link } from "@tanstack/react-router";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Sparkles, Check } from "lucide-react";
+import { Link } from "@tanstack/react-router";
+import { ArrowRight, Check, Sparkles } from "lucide-react";
 
 export function CTA() {
   return (
@@ -18,12 +18,12 @@ export function CTA() {
             </div>
 
             <h2 className="mx-auto max-w-3xl text-4xl font-extrabold tracking-tight text-white md:text-5xl">
-              ¿Listo para conseguir más entrevistas?
+              ¿Listo para armar tu CV?
             </h2>
 
             <p className="mx-auto mt-6 max-w-2xl text-lg text-white/95 md:text-xl">
-              Creá un currículum moderno, profesional y optimizado para ATS en pocos minutos. Empezá
-              gratis y destacá entre los demás postulantes.
+              Creá un currículum prolijo y profesional en pocos minutos. Empezá gratis y descargalo
+              en PDF.
             </p>
 
             {/* Acciones principales */}
@@ -34,7 +34,7 @@ export function CTA() {
                 className="group relative h-13 overflow-hidden rounded-xl bg-white px-8 font-bold text-orange-600 shadow-xl transition-all duration-300 hover:bg-orange-50 hover:shadow-white/20 active:scale-95"
               >
                 <Link to="/builder" className="flex items-center justify-center gap-2">
-                  <span>Crear mi CV Gratis</span>
+                  <span>Crear mi CV gratis</span>
                   <ArrowRight className="h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" />
                 </Link>
               </Button>
@@ -45,7 +45,7 @@ export function CTA() {
                 variant="outline"
                 className="h-13 rounded-xl border-white/40 bg-white/10 px-8 font-semibold text-white backdrop-blur-md transition-all duration-300 hover:border-white hover:bg-white hover:text-orange-600"
               >
-                <Link to="/builder">Ver Plan Premium</Link>
+                <a href="#pricing">Ver Plan Premium</a>
               </Button>
             </div>
 
@@ -58,7 +58,7 @@ export function CTA() {
                 <Check className="h-4 w-4 text-amber-200" /> Descarga en PDF
               </span>
               <span className="flex items-center gap-1.5 rounded-full bg-black/10 px-3 py-1 backdrop-blur-sm">
-                <Check className="h-4 w-4 text-amber-200" /> Compatible con ATS
+                <Check className="h-4 w-4 text-amber-200" /> Plantilla ATS incluida
               </span>
             </div>
           </div>

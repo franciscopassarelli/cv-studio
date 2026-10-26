@@ -25,10 +25,10 @@ const plans = [
     name: "Premium",
     price: PREMIUM_PRICE,
     period: PREMIUM_PERIOD,
-    description: "Para profesionales que buscan diferenciarse e impresionar.",
+    description: "Para sumar más plantillas y personalizar tu CV a tu medida.",
     highlighted: true,
     features: PREMIUM_FEATURES,
-    button: "Probar Premium",
+    button: "Obtener Premium",
   },
 ];
 
@@ -51,11 +51,11 @@ export function Pricing() {
           </span>
 
           <h2 className="mt-5 text-4xl font-extrabold tracking-tight text-gray-900 md:text-5xl">
-            Elegí el plan perfecto para tu carrera
+            Elegí el plan para tu carrera
           </h2>
 
           <p className="mt-5 text-lg text-muted-foreground">
-            Empieza gratis y desbloquea herramientas avanzadas cuando estés listo para destacar.
+            Empezá gratis y sumá más plantillas y opciones de personalización cuando quieras.
           </p>
         </div>
 
@@ -82,7 +82,7 @@ export function Pricing() {
                   {plan.highlighted && (
                     <Badge className="gap-1.5 rounded-full border border-orange-400/30 bg-gradient-to-r from-orange-500 to-amber-500 px-3 py-1 text-xs font-bold text-white shadow-md">
                       <Crown className="h-3.5 w-3.5" />
-                      Más popular
+                      Más completo
                     </Badge>
                   )}
                 </div>
@@ -131,52 +131,51 @@ export function Pricing() {
               </div>
 
               {/* Botón de Acción */}
-              {/* Botón de Acción */}
-<div className="mt-10">
-  {plan.highlighted ? (
-    <Button
-      asChild
-      size="lg"
-      className="group relative w-full overflow-hidden rounded-xl border border-orange-400/30 bg-gradient-to-r from-orange-500 via-amber-500 to-rose-500 font-bold text-white shadow-lg shadow-orange-500/25 transition-all duration-300 hover:scale-[1.02] hover:shadow-xl hover:shadow-orange-500/35 active:scale-[0.98]"
-    >
-      <Link
-        to={user ? (isPremium ? "/builder" : "/checkout") : "/login"}
-        search={
-          user
-            ? undefined
-            : {
-                redirectTo: "/checkout",
-              }
-        }
-        className="flex items-center justify-center gap-2 py-6 text-base"
-      >
-        <span className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/25 to-transparent transition-transform duration-700 ease-in-out group-hover:translate-x-full" />
-        <span>{isPremium ? "Ya sos Premium · Ir al editor" : plan.button}</span>
-        <Sparkles className="h-4 w-4 text-amber-200 transition-transform duration-300 group-hover:rotate-12 group-hover:scale-110" />
-      </Link>
-    </Button>
-  ) : (
-    <Button
-      asChild
-      size="lg"
-      variant="outline"
-      className="w-full rounded-xl border-2 border-gray-200 bg-white font-bold text-gray-800 transition-all duration-200 hover:border-orange-500 hover:bg-orange-50 hover:text-orange-600 py-6 text-base"
-    >
-      <Link
-        to={user ? "/builder" : "/login"}
-        search={
-          user
-            ? undefined
-            : {
-                redirectTo: "/builder",
-              }
-        }
-      >
-        {plan.button}
-      </Link>
-    </Button>
-  )}
-</div>
+              <div className="mt-10">
+                {plan.highlighted ? (
+                  <Button
+                    asChild
+                    size="lg"
+                    className="group relative w-full overflow-hidden rounded-xl border border-orange-400/30 bg-gradient-to-r from-orange-500 via-amber-500 to-rose-500 font-bold text-white shadow-lg shadow-orange-500/25 transition-all duration-300 hover:scale-[1.02] hover:shadow-xl hover:shadow-orange-500/35 active:scale-[0.98]"
+                  >
+                    <Link
+                      to={user ? (isPremium ? "/builder" : "/checkout") : "/login"}
+                      search={
+                        user
+                          ? undefined
+                          : {
+                              redirectTo: "/checkout",
+                            }
+                      }
+                      className="flex items-center justify-center gap-2 py-6 text-base"
+                    >
+                      <span className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/25 to-transparent transition-transform duration-700 ease-in-out group-hover:translate-x-full" />
+                      <span>{isPremium ? "Ya sos Premium · Ir al editor" : plan.button}</span>
+                      <Sparkles className="h-4 w-4 text-amber-200 transition-transform duration-300 group-hover:rotate-12 group-hover:scale-110" />
+                    </Link>
+                  </Button>
+                ) : (
+                  <Button
+                    asChild
+                    size="lg"
+                    variant="outline"
+                    className="w-full rounded-xl border-2 border-gray-200 bg-white py-6 text-base font-bold text-gray-800 transition-all duration-200 hover:border-orange-500 hover:bg-orange-50 hover:text-orange-600"
+                  >
+                    <Link
+                      to={user ? "/builder" : "/login"}
+                      search={
+                        user
+                          ? undefined
+                          : {
+                              redirectTo: "/builder",
+                            }
+                      }
+                    >
+                      {plan.button}
+                    </Link>
+                  </Button>
+                )}
+              </div>
             </div>
           ))}
         </div>

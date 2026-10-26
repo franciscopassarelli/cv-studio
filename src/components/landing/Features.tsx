@@ -1,41 +1,37 @@
-import { FileText, Palette, Download, ShieldCheck, Sparkles, Clock3 } from "lucide-react";
+import { Clock3, Download, FileText, Palette, ShieldCheck, SlidersHorizontal } from "lucide-react";
 
 const features = [
   {
     icon: FileText,
-    title: "Editor inteligente",
+    title: "Editor en tiempo real",
     description:
-      "Completa tu experiencia laboral y observa tu currículum evolucionar en tiempo real con vista previa instantánea.",
+      "Completá tu experiencia y mirá cómo se arma tu currículum, con vista previa instantánea.",
   },
   {
     icon: Palette,
-    title: "Diseños profesionales",
-    description:
-      "Plantillas modernas creadas por expertos para destacar tu perfil ante cualquier equipo de reclutamiento.",
+    title: "Plantillas profesionales",
+    description: "12 plantillas pensadas para distintos perfiles, 4 de ellas gratuitas.",
   },
   {
     icon: Download,
-    title: "Exportación PDF ultra rápida",
-    description:
-      "Descarga tu CV listo para enviar, imprimir o compartir en plataformas de empleo en segundos.",
+    title: "Descarga en PDF",
+    description: "Descargá tu CV listo para enviar o imprimir, en segundos.",
   },
   {
     icon: ShieldCheck,
-    title: "Preparado para ATS",
+    title: "Plantilla ATS incluida",
     description:
-      "Formatos optimizados para superar con éxito los filtros automáticos de los sistemas de selección laboral.",
+      "Una plantilla gratuita con un diseño simple, pensada para leerse bien en los sistemas que usan las empresas.",
   },
   {
-    icon: Sparkles,
-    title: "Personalización total",
-    description:
-      "Ajusta colores, tipografías y orden de secciones para crear una presentación que refleje tu marca personal.",
+    icon: SlidersHorizontal,
+    title: "Personalización",
+    description: "Elegí el color de tu CV. Con Premium sumás tipografía y tamaño a tu medida.",
   },
   {
     icon: Clock3,
-    title: "Crealo en minutos",
-    description:
-      "Genera un currículum de impacto rápidamente, sin necesidad de conocimientos de diseño o edición.",
+    title: "Listo en minutos",
+    description: "Armá tu currículum en minutos, sin conocimientos de diseño.",
   },
 ];
 
@@ -55,12 +51,12 @@ export function Features() {
           </span>
 
           <h2 className="mt-5 text-4xl font-extrabold tracking-tight text-gray-900 md:text-5xl">
-            Todo lo que necesitas para crear un CV ganador
+            Todo lo que necesitás para armar tu CV
           </h2>
 
           <p className="mt-5 text-lg text-muted-foreground">
-            Una herramienta simple e intuitiva para construir currículums modernos, profesionales y
-            listos para conseguir más entrevistas.
+            Una herramienta simple para construir currículums prolijos, profesionales y listos para
+            enviar.
           </p>
         </div>
 

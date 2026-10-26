@@ -4,38 +4,45 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { CONTACT_EMAIL } from "@/config/legal";
+import { PREMIUM_CURRENCY, PREMIUM_PERIOD, PREMIUM_PRICE } from "@/config/plan-features";
 import { HelpCircle } from "lucide-react";
+
+const premiumPrice = `${PREMIUM_PRICE} ${PREMIUM_CURRENCY}${PREMIUM_PERIOD ?? ""}`;
 
 const faqs = [
   {
     question: "¿Champions CV es gratuito?",
     answer:
-      "Sí. Podés crear tu primer currículum gratis utilizando nuestras plantillas básicas y descargarlo directamente en PDF.",
+      "Sí. Con una cuenta gratuita podés usar 4 plantillas, editar con vista previa en tiempo real y descargar tu CV en PDF. El plan Premium suma más plantillas y opciones de personalización.",
   },
   {
     question: "¿Qué incluye el plan Premium?",
-    answer:
-      "El plan Premium desbloquea todas las plantillas avanzadas, creación de currículums ilimitados, cartas de presentación, optimización ATS superior, guardado en la nube y sugerencias impulsadas por Inteligencia Artificial.",
+    answer: `Es un pago único de ${premiumPrice}, por 12 meses y sin renovación automática. Incluye las 8 plantillas Premium, tipografía y tamaño a tu medida, y la posibilidad de reabrir y editar tus CVs guardados.`,
   },
   {
-    question: "¿Los currículums son compatibles con ATS?",
+    question: "¿Las plantillas son compatibles con ATS?",
     answer:
-      "Sí. Todas nuestras plantillas están estrictamente diseñadas y estructuradas para superar los filtros de los sistemas ATS utilizados por reclutadores e industrias.",
+      "Incluimos una plantilla ATS Friendly, gratuita, pensada para leerse bien en esos sistemas. Ninguna plantilla puede garantizar que un CV pase un filtro, porque cada empresa configura el suyo. En la sección de guías explicamos cómo armar un CV claro.",
   },
   {
     question: "¿Puedo editar mi CV después de crearlo?",
     answer:
-      "Sí. Tus currículums quedan guardados en tu cuenta para que puedas modificarlos, duplicarlos o volver a descargarlos cuando lo necesites.",
+      "Mientras editás, tu borrador se guarda en tu navegador. Al descargarlo, el CV queda en Mis CVs: con el plan Free podés volver a descargarlo, y con Premium también podés reabrirlo y editarlo.",
   },
   {
     question: "¿Necesito instalar algún programa?",
     answer:
-      "No. Champions CV funciona 100% desde la nube y directamente en tu navegador, sin necesidad de instalar ningún software adicional.",
+      "No. Champions CV funciona desde tu navegador, sin instalar ningún software adicional.",
   },
   {
     question: "¿Cómo descargo mi currículum?",
     answer:
-      "Una vez que finalices la edición, vas a poder exportarlo en un clic en formato PDF de alta resolución listo para postularte.",
+      "Cuando termines de editar, lo descargás en PDF y queda listo para enviar. Necesitás una cuenta gratuita para descargar.",
+  },
+  {
+    question: "¿Puedo pedir la devolución si compro Premium?",
+    answer: `Sí. Tenés 10 días corridos desde la compra para arrepentirte y pedir la devolución escribiendo a ${CONTACT_EMAIL} desde el email de tu cuenta. Los detalles están en los Términos y condiciones.`,
   },
 ];
 

@@ -1,5 +1,16 @@
+import { CONTACT_EMAIL } from "@/config/legal";
 import { Link } from "@tanstack/react-router";
 import { FileText, Github, Linkedin, Mail } from "lucide-react";
+
+// Pegá tus URLs reales. Mientras estén vacías, no se muestra el ícono.
+const SOCIAL = {
+  github: "", // ej: "https://github.com/tu-usuario"
+  linkedin: "", // ej: "https://www.linkedin.com/in/tu-perfil"
+};
+
+const linkClass = "transition-colors duration-200 hover:text-orange-400";
+const socialClass =
+  "flex h-10 w-10 items-center justify-center rounded-xl border border-white/10 bg-white/5 text-gray-300 transition-all duration-200 hover:border-orange-500/50 hover:bg-orange-500/10 hover:text-orange-400";
 
 export function Footer() {
   return (
@@ -23,8 +34,8 @@ export function Footer() {
             </div>
 
             <p className="mt-5 text-sm leading-relaxed text-gray-400">
-              Creá currículums modernos, optimizados para ATS y preparados para destacar tu talento
-              ante los reclutadores.
+              Creá currículums prolijos y profesionales, con plantillas pensadas para destacar tu
+              perfil ante quienes los leen.
             </p>
           </div>
 
@@ -34,23 +45,17 @@ export function Footer() {
 
             <ul className="mt-5 space-y-3 text-sm text-gray-400">
               <li>
-                <a
-                  href="#features"
-                  className="transition-colors duration-200 hover:text-orange-400"
-                >
+                <a href="#features" className={linkClass}>
                   Características
                 </a>
               </li>
               <li>
-                <a
-                  href="#templates"
-                  className="transition-colors duration-200 hover:text-orange-400"
-                >
+                <a href="#templates" className={linkClass}>
                   Plantillas
                 </a>
               </li>
               <li>
-                <a href="#pricing" className="transition-colors duration-200 hover:text-orange-400">
+                <a href="#pricing" className={linkClass}>
                   Planes
                 </a>
               </li>
@@ -63,20 +68,22 @@ export function Footer() {
 
             <ul className="mt-5 space-y-3 text-sm text-gray-400">
               <li>
-                <Link to="/" className="transition-colors duration-200 hover:text-orange-400">
+                <Link to="/" className={linkClass}>
                   Inicio
                 </Link>
               </li>
               <li>
-                <Link
-                  to="/builder"
-                  className="transition-colors duration-200 hover:text-orange-400"
-                >
+                <Link to="/builder" className={linkClass}>
                   Crear CV
                 </Link>
               </li>
               <li>
-                <a href="#faq" className="transition-colors duration-200 hover:text-orange-400">
+                <Link to="/guias" className={linkClass}>
+                  Guías
+                </Link>
+              </li>
+              <li>
+                <a href="#faq" className={linkClass}>
                   Preguntas frecuentes
                 </a>
               </li>
@@ -89,32 +96,40 @@ export function Footer() {
 
             <div className="mt-5 space-y-5">
               <a
-                href="mailto:contacto@championscv.com"
+                href={`mailto:${CONTACT_EMAIL}`}
                 className="flex items-center gap-2.5 text-sm text-gray-400 transition-colors duration-200 hover:text-orange-400"
               >
                 <Mail className="h-4 w-4 text-orange-400" />
-                <span>contacto@championscv.com</span>
+                <span>{CONTACT_EMAIL}</span>
               </a>
 
-              <div className="flex gap-3">
-                <a
-                  href="https://github.com"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="flex h-10 w-10 items-center justify-center rounded-xl border border-white/10 bg-white/5 text-gray-300 transition-all duration-200 hover:border-orange-500/50 hover:bg-orange-500/10 hover:text-orange-400"
-                >
-                  <Github className="h-5 w-5" />
-                </a>
+              {(SOCIAL.github || SOCIAL.linkedin) && (
+                <div className="flex gap-3">
+                  {SOCIAL.github && (
+                    <a
+                      href={SOCIAL.github}
+                      target="_blank"
+                      rel="noreferrer"
+                      aria-label="GitHub"
+                      className={socialClass}
+                    >
+                      <Github className="h-5 w-5" />
+                    </a>
+                  )}
 
-                <a
-                  href="https://linkedin.com"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="flex h-10 w-10 items-center justify-center rounded-xl border border-white/10 bg-white/5 text-gray-300 transition-all duration-200 hover:border-orange-500/50 hover:bg-orange-500/10 hover:text-orange-400"
-                >
-                  <Linkedin className="h-5 w-5" />
-                </a>
-              </div>
+                  {SOCIAL.linkedin && (
+                    <a
+                      href={SOCIAL.linkedin}
+                      target="_blank"
+                      rel="noreferrer"
+                      aria-label="LinkedIn"
+                      className={socialClass}
+                    >
+                      <Linkedin className="h-5 w-5" />
+                    </a>
+                  )}
+                </div>
+              )}
             </div>
           </div>
         </div>
@@ -124,12 +139,12 @@ export function Footer() {
           <p>© {new Date().getFullYear()} Champions CV. Todos los derechos reservados.</p>
 
           <div className="flex gap-6">
-            <a href="#" className="transition-colors duration-200 hover:text-gray-200">
-              Políticas de Privacidad
-            </a>
-            <a href="#" className="transition-colors duration-200 hover:text-gray-200">
-              Términos y Condiciones
-            </a>
+            <Link to="/privacy" className="transition-colors duration-200 hover:text-gray-200">
+              Política de privacidad
+            </Link>
+            <Link to="/terms" className="transition-colors duration-200 hover:text-gray-200">
+              Términos y condiciones
+            </Link>
           </div>
         </div>
       </div>
