@@ -24,12 +24,13 @@ function PrivacyPage() {
         },
         {
           heading: "Para qué los usamos",
-          body: "Para darte el servicio, mantener tu sesión, procesar tus pagos, enviarte emails de cuenta (verificación de email y recuperación de contraseña) y proteger el servicio contra abusos. No vendemos tus datos ni los usamos para publicidad.",
+          body: "Para darte el servicio, mantener tu sesión, procesar tus pagos, enviarte emails de cuenta (verificación de email y recuperación de contraseña) y proteger el servicio contra abusos. No vendemos tus datos personales ni el contenido de tus CVs. Las páginas públicas del sitio pueden mostrar anuncios de terceros, como se explica más abajo.",
         },
         {
           heading: "Con quién los compartimos",
           body: [
             "Usamos proveedores para operar el servicio: Google (Firebase: autenticación, base de datos y funciones), Mercado Pago (pagos) y Cloudflare (hosting del sitio).",
+            "Si mostramos anuncios, Google AdSense y sus socios publicitarios pueden recibir datos de navegación de tu dispositivo, como cookies e identificadores. El contenido de tus CVs no se comparte con anunciantes.",
             "Algunos de estos proveedores pueden procesar datos en servidores ubicados fuera de Argentina. También podemos compartir datos si una autoridad competente nos lo exige legalmente.",
           ],
         },
@@ -50,7 +51,15 @@ function PrivacyPage() {
         },
         {
           heading: "Almacenamiento del navegador",
-          body: "Usamos el almacenamiento de tu navegador para mantener tu sesión iniciada y guardar el borrador de tu CV. No usamos cookies publicitarias.",
+          body: "Usamos el almacenamiento de tu navegador para mantener tu sesión iniciada y guardar el borrador de tu CV. Las cookies publicitarias, si se usan, son de terceros y se explican en la sección siguiente.",
+        },
+        {
+          heading: "Publicidad de terceros",
+          body: [
+            "Podemos mostrar anuncios de terceros, incluido Google AdSense, en las páginas públicas del sitio, como la página de inicio y las guías. No mostramos anuncios dentro del editor de CVs, de tu perfil ni del proceso de pago.",
+            "Google y sus socios publicitarios usan cookies y tecnologías similares para mostrar anuncios según tus visitas a este y a otros sitios. Podés ver cómo Google usa esa información en policies.google.com/technologies/partner-sites, y administrar o desactivar la personalización de anuncios en adssettings.google.com.",
+            "Si estás en el Espacio Económico Europeo, el Reino Unido o Suiza, te pedimos tu consentimiento mediante un aviso antes de usar cookies publicitarias, y podés cambiarlo cuando quieras.",
+          ],
         },
         {
           heading: "Menores de edad",

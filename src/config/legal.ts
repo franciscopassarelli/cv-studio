@@ -1,6 +1,6 @@
 // Subí la versión cada vez que cambies el texto de los términos
 export const TERMS_VERSION = "2026-10-25";
-export const LEGAL_UPDATED = "25 de octubre de 2026";
+export const LEGAL_UPDATED = "26 de octubre de 2026";
 
 export const SERVICE_NAME = "Champions CV";
 
