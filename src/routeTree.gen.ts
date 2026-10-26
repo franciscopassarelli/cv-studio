@@ -9,9 +9,13 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as VerifyEmailRouteImport } from './routes/verify-email'
+import { Route as TermsRouteImport } from './routes/terms'
 import { Route as RegisterRouteImport } from './routes/register'
 import { Route as ProfileRouteImport } from './routes/profile'
+import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as LoginRouteImport } from './routes/login'
+import { Route as ForgotPasswordRouteImport } from './routes/forgot-password'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ProfileIndexRouteImport } from './routes/profile/index'
 import { Route as CheckoutIndexRouteImport } from './routes/checkout/index'
@@ -20,6 +24,16 @@ import { Route as PaymentsSuccessRouteImport } from './routes/payments/success'
 import { Route as PaymentsPendingRouteImport } from './routes/payments/pending'
 import { Route as PaymentsFailureRouteImport } from './routes/payments/failure'
 
+const VerifyEmailRoute = VerifyEmailRouteImport.update({
+  id: '/verify-email',
+  path: '/verify-email',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TermsRoute = TermsRouteImport.update({
+  id: '/terms',
+  path: '/terms',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const RegisterRoute = RegisterRouteImport.update({
   id: '/register',
   path: '/register',
@@ -30,9 +44,19 @@ const ProfileRoute = ProfileRouteImport.update({
   path: '/profile',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PrivacyRoute = PrivacyRouteImport.update({
+  id: '/privacy',
+  path: '/privacy',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const LoginRoute = LoginRouteImport.update({
   id: '/login',
   path: '/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ForgotPasswordRoute = ForgotPasswordRouteImport.update({
+  id: '/forgot-password',
+  path: '/forgot-password',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -73,9 +97,13 @@ const PaymentsFailureRoute = PaymentsFailureRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/forgot-password': typeof ForgotPasswordRoute
   '/login': typeof LoginRoute
+  '/privacy': typeof PrivacyRoute
   '/profile': typeof ProfileRouteWithChildren
   '/register': typeof RegisterRoute
+  '/terms': typeof TermsRoute
+  '/verify-email': typeof VerifyEmailRoute
   '/payments/failure': typeof PaymentsFailureRoute
   '/payments/pending': typeof PaymentsPendingRoute
   '/payments/success': typeof PaymentsSuccessRoute
@@ -85,8 +113,12 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/forgot-password': typeof ForgotPasswordRoute
   '/login': typeof LoginRoute
+  '/privacy': typeof PrivacyRoute
   '/register': typeof RegisterRoute
+  '/terms': typeof TermsRoute
+  '/verify-email': typeof VerifyEmailRoute
   '/payments/failure': typeof PaymentsFailureRoute
   '/payments/pending': typeof PaymentsPendingRoute
   '/payments/success': typeof PaymentsSuccessRoute
@@ -97,9 +129,13 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/forgot-password': typeof ForgotPasswordRoute
   '/login': typeof LoginRoute
+  '/privacy': typeof PrivacyRoute
   '/profile': typeof ProfileRouteWithChildren
   '/register': typeof RegisterRoute
+  '/terms': typeof TermsRoute
+  '/verify-email': typeof VerifyEmailRoute
   '/payments/failure': typeof PaymentsFailureRoute
   '/payments/pending': typeof PaymentsPendingRoute
   '/payments/success': typeof PaymentsSuccessRoute
@@ -111,9 +147,13 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/forgot-password'
     | '/login'
+    | '/privacy'
     | '/profile'
     | '/register'
+    | '/terms'
+    | '/verify-email'
     | '/payments/failure'
     | '/payments/pending'
     | '/payments/success'
@@ -123,8 +163,12 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/forgot-password'
     | '/login'
+    | '/privacy'
     | '/register'
+    | '/terms'
+    | '/verify-email'
     | '/payments/failure'
     | '/payments/pending'
     | '/payments/success'
@@ -134,9 +178,13 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/forgot-password'
     | '/login'
+    | '/privacy'
     | '/profile'
     | '/register'
+    | '/terms'
+    | '/verify-email'
     | '/payments/failure'
     | '/payments/pending'
     | '/payments/success'
@@ -147,9 +195,13 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  ForgotPasswordRoute: typeof ForgotPasswordRoute
   LoginRoute: typeof LoginRoute
+  PrivacyRoute: typeof PrivacyRoute
   ProfileRoute: typeof ProfileRouteWithChildren
   RegisterRoute: typeof RegisterRoute
+  TermsRoute: typeof TermsRoute
+  VerifyEmailRoute: typeof VerifyEmailRoute
   PaymentsFailureRoute: typeof PaymentsFailureRoute
   PaymentsPendingRoute: typeof PaymentsPendingRoute
   PaymentsSuccessRoute: typeof PaymentsSuccessRoute
@@ -159,6 +211,20 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/verify-email': {
+      id: '/verify-email'
+      path: '/verify-email'
+      fullPath: '/verify-email'
+      preLoaderRoute: typeof VerifyEmailRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/terms': {
+      id: '/terms'
+      path: '/terms'
+      fullPath: '/terms'
+      preLoaderRoute: typeof TermsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/register': {
       id: '/register'
       path: '/register'
@@ -173,11 +239,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProfileRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/privacy': {
+      id: '/privacy'
+      path: '/privacy'
+      fullPath: '/privacy'
+      preLoaderRoute: typeof PrivacyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/login': {
       id: '/login'
       path: '/login'
       fullPath: '/login'
       preLoaderRoute: typeof LoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/forgot-password': {
+      id: '/forgot-password'
+      path: '/forgot-password'
+      fullPath: '/forgot-password'
+      preLoaderRoute: typeof ForgotPasswordRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -245,9 +325,13 @@ const ProfileRouteWithChildren =
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  ForgotPasswordRoute: ForgotPasswordRoute,
   LoginRoute: LoginRoute,
+  PrivacyRoute: PrivacyRoute,
   ProfileRoute: ProfileRouteWithChildren,
   RegisterRoute: RegisterRoute,
+  TermsRoute: TermsRoute,
+  VerifyEmailRoute: VerifyEmailRoute,
   PaymentsFailureRoute: PaymentsFailureRoute,
   PaymentsPendingRoute: PaymentsPendingRoute,
   PaymentsSuccessRoute: PaymentsSuccessRoute,

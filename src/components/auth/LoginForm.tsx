@@ -1,6 +1,7 @@
-import { useEffect, useState } from "react";
-import { Link, useNavigate, useSearch } from "@tanstack/react-router";
 import { useAuth } from "@/hooks/useAuth";
+import { authErrorMessage } from "@/lib/auth-errors";
+import { Link, useNavigate, useSearch } from "@tanstack/react-router";
+import { useEffect, useState } from "react";
 
 export function LoginForm() {
   const navigate = useNavigate();
@@ -31,10 +32,10 @@ export function LoginForm() {
 
     try {
       await signIn(email, password);
-    } catch {
-      setError("Email o contraseña incorrectos.");
-      setLoading(false);
-    }
+    } catch (err) {
+  setError(authErrorMessage(err) || "Email o contraseña incorrectos.");
+  setLoading(false);
+}
   }
 
   async function handleGoogle() {
@@ -43,12 +44,11 @@ export function LoginForm() {
 
     try {
       await signInWithGoogle();
-    } catch (error) {
-      console.error("Error al iniciar sesión con Google:", error);
-
-      setError("No pudimos iniciar sesión con Google.");
-      setLoading(false);
-    }
+    } catch (err) {
+  console.error("Error al iniciar sesión con Google:", err);
+  setError(authErrorMessage(err) || null);
+  setLoading(false);
+}
   }
 
   return (
@@ -86,6 +86,17 @@ export function LoginForm() {
           />
         </div>
 
+
+          <div className="-mt-2 text-right">
+  <Link
+    to="/forgot-password"
+    className="text-sm text-gray-400 transition hover:text-orange-400"
+  >
+    ¿Olvidaste tu contraseña?
+  </Link>
+</div>
+        
+
         {error && (
           <p className="rounded-lg border border-red-900/50 bg-red-950/50 p-3 text-sm text-red-400">
             {error}
@@ -108,6 +119,8 @@ export function LoginForm() {
 
         <div className="h-px flex-1 bg-gray-800" />
       </div>
+
+      
 
       <button
         type="button"
@@ -135,6 +148,28 @@ export function LoginForm() {
         </svg>
         {loading ? "Ingresando..." : "Continuar con Google"}
       </button>
+
+      <p className="mt-3 text-center text-xs text-gray-500">
+  Al continuar con Google aceptás los{" "}
+  <a
+    href="/terms"
+    target="_blank"
+    rel="noreferrer"
+    className="text-gray-400 underline hover:text-orange-400"
+  >
+    Términos
+  </a>{" "}
+  y la{" "}
+  <a
+    href="/privacy"
+    target="_blank"
+    rel="noreferrer"
+    className="text-gray-400 underline hover:text-orange-400"
+  >
+    Política de privacidad
+  </a>
+  .
+</p>
 
       <p className="mt-6 text-center text-sm text-gray-400">
         ¿Todavía no tenés cuenta?{" "}

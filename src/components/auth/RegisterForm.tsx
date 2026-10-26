@@ -1,12 +1,13 @@
-import { useState } from "react";
-import { Link, useNavigate, useSearch } from "@tanstack/react-router";
 import { useAuth } from "@/hooks/useAuth";
+import { authErrorMessage } from "@/lib/auth-errors";
+import { Link, useNavigate, useSearch } from "@tanstack/react-router";
+import { useState } from "react";
 
 export function RegisterForm() {
   const navigate = useNavigate();
   const search = useSearch({ strict: false });
   const { signUp, signInWithGoogle } = useAuth();
-
+  const [accepted, setAccepted] = useState(false);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -16,29 +17,36 @@ export function RegisterForm() {
 
   const redirectTo = typeof search.redirectTo === "string" ? search.redirectTo : "/profile";
 
-  async function handleSubmit(e: React.FormEvent) {
-    e.preventDefault();
-    setError(null);
+ async function handleSubmit(e: React.FormEvent) {
+  e.preventDefault();
+  setError(null);
 
-    if (password !== confirmPassword) {
-      setError("Las contraseñas no coinciden.");
-      return;
-    }
-
-    setLoading(true);
-
-    try {
-      await signUp(name, email, password);
-
-      navigate({
-        to: redirectTo,
-      });
-    } catch {
-      setError("No pudimos crear tu cuenta. Probá con otro email.");
-    } finally {
-      setLoading(false);
-    }
+  if (password.length < 8) {
+    setError("La contraseña debe tener al menos 8 caracteres.");
+    return;
   }
+
+  if (password !== confirmPassword) {
+    setError("Las contraseñas no coinciden.");
+    return;
+  }
+
+  if (!accepted) {
+    setError("Tenés que aceptar los Términos y la Política de privacidad.");
+    return;
+  }
+
+  setLoading(true);
+
+  try {
+    await signUp(name, email, password);
+    navigate({ to: "/verify-email", search: { redirectTo } });
+  } catch (err) {
+    setError(authErrorMessage(err) || "No pudimos crear tu cuenta. Probá de nuevo.");
+  } finally {
+    setLoading(false);
+  }
+}
 
   async function handleGoogle() {
     setError(null);
@@ -54,13 +62,15 @@ export function RegisterForm() {
       navigate({
         to: redirectTo,
       });
-    } catch (error) {
-      console.error("Error al iniciar sesión con Google:", error);
-      setError("No pudimos iniciar sesión con Google.");
-    } finally {
+    } catch (err) {
+  console.error("Error al iniciar sesión con Google:", err);
+  setError(authErrorMessage(err) || null);
+} finally {
       setLoading(false);
     }
   }
+
+  
 
   return (
     <div className="w-full max-w-md rounded-2xl border border-gray-200 bg-white p-7 shadow-xl">
@@ -103,7 +113,7 @@ export function RegisterForm() {
           <input
             type="password"
             required
-            minLength={6}
+            minLength={8}
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             placeholder="********"
@@ -126,12 +136,42 @@ export function RegisterForm() {
           />
         </div>
 
+        <label className="flex cursor-pointer items-start gap-2 text-sm text-gray-600">
+  <input
+    type="checkbox"
+    checked={accepted}
+    onChange={(e) => setAccepted(e.target.checked)}
+    className="mt-0.5 h-4 w-4 cursor-pointer accent-orange-500"
+  />
+  <span>
+    Acepto los{" "}
+    <a
+      href="/terms"
+      target="_blank"
+      rel="noreferrer"
+      className="font-medium text-orange-500 hover:text-orange-600"
+    >
+      Términos y condiciones
+    </a>{" "}
+    y la{" "}
+    <a
+      href="/privacy"
+      target="_blank"
+      rel="noreferrer"
+      className="font-medium text-orange-500 hover:text-orange-600"
+    >
+      Política de privacidad
+    </a>
+    .
+  </span>
+</label>
+
         {error && <p className="rounded-lg bg-red-50 p-3 text-sm text-red-600">{error}</p>}
 
         <button
           type="submit"
           disabled={loading}
-          className="mt-2 w-full rounded-lg bg-orange-500 py-2.5 text-sm font-semibold text-white transition hover:bg-orange cursor-pointer -600 disabled:cursor-not-allowed disabled:opacity-60"
+          className="mt-2 w-full rounded-lg bg-orange-500 py-2.5 text-sm font-semibold text-white transition hover:bg-orange-600 cursor-pointer disabled:cursor-not-allowed disabled:opacity-60"
         >
           {loading ? "Creando cuenta..." : "Crear cuenta gratis"}
         </button>
@@ -146,7 +186,7 @@ export function RegisterForm() {
       <button
         type="button"
         onClick={handleGoogle}
-        disabled={loading}
+        disabled={loading || !accepted}
         className="flex w-full items-center justify-center gap-3 rounded-lg border border-gray-700 bg-white py-3 font-medium text-gray-900 transition hover:bg-gray-100 cursor-pointer disabled:cursor-not-allowed disabled:opacity-60 shadow-sm"
       >
         <svg className="h-5 w-5" viewBox="0 0 24 24">

@@ -35,16 +35,21 @@ export const createPreference = onRequest(
         return;
       }
 
-      let uid: string;
-      let email: string | undefined;
-      try {
-        const decoded = await admin.auth().verifyIdToken(token);
-        uid = decoded.uid;
-        email = decoded.email;
-      } catch {
-        res.status(401).json({error: "Token inválido."});
-        return;
-      }
+     let uid: string;
+let email: string | undefined;
+try {
+  const decoded = await admin.auth().verifyIdToken(token);
+  uid = decoded.uid;
+  email = decoded.email;
+
+  if (decoded.email_verified !== true) {
+    res.status(403).json({error: "Verificá tu email antes de pagar."});
+    return;
+  }
+} catch {
+  res.status(401).json({error: "Token inválido."});
+  return;
+}
 
       const userSnap = await admin.firestore().collection("users").doc(uid).get();
       const user = userSnap.data();

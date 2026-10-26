@@ -27,6 +27,7 @@ import {
 } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
+import { SecuritySection } from "./SecuritySection";
 
 type Tab = "info" | "plan" | "cvs";
 
@@ -44,10 +45,19 @@ export function ProfilePage() {
   const { profile, loading: loadingProfile } = useUserProfile();
   const { cvs, loading: loadingCvs } = useCVs();
   // isPremium sale del contexto: ya tiene en cuenta el vencimiento del plan
-  const { reset, openWelcomeModal, isPremium, setData, setTemplate, currentCVId, setCurrentCVId, hasUnsavedCV, data: currentData } =
-    useCV();
+  const {
+    reset,
+    openWelcomeModal,
+    isPremium,
+    setData,
+    setTemplate,
+    currentCVId,
+    setCurrentCVId,
+    hasUnsavedCV,
+    data: currentData,
+  } = useCV();
 
-  const [pendingAction, setPendingAction] = useState<PendingAction | null>(null);  
+  const [pendingAction, setPendingAction] = useState<PendingAction | null>(null);
 
   const [activeTab, setActiveTab] = useState<Tab>("info");
   const [name, setName] = useState(user?.displayName ?? "");
@@ -71,57 +81,63 @@ export function ProfilePage() {
 
   const visibleCvs = cvs.filter((c) => !removedIds.includes(c.id ?? ""));
 
+  // Un CV viejo puede no traer algunos campos (foto, estilo): se completan con los vacíos
+  const fullData = (cv: CVDocument) => ({
+    ...emptyCV,
+    ...cv.data,
+    personal: { ...emptyCV.personal, ...cv.data?.personal },
+  });
+
   const startNewCV = () => {
-  reset();
-  openWelcomeModal();
-  navigate({ to: "/builder" });
-};
+    reset();
+    openWelcomeModal();
+    navigate({ to: "/builder" });
+  };
 
-const handleNuevoCV = () => {
-  if (hasUnsavedCV) {
-    setPendingAction({ type: "new" });
-    return;
-  }
-  startNewCV();
-};
+  const handleNuevoCV = () => {
+    if (hasUnsavedCV) {
+      setPendingAction({ type: "new" });
+      return;
+    }
+    startNewCV();
+  };
 
-const openCVNow = (cv: CVDocument) => {
-  setData(fullData(cv));
-  setTemplate(cv.template);
-  setCurrentCVId(cv.id ?? null);
-  navigate({ to: "/builder" });
-};
+  const openCVNow = (cv: CVDocument) => {
+    setData(fullData(cv));
+    setTemplate(cv.template);
+    setCurrentCVId(cv.id ?? null);
+    navigate({ to: "/builder" });
+  };
 
-const openCV = (cv: CVDocument) => {
-  if (!cv.data) {
-    toast.error("Este CV no tiene datos para abrir");
-    return;
-  }
-  if (!isPremium) {
-    navigate({ to: "/checkout" });
-    return;
-  }
-  if (hasUnsavedCV) {
-    setPendingAction({ type: "edit", cv });
-    return;
-  }
-  openCVNow(cv);
-};
+  const openCV = (cv: CVDocument) => {
+    if (!cv.data) {
+      toast.error("Este CV no tiene datos para abrir");
+      return;
+    }
+    if (!isPremium) {
+      navigate({ to: "/checkout" });
+      return;
+    }
+    if (hasUnsavedCV) {
+      setPendingAction({ type: "edit", cv });
+      return;
+    }
+    openCVNow(cv);
+  };
 
-const confirmPendingAction = () => {
-  const action = pendingAction;
-  setPendingAction(null);
-  if (!action) return;
-  if (action.type === "new") startNewCV();
-  else openCVNow(action.cv);
-};
+  const confirmPendingAction = () => {
+    const action = pendingAction;
+    setPendingAction(null);
+    if (!action) return;
+    if (action.type === "new") startNewCV();
+    else openCVNow(action.cv);
+  };
 
   const downloadCV = async (cv: CVDocument) => {
     if (!cv.data) {
-  toast.error("Este CV no tiene datos para descargar");
-  return;
-}
-        
+      toast.error("Este CV no tiene datos para descargar");
+      return;
+    }
     if (isPremiumTemplate(cv.template) && !isPremium) {
       toast("Esa plantilla es Premium");
       navigate({ to: "/checkout" });
@@ -137,12 +153,6 @@ const confirmPendingAction = () => {
       setBusyId(null);
     }
   };
-
-const fullData = (cv: CVDocument) => ({
-  ...emptyCV,
-  ...cv.data,
-  personal: { ...emptyCV.personal, ...cv.data?.personal },
-});
 
   const removeCV = async (cv: CVDocument) => {
     if (!cv.id) return;
@@ -282,54 +292,62 @@ const fullData = (cv: CVDocument) => ({
       {/* Contenido por tab */}
       <div className="mx-auto mt-8 max-w-2xl">
         {activeTab === "info" && (
-          <div className="rounded-2xl border border-zinc-800 bg-zinc-950 p-8">
-            <h2 className="text-center text-lg font-semibold text-white">Información personal</h2>
-            <p className="mt-1 text-center text-sm text-zinc-500">
-              Estos datos son los que ven tus CVs generados.
-            </p>
+          <div className="space-y-6">
+            {/* Tarjeta "Información personal" */}
+            <div className="rounded-2xl border border-zinc-800 bg-zinc-950 p-8">
+              <h2 className="text-center text-lg font-semibold text-white">
+                Información personal
+              </h2>
+              <p className="mt-1 text-center text-sm text-zinc-500">
+                Estos datos son los que ven tus CVs generados.
+              </p>
 
-            <form className="mt-6 space-y-5" onSubmit={handleSave}>
-              <div className="grid gap-5 sm:grid-cols-2">
-                <div>
-                  <label className="mb-2 block text-sm text-zinc-300">Nombre completo</label>
-                  <input
-                    type="text"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                    className="w-full rounded-lg border border-zinc-700 bg-zinc-900 px-4 py-2.5 text-white outline-none transition focus:border-orange-500"
-                  />
+              <form className="mt-6 space-y-5" onSubmit={handleSave}>
+                <div className="grid gap-5 sm:grid-cols-2">
+                  <div>
+                    <label className="mb-2 block text-sm text-zinc-300">Nombre completo</label>
+                    <input
+                      type="text"
+                      value={name}
+                      onChange={(e) => setName(e.target.value)}
+                      className="w-full rounded-lg border border-zinc-700 bg-zinc-900 px-4 py-2.5 text-white outline-none transition focus:border-orange-500"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="mb-2 block text-sm text-zinc-300">Email</label>
+                    <input
+                      type="email"
+                      value={user?.email ?? ""}
+                      disabled
+                      className="w-full cursor-not-allowed rounded-lg border border-zinc-800 bg-zinc-900/50 px-4 py-2.5 text-zinc-500 outline-none"
+                    />
+                  </div>
                 </div>
 
-                <div>
-                  <label className="mb-2 block text-sm text-zinc-300">Email</label>
-                  <input
-                    type="email"
-                    value={user?.email ?? ""}
-                    disabled
-                    className="w-full cursor-not-allowed rounded-lg border border-zinc-800 bg-zinc-900/50 px-4 py-2.5 text-zinc-500 outline-none"
-                  />
+                <p className="text-xs text-zinc-600">El email no se puede modificar por ahora.</p>
+
+                <div className="flex items-center justify-center gap-4 border-t border-zinc-900 pt-5">
+                  <button
+                    type="submit"
+                    disabled={saving}
+                    className="rounded-lg bg-orange-500 px-6 py-2.5 text-sm font-semibold text-black transition hover:bg-orange-400 cursor-pointer disabled:cursor-not-allowed disabled:opacity-60"
+                  >
+                    {saving ? "Guardando..." : "Guardar cambios"}
+                  </button>
+
+                  {savedMessage && (
+                    <span className="flex items-center gap-1.5 text-sm text-zinc-400">
+                      <Check size={14} className="text-orange-400" />
+                      {savedMessage}
+                    </span>
+                  )}
                 </div>
-              </div>
+              </form>
+            </div>
 
-              <p className="text-xs text-zinc-600">El email no se puede modificar por ahora.</p>
-
-              <div className="flex items-center justify-center gap-4 border-t border-zinc-900 pt-5">
-                <button
-                  type="submit"
-                  disabled={saving}
-                  className="rounded-lg bg-orange-500 px-6 py-2.5 text-sm font-semibold text-black transition hover:bg-orange-400 cursor-pointer disabled:cursor-not-allowed disabled:opacity-60"
-                >
-                  {saving ? "Guardando..." : "Guardar cambios"}
-                </button>
-
-                {savedMessage && (
-                  <span className="flex items-center gap-1.5 text-sm text-zinc-400">
-                    <Check size={14} className="text-orange-400" />
-                    {savedMessage}
-                  </span>
-                )}
-              </div>
-            </form>
+            {/* Contraseña y borrar cuenta, fuera de la tarjeta anterior */}
+            <SecuritySection />
           </div>
         )}
 
@@ -469,42 +487,46 @@ const fullData = (cv: CVDocument) => ({
                         </div>
                       ) : (
                         <div className="mt-4 flex gap-2">
-  {isPremium && (
-    <button
-      type="button"
-      onClick={() => openCV(cv)}
-      className="flex flex-1 cursor-pointer items-center justify-center gap-1.5 rounded-md bg-orange-500 px-3 py-1.5 text-xs font-semibold text-black transition hover:bg-orange-400"
-    >
-      <Pencil size={13} />
-      Editar
-    </button>
-  )}
+                          {isPremium && (
+                            <button
+                              type="button"
+                              onClick={() => openCV(cv)}
+                              className="flex flex-1 cursor-pointer items-center justify-center gap-1.5 rounded-md bg-orange-500 px-3 py-1.5 text-xs font-semibold text-black transition hover:bg-orange-400"
+                            >
+                              <Pencil size={13} />
+                              Editar
+                            </button>
+                          )}
 
-  <button
-    type="button"
-    disabled={busy}
-    onClick={() => downloadCV(cv)}
-    aria-label="Descargar PDF"
-    title="Descargar PDF"
-    className={cn(
-      "flex cursor-pointer items-center justify-center gap-1.5 rounded-md border border-zinc-700 py-1.5 text-xs font-medium text-zinc-300 transition hover:border-orange-500/60 hover:text-orange-400 disabled:cursor-wait disabled:opacity-60",
-      isPremium ? "px-2.5" : "flex-1 px-3",
-    )}
-  >
-    {busy ? <Loader2 size={14} className="animate-spin" /> : <Download size={14} />}
-    {!isPremium && "Descargar"}
-  </button>
+                          <button
+                            type="button"
+                            disabled={busy}
+                            onClick={() => downloadCV(cv)}
+                            aria-label="Descargar PDF"
+                            title="Descargar PDF"
+                            className={cn(
+                              "flex cursor-pointer items-center justify-center gap-1.5 rounded-md border border-zinc-700 py-1.5 text-xs font-medium text-zinc-300 transition hover:border-orange-500/60 hover:text-orange-400 disabled:cursor-wait disabled:opacity-60",
+                              isPremium ? "px-2.5" : "flex-1 px-3",
+                            )}
+                          >
+                            {busy ? (
+                              <Loader2 size={14} className="animate-spin" />
+                            ) : (
+                              <Download size={14} />
+                            )}
+                            {!isPremium && "Descargar"}
+                          </button>
 
-  <button
-    type="button"
-    onClick={() => setConfirmingId(id)}
-    aria-label="Borrar CV"
-    title="Borrar CV"
-    className="flex cursor-pointer items-center justify-center rounded-md border border-zinc-700 px-2.5 py-1.5 text-zinc-400 transition hover:border-red-500/50 hover:text-red-400"
-  >
-    <Trash2 size={14} />
-  </button>
-</div>
+                          <button
+                            type="button"
+                            onClick={() => setConfirmingId(id)}
+                            aria-label="Borrar CV"
+                            title="Borrar CV"
+                            className="flex cursor-pointer items-center justify-center rounded-md border border-zinc-700 px-2.5 py-1.5 text-zinc-400 transition hover:border-red-500/50 hover:text-red-400"
+                          >
+                            <Trash2 size={14} />
+                          </button>
+                        </div>
                       )}
                     </div>
                   );
@@ -516,16 +538,16 @@ const fullData = (cv: CVDocument) => ({
       </div>
 
       <UnsavedCVDialog
-  open={pendingAction !== null}
-  name={currentData.personal.fullName}
-  proceedLabel={pendingAction?.type === "new" ? "Empezar uno nuevo" : "Abrir este CV"}
-  onContinue={() => {
-    setPendingAction(null);
-    navigate({ to: "/builder" });
-  }}
-  onProceed={confirmPendingAction}
-  onCancel={() => setPendingAction(null)}
-/>
+        open={pendingAction !== null}
+        name={currentData.personal.fullName}
+        proceedLabel={pendingAction?.type === "new" ? "Empezar uno nuevo" : "Abrir este CV"}
+        onContinue={() => {
+          setPendingAction(null);
+          navigate({ to: "/builder" });
+        }}
+        onProceed={confirmPendingAction}
+        onCancel={() => setPendingAction(null)}
+      />
 
       {/* Componente Modal */}
       <LogoutModal
