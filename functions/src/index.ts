@@ -1,3 +1,4 @@
+export { importCV } from "./cv/importCV";
 export { createPreference } from "./payments/createPreference";
 export { webhook } from "./payments/webhook";
-export { importCV } from "./cv/importCV";
+export { deleteAccount } from "./users/deleteAccount";

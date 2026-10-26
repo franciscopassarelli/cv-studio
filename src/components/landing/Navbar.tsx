@@ -1,9 +1,9 @@
-import { Link } from "@tanstack/react-router";
-import { Button } from "@/components/ui/button";
-import { FileText, Menu, Sparkles, User, LogIn } from "lucide-react";
-import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Button } from "@/components/ui/button";
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { useAuth } from "@/hooks/useAuth";
+import { Link } from "@tanstack/react-router";
+import { FileText, LogIn, Menu, Sparkles, User } from "lucide-react";
 
 export const links = [
   {
@@ -41,8 +41,8 @@ export function Navbar() {
               Champions CV
             </h1>
             <p className="mt-1 text-[11px] font-semibold text-orange-600 dark:text-orange-400">
-              Tu CV profesional con IA
-            </p>
+  Tu CV profesional, en minutos
+</p>
           </div>
         </Link>
 

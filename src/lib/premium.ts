@@ -13,7 +13,7 @@ export interface ExtrapremiumPlan extends PremiumPlan {
 export const PREMIUM_PLAN: PremiumPlan = {
   id: "champions-cv-premium",
   name: "Champions CV Premium",
-  price: "10.0000",
+  price: "10.000",
   currency: "ARS",
   benefits: [
     "Acceso a las 8 plantillas Premium exclusivas",

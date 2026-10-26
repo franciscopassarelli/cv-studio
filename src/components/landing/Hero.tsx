@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Sparkles, CheckCircle2, FileText } from "lucide-react";
 import { Link } from "@tanstack/react-router";
+import { ArrowRight, CheckCircle2, FileText, Sparkles } from "lucide-react";
 
 export function Hero() {
   return (
@@ -16,7 +16,7 @@ export function Hero() {
         {/* Badge superior */}
         <div className="inline-flex animate-fade-up items-center gap-2 rounded-full border border-orange-200/60 bg-gradient-to-r from-orange-50/80 to-amber-50/80 px-4 py-1.5 text-xs font-semibold text-orange-700 shadow-sm backdrop-blur-md">
           <Sparkles className="h-3.5 w-3.5 text-orange-500 animate-pulse" />
-          <span>Impulsado con Inteligencia Artificial</span>
+          <span>12 plantillas profesionales para tu CV</span>
         </div>
 
         {/* Título Principal */}
@@ -29,8 +29,8 @@ export function Hero() {
 
         {/* Subtítulo */}
         <p className="mx-auto mt-6 max-w-2xl text-lg text-gray-600 md:text-xl">
-          Creá currículums profesionales, alineados con sistemas ATS y diseñados para captar la
-          atención de los reclutadores en minutos.
+          Elegí entre 12 plantillas profesionales, editá con vista previa en tiempo real y
+          descargá tu PDF en minutos. Incluye una plantilla pensada para sistemas ATS.
         </p>
 
         {/* Botones de acción */}
@@ -60,11 +60,11 @@ export function Hero() {
           </Button>
         </div>
 
-        {/* Micro-features / Social Proof */}
+        {/* Micro-features */}
         <div className="mt-12 flex flex-wrap items-center justify-center gap-6 text-xs font-medium text-gray-500">
           <div className="flex items-center gap-1.5">
             <CheckCircle2 className="h-4 w-4 text-emerald-500" />
-            <span>Formatos 100% ATS Friendly</span>
+            <span>Plantilla ATS incluida</span>
           </div>
           <div className="flex items-center gap-1.5">
             <CheckCircle2 className="h-4 w-4 text-emerald-500" />
@@ -97,12 +97,9 @@ export function Hero() {
           <div className="mt-5 rounded-xl border border-orange-100 bg-orange-50/60 p-3">
             <div className="flex items-center justify-between text-[10px] font-semibold text-orange-700">
               <span className="flex items-center gap-1">
-                <FileText className="h-3 w-3" /> Score ATS
+                <FileText className="h-3 w-3" /> Plantilla ATS
               </span>
-              <span>98%</span>
-            </div>
-            <div className="mt-2 h-1.5 w-full overflow-hidden rounded-full bg-orange-200/50">
-              <div className="h-full w-[98%] rounded-full bg-orange-500" />
+              <span>Incluida</span>
             </div>
           </div>
         </div>
