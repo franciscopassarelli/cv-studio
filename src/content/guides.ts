@@ -29,7 +29,8 @@ export const GUIDES: Guide[] = [
         heading: "Empezá por un resumen corto y concreto",
         paragraphs: [
           "Dos o tres líneas alcanzan: qué tipo de rol buscás, con qué tecnologías trabajás y cuántos años de experiencia tenés.",
-          "[TU EXPERIENCIA: agregá un ejemplo real de cómo escribiste el tuyo.]",
+          "Un ejemplo: «Desarrollador frontend con 3 años de experiencia en React y TypeScript. Construyo interfaces rápidas y accesibles, y me interesa el trabajo cercano al producto.»",
+          "Si recién empezás, reemplazá los años de experiencia por lo que construiste: «Desarrollador junior en JavaScript. Armé una aplicación web completa con login, base de datos y pagos online.»",
         ],
       },
       {
@@ -53,7 +54,7 @@ export const GUIDES: Guide[] = [
         heading: "Describí tu experiencia con resultados",
         paragraphs: [
           "En cada puesto, empezá las frases con verbos de acción y sumá números cuando puedas: tiempos de carga, usuarios, errores resueltos.",
-          "[TU EXPERIENCIA: sumá un ejemplo de antes y después de una frase de tu propio CV.]",
+          "Un ejemplo de antes y después. Antes: «Trabajé en el desarrollo del sitio web de la empresa.» Después: «Reduje el tiempo de carga de la página principal de 4 a 1,8 segundos optimizando imágenes y dividiendo el código.» La segunda frase dice qué hiciste y cuánto cambió.",
         ],
       },
       {
