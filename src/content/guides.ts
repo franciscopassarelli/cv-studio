@@ -75,6 +75,82 @@ export const GUIDES: Guide[] = [
       },
     ],
   },
+  {
+    slug: "cv-sin-experiencia",
+    title: "CV sin experiencia: cómo armar tu primer currículum",
+    description:
+      "Cómo armar tu primer CV cuando no tenés experiencia laboral: qué incluir, cómo mostrar lo que sabés con ejemplos reales y por qué importa la prolijidad.",
+    date: "2026-10-26",
+    readingMinutes: 5,
+    intro:
+      "El primer CV suele dar miedo, porque parece que no hay nada para contar. Sí lo hay: lo que hace falta es ordenarlo y animarse a mostrarlo con honestidad. Esta guía sale de lo que aprendí armando el mío.",
+    sections: [
+      {
+        heading: "Tomate el tiempo de decidir qué mostrar",
+        paragraphs: [
+          "Mi primer paso fue armar un CV en una de esas aplicaciones conocidas, y después me hice un portfolio. Lo que aprendí en el camino es que hacer un CV exige prolijidad y tiempo: no se trata de completar casilleros, sino de decidir qué información querés que vea de verdad quien lo revisa.",
+          "Antes de escribir, preguntate qué querés que sepan de vos en los primeros diez segundos de lectura, y empezá por eso.",
+        ],
+      },
+      {
+        heading: "Empezá a crear tu experiencia con lo que ya hacés",
+        paragraphs: [
+          "Si todavía no tenés trabajos para listar, podés construir tu experiencia desde tu vida cotidiana. Empezá por algo, por más chico que sea: lo importante es empezar.",
+        ],
+        bullets: [
+          "Proyectos personales o de estudio, con lo que hiciste y cómo lo resolviste.",
+          "Cursos y certificaciones, junto con algo concreto que construiste con ellos.",
+          "Trabajos informales, changas o ayuda en un negocio familiar.",
+          "Voluntariado, comunidades, clubes o grupos de estudio.",
+          "Idiomas y herramientas que ya usás con soltura.",
+        ],
+      },
+      {
+        heading: "Destacá lo que sabés con confianza, sin inflarte",
+        paragraphs: [
+          "Lo esencial es mostrar con confianza lo que sabés y cuidar la calidad. No se trata de agrandarse ni de inflarse, sino de respaldar con ejemplos reales las soluciones que propusiste. Animate a decir qué valor ofrecés.",
+          "Un ejemplo. Antes: «Responsable, proactivo y con ganas de aprender.» Después: «Organicé en una planilla el inventario de un negocio familiar, y así dejamos de quedarnos sin mercadería.» La segunda frase se puede comprobar y se recuerda.",
+        ],
+      },
+      {
+        heading: "Sin relleno y sin repetirte",
+        paragraphs: [
+          "Un CV corto y claro se lee mejor que uno largo. Cada línea tiene que aportar algo nuevo.",
+        ],
+        bullets: [
+          "Sacá las frases genéricas que podría escribir cualquier persona.",
+          "No repitas la misma idea en el resumen, en los proyectos y en las habilidades.",
+          "Una página alcanza para un primer CV.",
+          "Si una línea no suma, borrala.",
+        ],
+      },
+      {
+        heading: "Cómo ordenarlo cuando no hay experiencia laboral",
+        paragraphs: [
+          "Cuando no hay trabajos para mostrar, cambia el orden de las secciones. Una estructura que funciona:",
+        ],
+        bullets: [
+          "Datos de contacto: nombre, email profesional, teléfono y, si tenés, link a tu portfolio.",
+          "Resumen de dos o tres líneas: qué buscás y qué sabés hacer.",
+          "Proyectos: lo más fuerte que hiciste, con el resultado.",
+          "Formación y cursos.",
+          "Habilidades y herramientas, e idiomas.",
+        ],
+      },
+      {
+        heading: "Sentí que tenés algo para ofrecer",
+        paragraphs: [
+          "Un CV también es una actitud. Si vos no creés que tenés algo para ofrecer, nadie lo va a ver. Escribilo con seguridad, y siempre con ejemplos que puedas sostener en una entrevista.",
+        ],
+      },
+      {
+        heading: "Armalo y descargalo",
+        paragraphs: [
+          "En Champions CV podés elegir entre cuatro plantillas gratuitas, incluida la plantilla ATS, editar con vista previa en tiempo real y descargar tu PDF sin costo.",
+        ],
+      },
+    ],
+  },
 ];
 
 export const getGuide = (slug: string) => GUIDES.find((g) => g.slug === slug);
