@@ -19,6 +19,10 @@ export const links = [
     href: "#pricing",
   },
   {
+    name: "Guías",
+    href: "/guias",
+  },
+  {
     name: "FAQ",
     href: "#faq",
   },

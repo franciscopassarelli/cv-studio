@@ -18,11 +18,13 @@ import { Route as LoginRouteImport } from './routes/login'
 import { Route as ForgotPasswordRouteImport } from './routes/forgot-password'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ProfileIndexRouteImport } from './routes/profile/index'
+import { Route as GuiasIndexRouteImport } from './routes/guias.index'
 import { Route as CheckoutIndexRouteImport } from './routes/checkout/index'
 import { Route as BuilderIndexRouteImport } from './routes/builder/index'
 import { Route as PaymentsSuccessRouteImport } from './routes/payments/success'
 import { Route as PaymentsPendingRouteImport } from './routes/payments/pending'
 import { Route as PaymentsFailureRouteImport } from './routes/payments/failure'
+import { Route as GuiasSlugRouteImport } from './routes/guias.$slug'
 
 const VerifyEmailRoute = VerifyEmailRouteImport.update({
   id: '/verify-email',
@@ -69,6 +71,11 @@ const ProfileIndexRoute = ProfileIndexRouteImport.update({
   path: '/',
   getParentRoute: () => ProfileRoute,
 } as any)
+const GuiasIndexRoute = GuiasIndexRouteImport.update({
+  id: '/guias/',
+  path: '/guias/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const CheckoutIndexRoute = CheckoutIndexRouteImport.update({
   id: '/checkout/',
   path: '/checkout/',
@@ -94,6 +101,11 @@ const PaymentsFailureRoute = PaymentsFailureRouteImport.update({
   path: '/payments/failure',
   getParentRoute: () => rootRouteImport,
 } as any)
+const GuiasSlugRoute = GuiasSlugRouteImport.update({
+  id: '/guias/$slug',
+  path: '/guias/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -104,11 +116,13 @@ export interface FileRoutesByFullPath {
   '/register': typeof RegisterRoute
   '/terms': typeof TermsRoute
   '/verify-email': typeof VerifyEmailRoute
+  '/guias/$slug': typeof GuiasSlugRoute
   '/payments/failure': typeof PaymentsFailureRoute
   '/payments/pending': typeof PaymentsPendingRoute
   '/payments/success': typeof PaymentsSuccessRoute
   '/builder/': typeof BuilderIndexRoute
   '/checkout/': typeof CheckoutIndexRoute
+  '/guias/': typeof GuiasIndexRoute
   '/profile/': typeof ProfileIndexRoute
 }
 export interface FileRoutesByTo {
@@ -119,11 +133,13 @@ export interface FileRoutesByTo {
   '/register': typeof RegisterRoute
   '/terms': typeof TermsRoute
   '/verify-email': typeof VerifyEmailRoute
+  '/guias/$slug': typeof GuiasSlugRoute
   '/payments/failure': typeof PaymentsFailureRoute
   '/payments/pending': typeof PaymentsPendingRoute
   '/payments/success': typeof PaymentsSuccessRoute
   '/builder': typeof BuilderIndexRoute
   '/checkout': typeof CheckoutIndexRoute
+  '/guias': typeof GuiasIndexRoute
   '/profile': typeof ProfileIndexRoute
 }
 export interface FileRoutesById {
@@ -136,11 +152,13 @@ export interface FileRoutesById {
   '/register': typeof RegisterRoute
   '/terms': typeof TermsRoute
   '/verify-email': typeof VerifyEmailRoute
+  '/guias/$slug': typeof GuiasSlugRoute
   '/payments/failure': typeof PaymentsFailureRoute
   '/payments/pending': typeof PaymentsPendingRoute
   '/payments/success': typeof PaymentsSuccessRoute
   '/builder/': typeof BuilderIndexRoute
   '/checkout/': typeof CheckoutIndexRoute
+  '/guias/': typeof GuiasIndexRoute
   '/profile/': typeof ProfileIndexRoute
 }
 export interface FileRouteTypes {
@@ -154,11 +172,13 @@ export interface FileRouteTypes {
     | '/register'
     | '/terms'
     | '/verify-email'
+    | '/guias/$slug'
     | '/payments/failure'
     | '/payments/pending'
     | '/payments/success'
     | '/builder/'
     | '/checkout/'
+    | '/guias/'
     | '/profile/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -169,11 +189,13 @@ export interface FileRouteTypes {
     | '/register'
     | '/terms'
     | '/verify-email'
+    | '/guias/$slug'
     | '/payments/failure'
     | '/payments/pending'
     | '/payments/success'
     | '/builder'
     | '/checkout'
+    | '/guias'
     | '/profile'
   id:
     | '__root__'
@@ -185,11 +207,13 @@ export interface FileRouteTypes {
     | '/register'
     | '/terms'
     | '/verify-email'
+    | '/guias/$slug'
     | '/payments/failure'
     | '/payments/pending'
     | '/payments/success'
     | '/builder/'
     | '/checkout/'
+    | '/guias/'
     | '/profile/'
   fileRoutesById: FileRoutesById
 }
@@ -202,11 +226,13 @@ export interface RootRouteChildren {
   RegisterRoute: typeof RegisterRoute
   TermsRoute: typeof TermsRoute
   VerifyEmailRoute: typeof VerifyEmailRoute
+  GuiasSlugRoute: typeof GuiasSlugRoute
   PaymentsFailureRoute: typeof PaymentsFailureRoute
   PaymentsPendingRoute: typeof PaymentsPendingRoute
   PaymentsSuccessRoute: typeof PaymentsSuccessRoute
   BuilderIndexRoute: typeof BuilderIndexRoute
   CheckoutIndexRoute: typeof CheckoutIndexRoute
+  GuiasIndexRoute: typeof GuiasIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -274,6 +300,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProfileIndexRouteImport
       parentRoute: typeof ProfileRoute
     }
+    '/guias/': {
+      id: '/guias/'
+      path: '/guias'
+      fullPath: '/guias/'
+      preLoaderRoute: typeof GuiasIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/checkout/': {
       id: '/checkout/'
       path: '/checkout'
@@ -309,6 +342,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PaymentsFailureRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/guias/$slug': {
+      id: '/guias/$slug'
+      path: '/guias/$slug'
+      fullPath: '/guias/$slug'
+      preLoaderRoute: typeof GuiasSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -332,11 +372,13 @@ const rootRouteChildren: RootRouteChildren = {
   RegisterRoute: RegisterRoute,
   TermsRoute: TermsRoute,
   VerifyEmailRoute: VerifyEmailRoute,
+  GuiasSlugRoute: GuiasSlugRoute,
   PaymentsFailureRoute: PaymentsFailureRoute,
   PaymentsPendingRoute: PaymentsPendingRoute,
   PaymentsSuccessRoute: PaymentsSuccessRoute,
   BuilderIndexRoute: BuilderIndexRoute,
   CheckoutIndexRoute: CheckoutIndexRoute,
+  GuiasIndexRoute: GuiasIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
