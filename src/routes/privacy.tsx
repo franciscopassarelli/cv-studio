@@ -24,7 +24,7 @@ function PrivacyPage() {
         },
         {
           heading: "Para qué los usamos",
-          body: "Para darte el servicio, mantener tu sesión, procesar tus pagos, enviarte emails de cuenta (verificación de email y recuperación de contraseña) y proteger el servicio contra abusos. No vendemos tus datos personales ni el contenido de tus CVs. Las páginas públicas del sitio pueden mostrar anuncios de terceros, como se explica más abajo.",
+          body: "Medimos la cantidad de visitas al sitio con Cloudflare Web Analytics, una herramienta que, según su proveedor, no usa cookies ni identifica personas.",
         },
         {
           heading: "Con quién los compartimos",
